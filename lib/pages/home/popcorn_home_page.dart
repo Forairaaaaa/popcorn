@@ -8,6 +8,23 @@ class PopcornHomePage extends StatefulWidget {
 }
 
 class _PopcornHomePageState extends State<PopcornHomePage> {
+
+  bool valueSwitchStart = false;
+  final MaterialStateProperty<Icon?> thumbIconSwitchStart =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      // if (states.contains(MaterialState.selected)) {
+      //   return const Icon(Icons.link_rounded);
+      // }
+      // return const Icon(Icons.link_off_rounded);
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -53,8 +70,8 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 """;
 
 
-
-    bool shit = false;
+    // Button style of control panel 
+    var buttonStyleControlPanel = ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6)));
 
 
     return Scaffold(
@@ -64,35 +81,136 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
             
 
             // Control pannel 
-            Container(
-              color: Colors.indigo,
+            Padding(
+              padding: const EdgeInsets.fromLTRB(gap2Window, gap2Window, gap2WindowHalf, gap2Window),
               child: Column(
+                
                 children: [
+            
+                  const CircleAvatar(
+                    radius: 32,
+                  ),
 
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(gap2Window, gap2Window, gap2WindowHalf, gap2WindowHalf),
-                    color: Colors.blueGrey,
-                    child: const CircleAvatar(
-                      radius: 24,
+
+
+                  const SizedBox(height: gap2Window,),
+            
+
+
+
+                  Switch(
+                    thumbIcon: thumbIconSwitchStart,
+                    value: valueSwitchStart,
+                    onChanged: (bool value) {
+                      setState(() {
+                        valueSwitchStart = value;
+                      });
+                    },
+                  ),
+                  
+
+
+
+
+                  const SizedBox(height: gap2Window,),
+
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {
+                      
+                    },
+                    child: Icon(
+                      Icons.usb,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
 
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(gap2Window, gap2WindowHalf, gap2WindowHalf, gap2WindowHalf),
-                    color: Color.fromARGB(255, 34, 102, 119),
-                    child: Switch(
-                      value: shit,
-                      onChanged: (value) {
-                        setState(() {
-                          shit = value;
-                        });
-                      },
-                    )
-                  )
+
+
+
+
+                  const SizedBox(height: gap2Window,),
+
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {
+                      
+                    },
+                    child: Icon(
+                      Icons.speed_rounded,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+
+
+
+                  const SizedBox(height: gap2Window,),
+                  
+
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {
+                      
+                    },
+                    child: Icon(
+                      Icons.more_horiz,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+
+
+
+
+
+
+
+                  const Expanded(child: SizedBox()),
+
+
+                  
+
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {
+                      
+                    },
+                    child: Icon(
+                      Icons.tune_rounded,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+
+
+                  const SizedBox(height: gap2Window,),
+                  
+
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {
+                      
+                    },
+                    child: Icon(
+                      Icons.drive_file_rename_outline,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+
+
+
+
+
+                  const SizedBox(height: gap2Window,),
+
+
+                  
+
 
                 ],
               ),
             ),
+
+
+
 
 
             // Console windows pannel 
@@ -154,30 +272,26 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                         ),
 
 
-                        
-                        Card(
-                          margin: const EdgeInsets.fromLTRB(0, 0, gap2Window, gap2Window),
-                          
-                          // This ensures that the Card's children (including the ink splash) are clipped correctly.
-                          clipBehavior: Clip.antiAlias,
+                      
+
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 0, gap2Window, gap2Window),
                           child: SizedBox(
                             width: 36,
-                            child: InkWell(
-                              onTap: () {
-                          
+                            child: ElevatedButton(
+                              style: ButtonStyle(
+                                padding: MaterialStateProperty.all(const EdgeInsets.all(0)),
+                              ),
+                              onPressed: () {
+                                
                               },
-                              // Generally, material cards use onSurface with 12% opacity for the pressed state.
-                              splashColor:
-                                  Theme.of(context).colorScheme.onSurface.withOpacity(0.12),
-                              // Generally, material cards do not have a highlight overlay.
-                              highlightColor: Colors.transparent,
                               child: Icon(
-                                Icons.mail_outline,
+                                Icons.rocket_outlined,
                                 color: Theme.of(context).primaryColor,
                               ),
                             ),
                           ),
-                        ),
+                        )
 
 
 
