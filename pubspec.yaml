@@ -38,8 +38,9 @@ dependencies:
 
   google_fonts: ^5.1.0
   line_icons: ^2.0.3
-  flutter_libserialport: ^0.3.0
+  # flutter_libserialport: ^0.3.0
   pie_menu: ^2.0.2
+  web_smooth_scroll: ^1.1.0
 
 dev_dependencies:
   flutter_test:

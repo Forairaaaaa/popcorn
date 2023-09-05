@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pie_menu/pie_menu.dart';
+import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 
 class PopcornHomePage extends StatefulWidget {
   const PopcornHomePage({super.key});
@@ -24,6 +25,21 @@ class _PopcornHomePageState extends State<PopcornHomePage> {
       return const Icon(Icons.close);
     },
   );
+
+
+
+
+  // Controllers
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    // initialize scroll controllers
+    _scrollController = ScrollController();
+
+    super.initState();
+  }
+  
 
 
   @override
@@ -196,7 +212,49 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                           color: buttonIconColor,
                         ),
                       ),
-                  
+
+
+
+                      const SizedBox(height: gap2Window,),
+
+                      PieMenu(
+                        theme: PieTheme(
+                          buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
+                          buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+
+                          // delayDuration: Duration.zero,
+
+                          rightClickShowsMenu: true,
+                          
+                        ),
+                        actions: [
+                          PieAction(
+                            tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                            onSelect: () {
+                            },
+                            child: const Icon(Icons.save_rounded), // Can be any widget
+                          ),
+                          PieAction(
+                            tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                            onSelect: () {
+                            },
+                            child: const Icon(Icons.delete), // Can be any widget
+                          )
+                        ],
+
+                        child: TextButton(
+                          child: Icon(
+                            Icons.textsms_outlined,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
+                          onPressed:() {
+                            
+                          },
+                        )
+                      ),
+
+
+
                   
                   
                     ],
@@ -219,58 +277,48 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
     
                     // Window receive 
                     Expanded(
-                      child: PieMenu(
-                        theme: PieTheme(
-                          buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                          buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
-                          
-                        ),
-                        actions: [
-                          PieAction(
-                            tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
+                      child: Card(
+                        margin: const EdgeInsets.fromLTRB(gap2WindowHalf, gap2Window, gap2Window, gap2Window),
+                        child: Padding(
+                          padding: const EdgeInsets.all(gapText2Console),
 
-                            },
-                            child: const Icon(Icons.favorite), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
 
-                            },
-                            child: const Icon(Icons.shutter_speed), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('咩？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
+                          // child: SelectableText(
+                          //   testShit
+                          //   ,
+                          //   style: TextStyle(
+                          //     fontFamily: 'CourierPrime',
+                          //     fontSize: 16,
+                          //     fontWeight: FontWeight.w500,
+                          //     color: Theme.of(context).primaryColor,
+                          //   ),
+                          // ),
 
-                            },
-                            child: const Icon(Icons.fmd_good), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('叼', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
 
-                            },
-                            child: const Icon(Icons.ads_click), // Can be any widget
-                          ),
-                        ],
-
-                        child: Card(
-                          margin: const EdgeInsets.fromLTRB(gap2WindowHalf, gap2Window, gap2Window, gap2Window),
-                          child: Padding(
-                            padding: const EdgeInsets.all(gapText2Console),
-                            child: SelectableText(
-                              testShit
-                              ,
-                              style: TextStyle(
-                                fontFamily: 'CourierPrime',
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).primaryColor,
+                          child: WebSmoothScroll(
+                            controller: _scrollController,
+                            
+                            child: SingleChildScrollView(
+                              physics: const NeverScrollableScrollPhysics(),
+                              controller: _scrollController,
+                              child: SelectableText(
+                                testShit
+                                ,
+                                style: TextStyle(
+                                  fontFamily: 'CourierPrime',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: Theme.of(context).primaryColor,
+                                ),
                               ),
                             ),
                           ),
+
+
+
+
+
+
                         ),
                       )
                     ),
@@ -280,62 +328,50 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
 
                     // Window send 
-                    PieMenu(
+                    Card(
+                      margin: const EdgeInsets.fromLTRB(gap2WindowHalf, 0, gap2Window, gap2Window),
+                      child: Padding(
+                        padding: const EdgeInsets.all(gapText2Console),
 
-                      theme: PieTheme(
-                          buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                          buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
-                          
-                        ),
-                        actions: [
-                          PieAction(
-                            tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
 
-                            },
-                            child: const Icon(Icons.favorite), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
 
-                            },
-                            child: const Icon(Icons.shutter_speed), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('咩？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
-
-                            },
-                            child: const Icon(Icons.fmd_good), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('叼', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
-
-                            },
-                            child: const Icon(Icons.ads_click), // Can be any widget
-                          ),
-                        ],
-
-                      child: Card(
-                        margin: const EdgeInsets.fromLTRB(gap2WindowHalf, 0, gap2Window, gap2Window),
-                        child: Padding(
-                          padding: const EdgeInsets.all(gapText2Console),
-                          child: TextField(
+                        child: TextField(
                     
-                            style: TextStyle(
-                              fontFamily: 'CourierPrime',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).primaryColor,
-                            ),
+                          style: TextStyle(
+                            fontFamily: 'CourierPrime',
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).primaryColor,
+                          ),
                     
                     
-                            decoration: InputDecoration(
-                              // border: const OutlineInputBorder(),
+                          decoration: InputDecoration(
+                            // border: const OutlineInputBorder(),
                     
-                              suffixIcon: IconButton(
+                            suffixIcon: PieMenu(
+                              theme: PieTheme(
+                                buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
+                                buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+
+                              
+                                
+                              ),
+                              actions: [
+                                PieAction(
+                                  tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                                  onSelect: () {
+                                  },
+                                  child: const Icon(Icons.file_open_rounded), // Can be any widget
+                                ),
+                                PieAction(
+                                  tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                                  onSelect: () {
+                                  },
+                                  child: const Icon(Icons.delete), // Can be any widget
+                                )
+                              ],
+
+                              child: IconButton(
                                 icon: Icon(
                                   Icons.reply_rounded,
                                   color: Theme.of(context).colorScheme.secondary,
@@ -343,17 +379,23 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                                 onPressed:() {
                                   
                                 },
-                              )
+                              ),
+                            )
                     
-                            ),
+                          ),
                     
-                            // expands: true,
-                            maxLines: 10,
-                            minLines: 1,
-                    
-                            
-                          )
+                          // expands: true,
+                          maxLines: 10,
+                          minLines: 1,
                         ),
+
+
+
+
+
+
+
+
                       ),
                     ),
     

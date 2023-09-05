@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 import 'presenters/serial_port/serial_port_presenter.dart';
 import 'views/home/popcorn_home_page.dart';
@@ -26,6 +25,8 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         useMaterial3: true,
       ),
       initialRoute: '/home',
@@ -56,11 +57,11 @@ class _ShitPageState extends State<ShitPage> {
   void initState() {
 
 
-    for (var shit in SerialPortPresenter().availablePorts) {
-      print(shit);
-    }
+    // for (var shit in SerialPortPresenter().availablePorts) {
+    //   print(shit);
+    // }
 
-    SerialPortPresenter().open(SerialPortPresenter().availablePorts.last);
+    // SerialPortPresenter().open(SerialPortPresenter().availablePorts.last);
 
     // SerialPortPresenter().rxStreamRaw.listen((event) {
     //   setState(() {
@@ -77,29 +78,32 @@ class _ShitPageState extends State<ShitPage> {
     //   print(e);
     // });
 
-    SerialPortPresenter().rxStream.listen((event) {
-      setState(() {
-        textshit += event;
-      });
-    },
-    onError: (error) {
-      print("????????????????????????????????????");
-      print(error.toString());
-      if (error.toString().contains('errno = 0')) {
-        print("啊?");
-        setState(() {
-          textshit = error.toString();
-        });
-      }
-    }
-    );
+    // SerialPortPresenter().rxStream.listen((event) {
+    //   setState(() {
+    //     textshit += event;
+    //   });
+    // },
+    // onError: (error) {
+    //   print("????????????????????????????????????");
+    //   print(error.toString());
+    //   if (error.toString().contains('errno = 0')) {
+    //     print("啊?");
+    //     setState(() {
+    //       textshit = error.toString();
+    //     });
+    //   }
+    // }
+    // );
 
     
     
 
     
-    print(SerialPortPresenter().description);
+    // print(SerialPortPresenter().description);
     
+
+
+
 
 
     super.initState();
