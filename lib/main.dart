@@ -1,12 +1,8 @@
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 import 'presenters/serial_port/serial_port_presenter.dart';
-
+import 'views/home/popcorn_home_page.dart';
 
 
 
@@ -32,11 +28,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
         useMaterial3: true,
       ),
-      // initialRoute: '/home',
-      // routes: {
-      //   '/home' :(context) => const PopcornHomePage(),
-      // },
-      home: const ShitPage(),
+      initialRoute: '/home',
+      routes: {
+        '/home' :(context) => const PopcornHomePage(),
+      },
+      // home: const ShitPage(),
     );
   }
 }
