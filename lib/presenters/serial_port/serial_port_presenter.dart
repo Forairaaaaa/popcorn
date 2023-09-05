@@ -32,6 +32,13 @@ class SerialPortPresenter {
   set parity(int value) => _serialPortConfig.parity = value;
   set stopBits(int value) => _serialPortConfig.stopBits = value;
 
+  /// Update config after port is opened 
+  void configHotUpdate() {
+    if (_isSerialPortOpened) {
+      _serialPort?.config = _serialPortConfig;
+    }
+  }
+
 
   /// Is serial port opened already 
   bool get isOpened => _isSerialPortOpened;
@@ -80,7 +87,6 @@ class SerialPortPresenter {
   /// Rx raw data stream 
   Stream<Uint8List> get rxStreamRaw => SerialPortReader(_serialPort!).stream;
 
-  /// Rx stream, decoded to string 
+  /// Rx stream (decoded to string)
   Stream<String> get rxStream => rxStreamRaw.map((event) => ascii.decode(event)).asBroadcastStream();
 }
-
