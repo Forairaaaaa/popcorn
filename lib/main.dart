@@ -1,6 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 import 'presenters/serial_port/serial_port_presenter.dart';
 
@@ -69,14 +72,38 @@ class _ShitPageState extends State<ShitPage> {
     //   });
     // });
 
+    // SerialPortPresenter().rxStream.listen((event) {
+    //   setState(() {
+    //     textshit += event;
+    //   });
+    // }).onError((e) {
+    //   print("???????????????????????????????????????????");
+    //   print(e);
+    // });
+
     SerialPortPresenter().rxStream.listen((event) {
       setState(() {
         textshit += event;
       });
-    });
+    },
+    onError: (error) {
+      print("????????????????????????????????????");
+      print(error.toString());
+      if (error.toString().contains('errno = 0')) {
+        print("啊?");
+        setState(() {
+          textshit = error.toString();
+        });
+      }
+    }
+    );
 
+    
+    
 
-
+    
+    print(SerialPortPresenter().description);
+    
 
 
     super.initState();
@@ -101,4 +128,7 @@ class _ShitPageState extends State<ShitPage> {
       ),
     );
   }
+
+
+
 }

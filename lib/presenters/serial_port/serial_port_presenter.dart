@@ -1,4 +1,3 @@
-
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 import 'dart:convert';
 import 'dart:typed_data';
@@ -26,6 +25,12 @@ class SerialPortPresenter {
   static SerialPort? _serialPort;
   static final SerialPortConfig _serialPortConfig = SerialPortConfig();
   static bool _isSerialPortOpened = false;
+
+  
+  set baudRate(int value) => _serialPortConfig.baudRate = value;
+  set dataBits(int value) => _serialPortConfig.bits = value;
+  set parity(int value) => _serialPortConfig.parity = value;
+  set stopBits(int value) => _serialPortConfig.stopBits = value;
 
 
   /// Is serial port opened already 
@@ -57,7 +62,7 @@ class SerialPortPresenter {
   }
 
   /// Get serial port's description 
-  String? getPortDescription() {
+  get description {
     if (_isSerialPortOpened) {
       return _serialPort?.description;
     }
