@@ -145,7 +145,7 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                       //   ),
                       // ),
 
-                      const PopcornWidgetDopeAvatar(),
+                      const WidgetDopeAvatar(),
                   
 
 
@@ -166,24 +166,24 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                       //     });
                       //   },
                       // ),
-                      const PopcornWidgetSerialPortSwitch(),
+                      const WidgetSerialPortSwitch(),
                   
                   
 
                   
                       const SizedBox(height: gap2Window,),
                   
-                      ElevatedButton(
-                        style: buttonStyleControlPanel,
-                        onPressed: () {
+                      // ElevatedButton(
+                      //   style: buttonStyleControlPanel,
+                      //   onPressed: () {
                           
-                        },
-                        child: Icon(
-                          Icons.usb,
-                          color: buttonIconColor,
-                        ),
-                      ),
-                  
+                      //   },
+                      //   child: Icon(
+                      //     Icons.usb,
+                      //     color: buttonIconColor,
+                      //   ),
+                      // ),
+                      const WidgetSetPortNameButton(),
                   
                   
                   
@@ -426,14 +426,14 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
 
 /// A circle avatar with PieMenu
-class PopcornWidgetDopeAvatar extends StatefulWidget {
-  const PopcornWidgetDopeAvatar({super.key});
+class WidgetDopeAvatar extends StatefulWidget {
+  const WidgetDopeAvatar({super.key});
 
   @override
-  State<PopcornWidgetDopeAvatar> createState() => _PopcornWidgetDopeAvatarState();
+  State<WidgetDopeAvatar> createState() => _WidgetDopeAvatarState();
 }
 
-class _PopcornWidgetDopeAvatarState extends State<PopcornWidgetDopeAvatar> {
+class _WidgetDopeAvatarState extends State<WidgetDopeAvatar> {
   @override
   Widget build(BuildContext context) {
     return PieMenu(
@@ -488,14 +488,14 @@ class _PopcornWidgetDopeAvatarState extends State<PopcornWidgetDopeAvatar> {
 
 
 /// A switch to open and close serial port 
-class PopcornWidgetSerialPortSwitch extends StatefulWidget {
-  const PopcornWidgetSerialPortSwitch({super.key});
+class WidgetSerialPortSwitch extends StatefulWidget {
+  const WidgetSerialPortSwitch({super.key});
 
   @override
-  State<PopcornWidgetSerialPortSwitch> createState() => _PopcornWidgetSerialPortSwitchState();
+  State<WidgetSerialPortSwitch> createState() => _WidgetSerialPortSwitchState();
 }
 
-class _PopcornWidgetSerialPortSwitchState extends State<PopcornWidgetSerialPortSwitch> {
+class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
 
   bool valueSerialSwitch= false;
 
@@ -530,12 +530,53 @@ class _PopcornWidgetSerialPortSwitchState extends State<PopcornWidgetSerialPortS
   @override
   Widget build(BuildContext context) {
     return Tooltip(
-      message: 'serial_port'.tr(gender: valueSerialSwitch ? "disconnect" : "connect"),
+
+      // Tool tip settings 
+      message: 'serial_port'.tr(gender: valueSerialSwitch ? "connected" : "disconnect"),
+      textStyle: TextStyle(
+        fontSize: 18.0,
+        color: Theme.of(context).colorScheme.onSecondary,
+      ),
       waitDuration: const Duration(seconds: 1),
+
       child: Switch(
         thumbIcon: thumbIconSerialSwitch,
         value: valueSerialSwitch,
         onChanged: _onSerialSwitchChanged,
+      ),
+
+    );
+  }
+}
+
+
+
+/// A button to select serial port name 
+/// https://www.youtube.com/watch?v=Bxs8Zy2O4wk&t=12s
+class WidgetSetPortNameButton extends StatefulWidget {
+  const WidgetSetPortNameButton({super.key});
+
+  @override
+  State<WidgetSetPortNameButton> createState() => _WidgetSetPortNameButtonState();
+}
+
+class _WidgetSetPortNameButtonState extends State<WidgetSetPortNameButton> {
+
+  // Current selected port name 
+  String selectedPortName = '😊';
+
+  // Available serial port list 
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6))),
+      onPressed: () {
+        
+      },
+      child: Icon(
+        Icons.usb,
+        color: Theme.of(context).colorScheme.secondary,
       ),
     );
   }
