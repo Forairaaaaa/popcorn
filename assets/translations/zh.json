@@ -1,0 +1,20 @@
+{
+    "set_avatar" : "设置头像",
+    "settings" : "设置",
+    "theme_color" : "主题颜色",
+
+    "serial_port" : {
+        "port_name": "端口",
+        "baud_rate": "波特率",
+        "parity": "校验位",
+        "data_bits": "数据位",
+        "stop_bits": "停止位",
+        "connect": "连接",
+        "connected": "已连接",
+        "disconnect": "断开连接",
+        "send" : "清空",
+        "save_to_file" : "保存到文件",
+        "load_from_file" : "从文件导入",
+        "more_config" : "更多配置"
+    }
+}

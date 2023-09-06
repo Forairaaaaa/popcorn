@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
-
-import 'presenters/serial_port/serial_port_presenter.dart';
-import 'views/home/popcorn_home_page.dart';
-
+import 'package:easy_localization/easy_localization.dart';
+import 'views/home/home_page.dart';
 
 
+void main() async {
+  // https://pub.dev/packages/easy_localization
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
 
-
-void main() {
-
-
-  runApp(const MyApp());
+  runApp(
+    EasyLocalization(
+      // supportedLocales: const [Locale('en'), Locale('zh')],
+      supportedLocales: const [Locale('en')],
+      path: 'assets/translations', // <-- change the path of the translation files 
+      fallbackLocale: const Locale('en'),
+      child: const MyApp()
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -20,7 +27,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
+      // https://pub.dev/packages/easy_localization
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+
       title: 'Popcorn',
+
+      // Theme shit 
       theme: ThemeData(
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
@@ -29,106 +44,14 @@ class MyApp extends StatelessWidget {
         // colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
         useMaterial3: true,
       ),
+
+      // Pages 
       initialRoute: '/home',
       routes: {
         '/home' :(context) => const PopcornHomePage(),
       },
-      // home: const ShitPage(),
+
     );
   }
 }
 
-
-
-
-class ShitPage extends StatefulWidget {
-  const ShitPage({super.key});
-
-  @override
-  State<ShitPage> createState() => _ShitPageState();
-}
-
-class _ShitPageState extends State<ShitPage> {
-
-
-  String textshit = '';
-
-  @override
-  void initState() {
-
-
-    // for (var shit in SerialPortPresenter().availablePorts) {
-    //   print(shit);
-    // }
-
-    // SerialPortPresenter().open(SerialPortPresenter().availablePorts.last);
-
-    // SerialPortPresenter().rxStreamRaw.listen((event) {
-    //   setState(() {
-    //     textshit += ascii.decode(event);
-    //   });
-    // });
-
-    // SerialPortPresenter().rxStream.listen((event) {
-    //   setState(() {
-    //     textshit += event;
-    //   });
-    // }).onError((e) {
-    //   print("???????????????????????????????????????????");
-    //   print(e);
-    // });
-
-    // SerialPortPresenter().rxStream.listen((event) {
-    //   setState(() {
-    //     textshit += event;
-    //   });
-    // },
-    // onError: (error) {
-    //   print("????????????????????????????????????");
-    //   print(error.toString());
-    //   if (error.toString().contains('errno = 0')) {
-    //     print("啊?");
-    //     setState(() {
-    //       textshit = error.toString();
-    //     });
-    //   }
-    // }
-    // );
-
-    
-    
-
-    
-    // print(SerialPortPresenter().description);
-    
-
-
-
-
-
-    super.initState();
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-
-    return Scaffold(
-      body: Container(
-        child: SelectableText(
-          textshit
-          ,
-          style: TextStyle(
-            fontFamily: 'CourierPrime',
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-
-
-}

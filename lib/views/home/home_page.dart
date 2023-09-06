@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:pie_menu/pie_menu.dart';
 import 'package:web_smooth_scroll/web_smooth_scroll.dart';
+import 'package:easy_localization/easy_localization.dart';
+
+
+
 
 class PopcornHomePage extends StatefulWidget {
   const PopcornHomePage({super.key});
@@ -15,14 +19,12 @@ class _PopcornHomePageState extends State<PopcornHomePage> {
   final MaterialStateProperty<Icon?> thumbIconSwitchStart =
       MaterialStateProperty.resolveWith<Icon?>(
     (Set<MaterialState> states) {
-      // if (states.contains(MaterialState.selected)) {
-      //   return const Icon(Icons.link_rounded);
-      // }
-      // return const Icon(Icons.link_off_rounded);
+
       if (states.contains(MaterialState.selected)) {
         return const Icon(Icons.check);
       }
       return const Icon(Icons.close);
+
     },
   );
 
@@ -114,34 +116,36 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
 
 
-                      PieMenu(
-                        theme: PieTheme(
-                          buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                          buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+                      // PieMenu(
+                      //   theme: PieTheme(
+                      //     buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
+                      //     buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
 
-                          leftClickShowsMenu: true,
-                          rightClickShowsMenu: true,
+                      //     leftClickShowsMenu: true,
+                      //     rightClickShowsMenu: true,
                           
-                        ),
-                        actions: [
-                          PieAction(
-                            tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
-                            },
-                            child: const Icon(Icons.face), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
-                            },
-                            child: const Icon(Icons.settings), // Can be any widget
-                          )
-                        ],
+                      //   ),
+                      //   actions: [
+                      //     PieAction(
+                      //       tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                      //       onSelect: () {
+                      //       },
+                      //       child: const Icon(Icons.face), // Can be any widget
+                      //     ),
+                      //     PieAction(
+                      //       tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                      //       onSelect: () {
+                      //       },
+                      //       child: const Icon(Icons.settings), // Can be any widget
+                      //     )
+                      //   ],
 
-                        child: const CircleAvatar(
-                          radius: 26,
-                        ),
-                      ),
+                      //   child: const CircleAvatar(
+                      //     radius: 26,
+                      //   ),
+                      // ),
+
+                      const PopcornWidgetDopeAvatar(),
                   
 
 
@@ -413,6 +417,61 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
           )
         )
       ),
+    );
+  }
+}
+
+
+
+
+
+/// Circle avatar with PieMenu
+class PopcornWidgetDopeAvatar extends StatefulWidget {
+  const PopcornWidgetDopeAvatar({super.key});
+
+  @override
+  State<PopcornWidgetDopeAvatar> createState() => _PopcornWidgetDopeAvatarState();
+}
+
+class _PopcornWidgetDopeAvatarState extends State<PopcornWidgetDopeAvatar> {
+  @override
+  Widget build(BuildContext context) {
+    return PieMenu(
+
+      // Theme settings 
+      theme: PieTheme(
+        buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
+        buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+
+        leftClickShowsMenu: true,
+        rightClickShowsMenu: true,
+      ),
+
+      // PieMenu actions 
+      actions: [
+
+        // Change profile image 
+        PieAction(
+          tooltip: Text('set_avatar', style: TextStyle(color: Theme.of(context).colorScheme.primary),).tr(),
+          onSelect: () {
+          },
+          child: const Icon(Icons.face),
+        ),
+
+        // Enter setting page 
+        PieAction(
+          tooltip: Text('settings', style: TextStyle(color: Theme.of(context).colorScheme.primary),).tr(),
+          onSelect: () {
+          },
+          child: const Icon(Icons.settings),
+        )
+      ],
+
+      // Actual avatar widget 
+      child: const CircleAvatar(
+        radius: 26,
+      ),
+
     );
   }
 }
