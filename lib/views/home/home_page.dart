@@ -151,22 +151,22 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
 
                   
-                  
-                      const SizedBox(height: gap2Window,),
+                      // Little gap 
+                      const SizedBox(height: gap2Window),
                 
                   
                   
                   
-                      Switch(
-                        thumbIcon: thumbIconSwitchStart,
-                        value: valueSwitchStart,
-                        onChanged: (bool value) {
-                          setState(() {
-                            valueSwitchStart = value;
-                          });
-                        },
-                      ),
-                      
+                      // Switch(
+                      //   thumbIcon: thumbIconSwitchStart,
+                      //   value: valueSwitchStart,
+                      //   onChanged: (bool value) {
+                      //     setState(() {
+                      //       valueSwitchStart = value;
+                      //     });
+                      //   },
+                      // ),
+                      const PopcornWidgetSerialPortSwitch(),
                   
                   
 
@@ -425,7 +425,7 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
 
 
-/// Circle avatar with PieMenu
+/// A circle avatar with PieMenu
 class PopcornWidgetDopeAvatar extends StatefulWidget {
   const PopcornWidgetDopeAvatar({super.key});
 
@@ -464,7 +464,16 @@ class _PopcornWidgetDopeAvatarState extends State<PopcornWidgetDopeAvatar> {
           onSelect: () {
           },
           child: const Icon(Icons.settings),
+        ),
+
+        // Set theme
+        PieAction(
+          tooltip: Text('theme_color', style: TextStyle(color: Theme.of(context).colorScheme.primary),).tr(),
+          onSelect: () {
+          },
+          child: const Icon(Icons.palette_outlined),
         )
+
       ],
 
       // Actual avatar widget 
@@ -472,6 +481,62 @@ class _PopcornWidgetDopeAvatarState extends State<PopcornWidgetDopeAvatar> {
         radius: 26,
       ),
 
+    );
+  }
+}
+
+
+
+/// A switch to open and close serial port 
+class PopcornWidgetSerialPortSwitch extends StatefulWidget {
+  const PopcornWidgetSerialPortSwitch({super.key});
+
+  @override
+  State<PopcornWidgetSerialPortSwitch> createState() => _PopcornWidgetSerialPortSwitchState();
+}
+
+class _PopcornWidgetSerialPortSwitchState extends State<PopcornWidgetSerialPortSwitch> {
+
+  bool valueSerialSwitch= false;
+
+  // State property icon 
+  final MaterialStateProperty<Icon?> thumbIconSerialSwitch =
+      MaterialStateProperty.resolveWith<Icon?>(
+    (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
+
+  // Switch changed callback 
+  void _onSerialSwitchChanged(bool value) {
+    // Try open serial port 
+    if (value) {
+      // TODO
+    }
+    // Try close serial port 
+    else {
+      // TODO
+    }
+
+    // Update state 
+    setState(() {
+      valueSerialSwitch = value;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: 'serial_port'.tr(gender: valueSerialSwitch ? "disconnect" : "connect"),
+      waitDuration: const Duration(seconds: 1),
+      child: Switch(
+        thumbIcon: thumbIconSerialSwitch,
+        value: valueSerialSwitch,
+        onChanged: _onSerialSwitchChanged,
+      ),
     );
   }
 }
