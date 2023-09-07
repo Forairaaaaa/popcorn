@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'widgets/widget_pie_menu_avatar.dart';
 import 'widgets/widget_serial_port_swtich.dart';
 import 'widgets/widget_set_port_button.dart';
+import 'widgets/widget_set_baudrate_button.dart';
 
 
 class PopcornHomePage extends StatefulWidget {
@@ -252,14 +253,18 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                     height: gap2Window,
                   ),
 
-                  ElevatedButton(
-                    style: buttonStyleControlPanel,
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.speed_rounded,
-                      color: buttonIconColor,
-                    ),
-                  ),
+
+
+                  // ElevatedButton(
+                  //   style: buttonStyleControlPanel,
+                  //   onPressed: () {},
+                  //   child: Icon(
+                  //     Icons.speed_rounded,
+                  //     color: buttonIconColor,
+                  //   ),
+                  // ),
+                  const WidgetSetBaudRateButton(),
+
 
                   const SizedBox(
                     height: gap2Window,

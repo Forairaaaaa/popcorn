@@ -1,55 +1,49 @@
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 
 /// A button with menu to select serial port name
-class WidgetSetPortButton extends StatefulWidget {
-  const WidgetSetPortButton({super.key});
+class WidgetSetBaudRateButton extends StatefulWidget {
+  const WidgetSetBaudRateButton({super.key});
 
   @override
-  State<WidgetSetPortButton> createState() =>
-      _WidgetSetPortButtonState();
+  State<WidgetSetBaudRateButton> createState() =>
+      _WidgetSetBaudRateButtonState();
 }
 
-class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
+class _WidgetSetBaudRateButtonState extends State<WidgetSetBaudRateButton> {
 
-  // Available serial port name list
-  List<String> portNameList = [
-    "COM1",
-    "COM23", 
-    "COM23", 
-    "COM23", 
-    "COM23", 
-    "COM23", 
-    "COM23", 
-    "COM114514", 
-    "/dev/ttyACM0"
+  // Available baud rate list 
+  List<int> baudRateList = [
+    300,
+    600,
+    1200,
+    2400,
+    4800,
+    9600,
+    14400,
+    19200,
+    38400,
+    56000,
+    57600,
+    115200,
+    128000,
+    256000,
+    460800,
+    512000,
+    750000,
+    921600,
+    1500000,
   ];
 
-  // Current selected port name
-  String selectedPortName = 'not_selected'.tr();
+  // Current selected baud rate 
+  int selectedBaudRate = 115200;
 
-  // Current selected index
-  int? _selectedIndex;
-
-
-  // Callback when menu about to open
-  void _menuOpenCallback() {
-    // Update vaild serial port list
-    // TODO
-
-    setState(() {
-      // portNameList.add("👍");
-    });
-  }
-
-  // Callback when serial port selected
+  // Callback when baud rate selected
   void _menuItemSelectedCallback(int index) {
     setState(() {
       // Update selected index
-      _selectedIndex = index;
-      // Update selected port name
-      selectedPortName = portNameList[index];
+      selectedBaudRate = baudRateList[index];
     });
   }
 
@@ -67,7 +61,7 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
           (BuildContext context, MenuController controller, Widget? child) {
         // Tool tip: show current port name
         return Tooltip(
-          message: selectedPortName,
+          message: '$selectedBaudRate',
           textStyle: TextStyle(
             fontSize: 18.0,
             color: Theme.of(context).colorScheme.onSecondary,
@@ -86,14 +80,13 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
               if (controller.isOpen) {
                 controller.close();
               } else {
-                _menuOpenCallback();
                 controller.open();
               }
             },
 
             // Icon
             child: Icon(
-              Icons.usb,
+              Icons.speed_rounded,
               color: Theme.of(context).colorScheme.secondary,
             ),
           ),
@@ -102,13 +95,13 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
 
       // Only one child
       menuChildren: [
-
+        
         // A nice Title :)
         Padding(
           padding: const EdgeInsets.all(9.0),
           child: const Text('serial_port',
             style: TextStyle(fontSize: 18.0),
-          ).tr(gender: 'current_port'),
+          ).tr(gender: 'baud_rate'),
         ),
 
         // A nice divider :)
@@ -118,11 +111,9 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
         Padding(
           padding: const EdgeInsets.all(9.0),
 
-          // Fix width 
+          // A wrap to contain chips
           child: SizedBox(
             width: 300,
-
-            // A wrap to contain chips
             child: Wrap(
               // direction: Axis.vertical,
               spacing: 9.0,
@@ -130,7 +121,7 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
           
               // Chips generate by portNameList
               children: List<Widget>.generate(
-                portNameList.length,
+                baudRateList.length,
                 (int index) {
                   return ChoiceChip(
                     // Looks like shit without this :(
@@ -138,10 +129,10 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
                     elevation: 1.0,
           
                     // Serial port name 
-                    label: Text(portNameList[index]),
+                    label: Text('${baudRateList[index]}'),
           
                     // Can only select one, and no way to unselect :) 
-                    selected: _selectedIndex == index,
+                    selected: selectedBaudRate == baudRateList[index],
                     onSelected: (bool selected) {
                       // No way back :(
                       if (selected) {
