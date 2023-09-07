@@ -1,58 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:pie_menu/pie_menu.dart';
-import 'package:web_smooth_scroll/web_smooth_scroll.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
+import 'widgets/widget_pie_menu_avatar.dart';
+import 'widgets/widget_serial_port_swtich.dart';
+import 'widgets/widget_set_port_button.dart';
 
 
 class PopcornHomePage extends StatefulWidget {
   const PopcornHomePage({super.key});
-  
+
   @override
   State<PopcornHomePage> createState() => _PopcornHomePageState();
 }
 
 class _PopcornHomePageState extends State<PopcornHomePage> {
-
   bool valueSwitchStart = false;
   final MaterialStateProperty<Icon?> thumbIconSwitchStart =
       MaterialStateProperty.resolveWith<Icon?>(
     (Set<MaterialState> states) {
-
       if (states.contains(MaterialState.selected)) {
         return const Icon(Icons.check);
       }
       return const Icon(Icons.close);
-
     },
   );
 
 
-
-
-  // Controllers
-  late ScrollController _scrollController;
-
   @override
   void initState() {
-    // initialize scroll controllers
-    _scrollController = ScrollController();
 
     super.initState();
   }
-  
-
 
   @override
   Widget build(BuildContext context) {
-
-    // Basic layout parameters 
+    // Basic layout parameters
     const double gap2Window = 18.0;
     const double gap2WindowHalf = 9.0;
     const double gapText2Console = 12.0;
-
-
 
     const String testShit = """
 I (851) spi_flash: flash io: qio
@@ -181,580 +167,275 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 [1970-01-01 00:00:14.572] [info] init done
 """;
 
-
-    // Button style of control panel 
-    var buttonStyleControlPanel = ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6)));
-
+    // Button style of control panel
+    var buttonStyleControlPanel = ButtonStyle(
+        padding:
+            MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6)));
 
     Color buttonIconColor = Theme.of(context).colorScheme.secondary;
 
-
     return PieCanvas(
       child: Scaffold(
-        body: SafeArea(
-          child: Row(
-            children: [
-              
-    
-              // Control pannel 
-              SizedBox(
-                width: 82,
+          body: SafeArea(
+              child: Row(
+        children: [
+          // Control pannel
+          SizedBox(
+            width: 82,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(
+                  gap2Window, gap2Window, gap2WindowHalf, gap2Window),
+              child: ListView(
+                children: [
+                  // PieMenu(
+                  //   theme: PieTheme(
+                  //     buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
+                  //     buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
 
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(gap2Window, gap2Window, gap2WindowHalf, gap2Window),
-                  child: ListView(
-                    
-                    children: [
-                      
+                  //     leftClickShowsMenu: true,
+                  //     rightClickShowsMenu: true,
 
+                  //   ),
+                  //   actions: [
+                  //     PieAction(
+                  //       tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                  //       onSelect: () {
+                  //       },
+                  //       child: const Icon(Icons.face), // Can be any widget
+                  //     ),
+                  //     PieAction(
+                  //       tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                  //       onSelect: () {
+                  //       },
+                  //       child: const Icon(Icons.settings), // Can be any widget
+                  //     )
+                  //   ],
 
+                  //   child: const CircleAvatar(
+                  //     radius: 26,
+                  //   ),
+                  // ),
 
-                      // PieMenu(
-                      //   theme: PieTheme(
-                      //     buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                      //     buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+                  const WidgetPieMenuAvatar(),
 
-                      //     leftClickShowsMenu: true,
-                      //     rightClickShowsMenu: true,
-                          
-                      //   ),
-                      //   actions: [
-                      //     PieAction(
-                      //       tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                      //       onSelect: () {
-                      //       },
-                      //       child: const Icon(Icons.face), // Can be any widget
-                      //     ),
-                      //     PieAction(
-                      //       tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                      //       onSelect: () {
-                      //       },
-                      //       child: const Icon(Icons.settings), // Can be any widget
-                      //     )
-                      //   ],
+                  // Little gap
+                  const SizedBox(height: gap2Window),
 
-                      //   child: const CircleAvatar(
-                      //     radius: 26,
-                      //   ),
-                      // ),
+                  // Switch(
+                  //   thumbIcon: thumbIconSwitchStart,
+                  //   value: valueSwitchStart,
+                  //   onChanged: (bool value) {
+                  //     setState(() {
+                  //       valueSwitchStart = value;
+                  //     });
+                  //   },
+                  // ),
+                  const WidgetSerialPortSwitch(),
 
-                      const WidgetDopeAvatar(),
-                  
+                  const SizedBox(
+                    height: gap2Window,
+                  ),
 
+                  // ElevatedButton(
+                  //   style: buttonStyleControlPanel,
+                  //   onPressed: () {
 
+                  //   },
+                  //   child: Icon(
+                  //     Icons.usb,
+                  //     color: buttonIconColor,
+                  //   ),
+                  // ),
+                  const WidgetSetPortButton(),
 
-                  
-                      // Little gap 
-                      const SizedBox(height: gap2Window),
-                
-                  
-                  
-                  
-                      // Switch(
-                      //   thumbIcon: thumbIconSwitchStart,
-                      //   value: valueSwitchStart,
-                      //   onChanged: (bool value) {
-                      //     setState(() {
-                      //       valueSwitchStart = value;
-                      //     });
-                      //   },
-                      // ),
-                      const WidgetSerialPortSwitch(),
-                  
-                  
+                  const SizedBox(
+                    height: gap2Window,
+                  ),
 
-                  
-                      const SizedBox(height: gap2Window,),
-                  
-                      // ElevatedButton(
-                      //   style: buttonStyleControlPanel,
-                      //   onPressed: () {
-                          
-                      //   },
-                      //   child: Icon(
-                      //     Icons.usb,
-                      //     color: buttonIconColor,
-                      //   ),
-                      // ),
-                      const WidgetSetPortNameButton(),
-                  
-                  
-                  
-                  
-                      const SizedBox(height: gap2Window,),
-                  
-                      ElevatedButton(
-                        style: buttonStyleControlPanel,
-                        onPressed: () {
-                          
-                        },
-                        child: Icon(
-                          Icons.speed_rounded,
-                          color: buttonIconColor,
-                        ),
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.speed_rounded,
+                      color: buttonIconColor,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: gap2Window,
+                  ),
+
+                  ElevatedButton(
+                    style: buttonStyleControlPanel,
+                    onPressed: () {},
+                    child: Icon(
+                      Icons.more_horiz,
+                      color: buttonIconColor,
+                    ),
+                  ),
+
+                  const SizedBox(
+                    height: gap2Window,
+                  ),
+
+                  PieMenu(
+                      theme: PieTheme(
+                        buttonTheme: PieButtonTheme(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            iconColor:
+                                Theme.of(context).colorScheme.onSecondary),
+                        buttonThemeHovered: PieButtonTheme(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            iconColor: Theme.of(context).colorScheme.onPrimary),
+
+                        // delayDuration: Duration.zero,
+
+                        rightClickShowsMenu: true,
                       ),
-                  
-                  
-                  
-                      const SizedBox(height: gap2Window,),
-                      
-                  
-                      ElevatedButton(
-                        style: buttonStyleControlPanel,
-                        onPressed: () {
-                          
-                        },
-                        child: Icon(
-                          Icons.more_horiz,
-                          color: buttonIconColor,
+                      actions: [
+                        PieAction(
+                          tooltip: Text(
+                            'like',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          onSelect: () {},
+                          child: const Icon(
+                              Icons.save_rounded), // Can be any widget
                         ),
+                        PieAction(
+                          tooltip: Text(
+                            '啊？',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          onSelect: () {},
+                          child: const Icon(Icons.delete), // Can be any widget
+                        )
+                      ],
+                      child: TextButton(
+                        child: Icon(
+                          Icons.textsms_outlined,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                        onPressed: () {},
+                      )),
+                ],
+              ),
+            ),
+          ),
+
+          // Console windows pannel
+          Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                // Window receive
+                Expanded(
+                    child: Card(
+                  margin: const EdgeInsets.fromLTRB(
+                      gap2WindowHalf, gap2Window, gap2Window, gap2Window),
+                  child: Padding(
+                    padding: const EdgeInsets.all(gapText2Console),
+
+                    // child: SelectableText(
+                    //   testShit
+                    //   ,
+                    //   style: TextStyle(
+                    //     fontFamily: 'CourierPrime',
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.w500,
+                    //     color: Theme.of(context).primaryColor,
+                    //   ),
+                    // ),
+
+                    child: SelectableText(
+                      testShit,
+                      style: TextStyle(
+                        fontFamily: 'CourierPrime',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                )),
+
+                // Window send
+                Card(
+                  margin: const EdgeInsets.fromLTRB(
+                      gap2WindowHalf, 0, gap2Window, gap2Window),
+                  child: Padding(
+                    padding: const EdgeInsets.all(gapText2Console),
+                    child: TextField(
+                      style: TextStyle(
+                        fontFamily: 'CourierPrime',
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Theme.of(context).primaryColor,
                       ),
 
+                      decoration: InputDecoration(
+                          // border: const OutlineInputBorder(),
 
-
-                      const SizedBox(height: gap2Window,),
-
-                      PieMenu(
+                          suffixIcon: PieMenu(
                         theme: PieTheme(
-                          buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                          buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
-
-                          // delayDuration: Duration.zero,
-
-                          rightClickShowsMenu: true,
-                          
+                          buttonTheme: PieButtonTheme(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.secondary,
+                              iconColor:
+                                  Theme.of(context).colorScheme.onSecondary),
+                          buttonThemeHovered: PieButtonTheme(
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.primary,
+                              iconColor:
+                                  Theme.of(context).colorScheme.onPrimary),
                         ),
                         actions: [
                           PieAction(
-                            tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
-                            },
-                            child: const Icon(Icons.save_rounded), // Can be any widget
+                            tooltip: Text(
+                              'like',
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary),
+                            ),
+                            onSelect: () {},
+                            child: const Icon(
+                                Icons.file_open_rounded), // Can be any widget
                           ),
                           PieAction(
-                            tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                            onSelect: () {
-                            },
-                            child: const Icon(Icons.delete), // Can be any widget
+                            tooltip: Text(
+                              '啊？',
+                              style: TextStyle(
+                                  color: Theme.of(context).colorScheme.primary),
+                            ),
+                            onSelect: () {},
+                            child:
+                                const Icon(Icons.delete), // Can be any widget
                           )
                         ],
-
-                        child: TextButton(
-                          child: Icon(
-                            Icons.textsms_outlined,
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.reply_rounded,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                          onPressed:() {
-                            
-                          },
-                        )
-                      ),
+                          onPressed: () {},
+                        ),
+                      )),
 
-
-
-                  
-                  
-                    ],
+                      // expands: true,
+                      maxLines: 10,
+                      minLines: 1,
+                    ),
                   ),
                 ),
-              ),
-
-    
-    
-    
-    
-    
-              // Console windows pannel 
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-    
-    
-                    // Window receive 
-                    Expanded(
-                      child: Card(
-                        margin: const EdgeInsets.fromLTRB(gap2WindowHalf, gap2Window, gap2Window, gap2Window),
-                        child: Padding(
-                          padding: const EdgeInsets.all(gapText2Console),
-
-
-                          // child: SelectableText(
-                          //   testShit
-                          //   ,
-                          //   style: TextStyle(
-                          //     fontFamily: 'CourierPrime',
-                          //     fontSize: 16,
-                          //     fontWeight: FontWeight.w500,
-                          //     color: Theme.of(context).primaryColor,
-                          //   ),
-                          // ),
-
-
-                          child: SelectableText(
-                            testShit
-                            ,
-                            style: TextStyle(
-                              fontFamily: 'CourierPrime',
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-
-
-
-
-
-
-                        ),
-                      )
-                    ),
-    
-    
-    
-
-
-                    // Window send 
-                    Card(
-                      margin: const EdgeInsets.fromLTRB(gap2WindowHalf, 0, gap2Window, gap2Window),
-                      child: Padding(
-                        padding: const EdgeInsets.all(gapText2Console),
-
-
-
-                        child: TextField(
-                    
-                          style: TextStyle(
-                            fontFamily: 'CourierPrime',
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                    
-                    
-                          decoration: InputDecoration(
-                            // border: const OutlineInputBorder(),
-                    
-                            suffixIcon: PieMenu(
-                              theme: PieTheme(
-                                buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                                buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
-
-                              
-                                
-                              ),
-                              actions: [
-                                PieAction(
-                                  tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                                  onSelect: () {
-                                  },
-                                  child: const Icon(Icons.file_open_rounded), // Can be any widget
-                                ),
-                                PieAction(
-                                  tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                                  onSelect: () {
-                                  },
-                                  child: const Icon(Icons.delete), // Can be any widget
-                                )
-                              ],
-
-                              child: IconButton(
-                                icon: Icon(
-                                  Icons.reply_rounded,
-                                  color: Theme.of(context).colorScheme.secondary,
-                                ),
-                                onPressed:() {
-                                  
-                                },
-                              ),
-                            )
-                    
-                          ),
-                    
-                          // expands: true,
-                          maxLines: 10,
-                          minLines: 1,
-                        ),
-
-
-
-
-
-
-
-
-                      ),
-                    ),
-    
-    
-    
-    
-    
-                  ],
-                ),
-              ),
-    
-    
-    
-            ],
-          )
-        )
-      ),
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-/// A circle avatar with PieMenu
-class WidgetDopeAvatar extends StatefulWidget {
-  const WidgetDopeAvatar({super.key});
-
-  @override
-  State<WidgetDopeAvatar> createState() => _WidgetDopeAvatarState();
-}
-
-class _WidgetDopeAvatarState extends State<WidgetDopeAvatar> {
-  @override
-  Widget build(BuildContext context) {
-    return PieMenu(
-
-      // Theme settings 
-      theme: PieTheme(
-        buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-        buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
-
-        leftClickShowsMenu: true,
-        rightClickShowsMenu: true,
-      ),
-
-      // PieMenu actions 
-      actions: [
-
-        // Change profile image 
-        PieAction(
-          tooltip: Text('set_avatar', style: TextStyle(color: Theme.of(context).colorScheme.primary),).tr(),
-          onSelect: () {
-          },
-          child: const Icon(Icons.face),
-        ),
-
-        // Enter setting page 
-        PieAction(
-          tooltip: Text('settings', style: TextStyle(color: Theme.of(context).colorScheme.primary),).tr(),
-          onSelect: () {
-          },
-          child: const Icon(Icons.settings),
-        ),
-
-        // Set theme
-        PieAction(
-          tooltip: Text('theme_color', style: TextStyle(color: Theme.of(context).colorScheme.primary),).tr(),
-          onSelect: () {
-          },
-          child: const Icon(Icons.palette_outlined),
-        )
-
-      ],
-
-      // Actual avatar widget 
-      child: const CircleAvatar(
-        radius: 26,
-      ),
-
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-/// A switch to open and close serial port 
-class WidgetSerialPortSwitch extends StatefulWidget {
-  const WidgetSerialPortSwitch({super.key});
-
-  @override
-  State<WidgetSerialPortSwitch> createState() => _WidgetSerialPortSwitchState();
-}
-
-class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
-
-  bool valueSerialSwitch= false;
-
-  // State property icon 
-  final MaterialStateProperty<Icon?> thumbIconSerialSwitch =
-      MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(Icons.check);
-      }
-      return const Icon(Icons.close);
-    },
-  );
-
-  // Switch changed callback 
-  void _onSerialSwitchChanged(bool value) {
-    // Try open serial port 
-    if (value) {
-      // TODO
-    }
-    // Try close serial port 
-    else {
-      // TODO
-    }
-
-    // Update state 
-    setState(() {
-      valueSerialSwitch = value;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Tooltip(
-
-      // Tool tip settings 
-      message: 'serial_port'.tr(gender: valueSerialSwitch ? "connected" : "disconnect"),
-      textStyle: TextStyle(
-        fontSize: 18.0,
-        color: Theme.of(context).colorScheme.onSecondary,
-      ),
-      waitDuration: const Duration(milliseconds: 600),
-
-      child: Switch(
-        thumbIcon: thumbIconSerialSwitch,
-        value: valueSerialSwitch,
-        onChanged: _onSerialSwitchChanged,
-      ),
-
-    );
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-/// A button with menu to select serial port name 
-class WidgetSetPortNameButton extends StatefulWidget {
-  const WidgetSetPortNameButton({super.key});
-
-  @override
-  State<WidgetSetPortNameButton> createState() => _WidgetSetPortNameButtonState();
-}
-
-class _WidgetSetPortNameButtonState extends State<WidgetSetPortNameButton> {
-
-  // Available serial port name list 
-  List<String> portNameList = ["COM1", "COM23", "COM114514", "ttyACM0"];
-
-  // Current selected port name 
-  String selectedPortName = 'unselected'.tr();
-
-  // Callback when menu about to open 
-  void _menuOpenCallback() {
-    // Update vaild serial port list 
-    // TODO
-    
-    setState(() {
-      // portNameList.add("👍");
-    });
-  }
-
-  // Callback when serial port selected 
-  void _menuItemSelectedCallback(int index) {
-    setState(() {
-      selectedPortName = portNameList[index];
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-
-    // Use menu anchor 
-    // https://api.flutter.dev/flutter/material/PopupMenuButton-class.html
-    return MenuAnchor(
-
-      
-
-      builder:
-          (BuildContext context, MenuController controller, Widget? child) {
-        
-        return Tooltip(
-
-          // Tool tip: show current port name 
-          message: '${'serial_port'.tr(gender: 'current_port')}: $selectedPortName',
-          textStyle: TextStyle(
-          fontSize: 18.0,
-            color: Theme.of(context).colorScheme.onSecondary,
-          ),
-          waitDuration: const Duration(milliseconds: 400),
-
-          // A button to control menu 
-          child: ElevatedButton(
-            
-            // Slim it 
-            style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6))),
-        
-            // Open and close menu 
-            onPressed: () {
-              if (controller.isOpen) {
-                controller.close();
-              } else {
-                _menuOpenCallback();
-                controller.open();
-              }
-            },
-        
-            // Icon 
-            child: Icon(
-              Icons.usb,
-              color: Theme.of(context).colorScheme.secondary,
+              ],
             ),
-        
           ),
-        );
-
-      },
-
-      // Menu children generater 
-      menuChildren: List<MenuItemButton>.generate(
-        portNameList.length,
-
-        // Menu item button 
-        (index) => MenuItemButton(
-          // Selected callback 
-          onPressed: () {
-            _menuItemSelectedCallback(index);
-          },
-          // Item child 
-          child: Text(portNameList[index]),
-        ),
-
-      ),
-
+        ],
+      ))),
     );
   }
 }

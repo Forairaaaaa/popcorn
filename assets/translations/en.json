@@ -2,7 +2,7 @@
     "set_avatar" : "Set Avatar",
     "settings" : "Settings",
     "theme_color" : "Theme Color",
-    "unselected" : "Unselected",
+    "not_selected" : "Not Selected",
 
     "serial_port" : {
         "current_port" : "Port",
