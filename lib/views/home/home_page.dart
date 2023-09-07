@@ -86,6 +86,99 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 - @build at 07:44:44 Aug 25 2023
 
 [1970-01-01 00:00:14.572] [info] init done
+I (851) spi_flash: flash io: qio
+I (856) sleep: Configure to isolate all GPIO pins in sleep state
+I (862) sleep: Enable automatic switching of GPIO sleep configuration
+I (869) app_start: Starting scheduler on CPU0
+I (874) app_start: Starting scheduler on CPU1
+I (874) main_task: Started on CPU0
+I (884) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (892) main_task: Calling app_main()
+I (897) hal: init hal
+I (899) hal: start holding power
+I (903) gpio: GPIO[46]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+I (913) hal: init display
+I (1190) hal: create framebuffer
+I (1194) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+[1970-01-01 00:00:14.526] [info] mooncake init :)
+[1970-01-01 00:00:14.530] [info] create userdata
+[1970-01-01 00:00:14.534] [info] start db setup
+[1970-01-01 00:00:14.538] [info] create boot anim
+[1970-01-01 00:00:14.543] [info] start boot anim
+
+ _____ _____ _____ _____ _____ _____ _____ _____
+|     |     |     |   | |     |  _  |  |  |   __|
+| | | |  |  |  |  | | | |   --|     |    -|   __|
+|_|_|_|_____|_____|_|___|_____|__|__|__|__|_____|
+
+- @author Forairaaaaa
+- @version v0.2.0
+- @build at 07:44:44 Aug 25 2023
+
+[1970-01-01 00:00:14.572] [info] init done
+I (851) spi_flash: flash io: qio
+I (856) sleep: Configure to isolate all GPIO pins in sleep state
+I (862) sleep: Enable automatic switching of GPIO sleep configuration
+I (869) app_start: Starting scheduler on CPU0
+I (874) app_start: Starting scheduler on CPU1
+I (874) main_task: Started on CPU0
+I (884) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (892) main_task: Calling app_main()
+I (897) hal: init hal
+I (899) hal: start holding power
+I (903) gpio: GPIO[46]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+I (913) hal: init display
+I (1190) hal: create framebuffer
+I (1194) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+[1970-01-01 00:00:14.526] [info] mooncake init :)
+[1970-01-01 00:00:14.530] [info] create userdata
+[1970-01-01 00:00:14.534] [info] start db setup
+[1970-01-01 00:00:14.538] [info] create boot anim
+[1970-01-01 00:00:14.543] [info] start boot anim
+
+ _____ _____ _____ _____ _____ _____ _____ _____
+|     |     |     |   | |     |  _  |  |  |   __|
+| | | |  |  |  |  | | | |   --|     |    -|   __|
+|_|_|_|_____|_____|_|___|_____|__|__|__|__|_____|
+
+- @author Forairaaaaa
+- @version v0.2.0
+- @build at 07:44:44 Aug 25 2023
+
+[1970-01-01 00:00:14.572] [info] init done
+I (851) spi_flash: flash io: qio
+I (856) sleep: Configure to isolate all GPIO pins in sleep state
+I (862) sleep: Enable automatic switching of GPIO sleep configuration
+I (869) app_start: Starting scheduler on CPU0
+I (874) app_start: Starting scheduler on CPU1
+I (874) main_task: Started on CPU0
+I (884) esp_psram: Reserving pool of 32K of internal memory for DMA/internal allocations
+I (892) main_task: Calling app_main()
+I (897) hal: init hal
+I (899) hal: start holding power
+I (903) gpio: GPIO[46]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+I (913) hal: init display
+I (1190) hal: create framebuffer
+I (1194) gpio: GPIO[21]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldown: 0| Intr:0 
+[1970-01-01 00:00:14.526] [info] mooncake init :)
+[1970-01-01 00:00:14.530] [info] create userdata
+[1970-01-01 00:00:14.534] [info] start db setup
+[1970-01-01 00:00:14.538] [info] create boot anim
+[1970-01-01 00:00:14.543] [info] start boot anim
+
+ _____ _____ _____ _____ _____ _____ _____ _____
+|     |     |     |   | |     |  _  |  |  |   __|
+| | | |  |  |  |  | | | |   --|     |    -|   __|
+|_|_|_|_____|_____|_|___|_____|__|__|__|__|_____|
+
+- @author Forairaaaaa
+- @version v0.2.0
+- @build at 07:44:44 Aug 25 2023
+
+[1970-01-01 00:00:14.572] [info] init done
 """;
 
 
@@ -299,22 +392,14 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                           // ),
 
 
-                          child: WebSmoothScroll(
-                            controller: _scrollController,
-                            
-                            child: SingleChildScrollView(
-                              physics: const NeverScrollableScrollPhysics(),
-                              controller: _scrollController,
-                              child: SelectableText(
-                                testShit
-                                ,
-                                style: TextStyle(
-                                  fontFamily: 'CourierPrime',
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                              ),
+                          child: SelectableText(
+                            testShit
+                            ,
+                            style: TextStyle(
+                              fontFamily: 'CourierPrime',
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
 
@@ -425,6 +510,11 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
 
 
+
+
+
+
+
 /// A circle avatar with PieMenu
 class WidgetDopeAvatar extends StatefulWidget {
   const WidgetDopeAvatar({super.key});
@@ -487,6 +577,14 @@ class _WidgetDopeAvatarState extends State<WidgetDopeAvatar> {
 
 
 
+
+
+
+
+
+
+
+
 /// A switch to open and close serial port 
 class WidgetSerialPortSwitch extends StatefulWidget {
   const WidgetSerialPortSwitch({super.key});
@@ -537,7 +635,7 @@ class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
         fontSize: 18.0,
         color: Theme.of(context).colorScheme.onSecondary,
       ),
-      waitDuration: const Duration(seconds: 1),
+      waitDuration: const Duration(milliseconds: 600),
 
       child: Switch(
         thumbIcon: thumbIconSerialSwitch,
@@ -551,8 +649,15 @@ class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
 
 
 
-/// A button to select serial port name 
-/// https://www.youtube.com/watch?v=Bxs8Zy2O4wk&t=12s
+
+
+
+
+
+
+
+
+/// A button with menu to select serial port name 
 class WidgetSetPortNameButton extends StatefulWidget {
   const WidgetSetPortNameButton({super.key});
 
@@ -562,22 +667,94 @@ class WidgetSetPortNameButton extends StatefulWidget {
 
 class _WidgetSetPortNameButtonState extends State<WidgetSetPortNameButton> {
 
-  // Current selected port name 
-  String selectedPortName = '😊';
+  // Available serial port name list 
+  List<String> portNameList = ["COM1", "COM23", "COM114514", "ttyACM0"];
 
-  // Available serial port list 
+  // Current selected port name 
+  String selectedPortName = 'unselected'.tr();
+
+  // Callback when menu about to open 
+  void _menuOpenCallback() {
+    // Update vaild serial port list 
+    // TODO
+    
+    setState(() {
+      // portNameList.add("👍");
+    });
+  }
+
+  // Callback when serial port selected 
+  void _menuItemSelectedCallback(int index) {
+    setState(() {
+      selectedPortName = portNameList[index];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6))),
-      onPressed: () {
+
+    // Use menu anchor 
+    // https://api.flutter.dev/flutter/material/PopupMenuButton-class.html
+    return MenuAnchor(
+
+      
+
+      builder:
+          (BuildContext context, MenuController controller, Widget? child) {
         
+        return Tooltip(
+
+          // Tool tip: show current port name 
+          message: '${'serial_port'.tr(gender: 'current_port')}: $selectedPortName',
+          textStyle: TextStyle(
+          fontSize: 18.0,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+          waitDuration: const Duration(milliseconds: 400),
+
+          // A button to control menu 
+          child: ElevatedButton(
+            
+            // Slim it 
+            style: ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.fromLTRB(6, 6, 6, 6))),
+        
+            // Open and close menu 
+            onPressed: () {
+              if (controller.isOpen) {
+                controller.close();
+              } else {
+                _menuOpenCallback();
+                controller.open();
+              }
+            },
+        
+            // Icon 
+            child: Icon(
+              Icons.usb,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+        
+          ),
+        );
+
       },
-      child: Icon(
-        Icons.usb,
-        color: Theme.of(context).colorScheme.secondary,
+
+      // Menu children generater 
+      menuChildren: List<MenuItemButton>.generate(
+        portNameList.length,
+
+        // Menu item button 
+        (index) => MenuItemButton(
+          // Selected callback 
+          onPressed: () {
+            _menuItemSelectedCallback(index);
+          },
+          // Item child 
+          child: Text(portNameList[index]),
+        ),
+
       ),
+
     );
   }
 }
