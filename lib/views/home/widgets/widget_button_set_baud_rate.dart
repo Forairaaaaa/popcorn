@@ -14,6 +14,16 @@ class WidgetButtonSetBaudRate extends StatefulWidget {
 }
 
 class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
+  final buttonKey = GlobalKey();
+  Offset buttonPosition = const Offset(0, 0);
+
+  // https://stackoverflow.com/questions/54291245/get-y-position-of-container-on-flutter
+  void _getPostion() {
+    RenderBox box = buttonKey.currentContext?.findRenderObject() as RenderBox;
+    buttonPosition = box.localToGlobal(Offset
+        .zero); //this is global position/this is y - I think it's what you want
+  }
+
   @override
   Widget build(BuildContext context) {
     // Use menu anchor
@@ -30,15 +40,24 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
 
           // A nice button
           child: ElevatedButton(
+            // Key for position getting
+            key: buttonKey,
+
             // Slim it
             style: ButtonStyle(
                 padding: MaterialStateProperty.all(const EdgeInsets.all(6))),
 
             // Route to page popup menu
             onPressed: () {
+              _getPostion();
               Navigator.of(context).push(
                   // With hero anim route
                   DialogRoute(
+                // Pass button's position
+                settings: RouteSettings(
+                  arguments: [buttonPosition.dx, buttonPosition.dy],
+                ),
+                barrierColor: Colors.black26,
                 context: context,
                 builder: (context) {
                   return const _PagePopupMenu();
@@ -73,20 +92,23 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
   @override
   Widget build(BuildContext context) {
+    final buttonPosition = ModalRoute.of(context)!.settings.arguments as List<double?>;
+
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
         // A stack so that menu can be positioned
         return Stack(
           children: [
             // Take full screen
-            Container(height: double.infinity,),
+            Container(
+              height: double.infinity,
+            ),
 
             // Postion of the menu
             Positioned(
               // Popup along side with the triger
-              // TODO
-              left: 100,
-              top: 100,
+              left: buttonPosition[0]!,
+              top: buttonPosition[1]!,
               width: 400,
 
               // Wrap this to aviod widget overflow
@@ -128,7 +150,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                               return ChoiceChip(
                                 // Looks like shit without this :(
                                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                                elevation: 0.0,
+                                elevation: 2.0,
 
                                 // Baud rate
                                 label: Text(
@@ -151,8 +173,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                       )
                     ],
                   ),
-                )
-                ,
+                ),
               ),
             ),
           ],
