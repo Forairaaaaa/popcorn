@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:popcorn/models/model_serial_port.dart';
+import 'package:provider/provider.dart';
 
-
-/// A switch to open and close serial port
+/// A switch to open and close serial port,
+/// Depends on [ModelSerialPort]
 class WidgetSerialPortSwitch extends StatefulWidget {
   const WidgetSerialPortSwitch({super.key});
 
@@ -11,8 +13,6 @@ class WidgetSerialPortSwitch extends StatefulWidget {
 }
 
 class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
-  bool valueSerialSwitch = false;
-
   // State property icon
   final MaterialStateProperty<Icon?> thumbIconSerialSwitch =
       MaterialStateProperty.resolveWith<Icon?>(
@@ -24,40 +24,34 @@ class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
     },
   );
 
-  // Switch changed callback
-  void _onSerialSwitchChanged(bool value) {
-    // Try open serial port
-    if (value) {
-      // TODO
-    }
-    // Try close serial port
-    else {
-      // TODO
-    }
-
-    // Update state
-    setState(() {
-      valueSerialSwitch = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Tooltip(
-      // Tool tip settings
-      message: 'serial_port'
-          .tr(gender: valueSerialSwitch ? "connected" : "disconnect"),
-      textStyle: TextStyle(
-        fontSize: 18.0,
-        color: Theme.of(context).colorScheme.onSecondary,
-      ),
-      waitDuration: const Duration(milliseconds: 400),
+    return Consumer<ModelSerialPort>(
+      builder: (context, model, child) {
+        return Tooltip(
+          // Tool tip settings
+          message: 'serial_port'
+              .tr(gender: model.isConnected ? "connected" : "disconnect"),
+          textStyle: TextStyle(
+            fontSize: 18.0,
+            color: Theme.of(context).colorScheme.onSecondary,
+          ),
+          waitDuration: const Duration(milliseconds: 400),
 
-      child: Switch(
-        thumbIcon: thumbIconSerialSwitch,
-        value: valueSerialSwitch,
-        onChanged: _onSerialSwitchChanged,
-      ),
+          // A switch with thumb icon :)
+          child: Switch(
+            thumbIcon: thumbIconSerialSwitch,
+            value: model.isConnected,
+            onChanged: (value) {
+              if (value) {
+                model.open();
+              } else {
+                model.close();
+              }
+            },
+          ),
+        );
+      },
     );
   }
 }

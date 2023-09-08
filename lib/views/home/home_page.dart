@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pie_menu/pie_menu.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:popcorn/models/model_serial_port.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/widget_pie_menu_avatar.dart';
 import 'widgets/widget_serial_port_swtich.dart';
@@ -175,218 +177,119 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
     Color buttonIconColor = Theme.of(context).colorScheme.secondary;
 
-    return PieCanvas(
-      child: Scaffold(
-          body: SafeArea(
-              child: Row(
-        children: [
-          // Control pannel
-          SizedBox(
-            width: 82,
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(
-                  gap2Window, gap2Window, gap2WindowHalf, gap2Window),
-              child: ListView(
-                children: [
-                  // PieMenu(
-                  //   theme: PieTheme(
-                  //     buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
-                  //     buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+    return ChangeNotifierProvider(
 
-                  //     leftClickShowsMenu: true,
-                  //     rightClickShowsMenu: true,
+      create:(context) => ModelSerialPort(),
 
-                  //   ),
-                  //   actions: [
-                  //     PieAction(
-                  //       tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                  //       onSelect: () {
-                  //       },
-                  //       child: const Icon(Icons.face), // Can be any widget
-                  //     ),
-                  //     PieAction(
-                  //       tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
-                  //       onSelect: () {
-                  //       },
-                  //       child: const Icon(Icons.settings), // Can be any widget
-                  //     )
-                  //   ],
-
-                  //   child: const CircleAvatar(
-                  //     radius: 26,
-                  //   ),
-                  // ),
-
-                  const WidgetPieMenuAvatar(),
-
-                  // Little gap
-                  const SizedBox(height: gap2Window),
-
-                  // Switch(
-                  //   thumbIcon: thumbIconSwitchStart,
-                  //   value: valueSwitchStart,
-                  //   onChanged: (bool value) {
-                  //     setState(() {
-                  //       valueSwitchStart = value;
-                  //     });
-                  //   },
-                  // ),
-                  const WidgetSerialPortSwitch(),
-
-                  const SizedBox(
-                    height: gap2Window,
-                  ),
-
-                  // ElevatedButton(
-                  //   style: buttonStyleControlPanel,
-                  //   onPressed: () {
-
-                  //   },
-                  //   child: Icon(
-                  //     Icons.usb,
-                  //     color: buttonIconColor,
-                  //   ),
-                  // ),
-                  const WidgetSetPortButton(),
-
-                  const SizedBox(
-                    height: gap2Window,
-                  ),
-
-
-
-                  // ElevatedButton(
-                  //   style: buttonStyleControlPanel,
-                  //   onPressed: () {},
-                  //   child: Icon(
-                  //     Icons.speed_rounded,
-                  //     color: buttonIconColor,
-                  //   ),
-                  // ),
-                  const WidgetSetBaudRateButton(),
-
-
-                  const SizedBox(
-                    height: gap2Window,
-                  ),
-
-                  ElevatedButton(
-                    style: buttonStyleControlPanel,
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.more_horiz,
-                      color: buttonIconColor,
-                    ),
-                  ),
-
-                  const SizedBox(
-                    height: gap2Window,
-                  ),
-
-                  PieMenu(
-                      theme: PieTheme(
-                        buttonTheme: PieButtonTheme(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                            iconColor:
-                                Theme.of(context).colorScheme.onSecondary),
-                        buttonThemeHovered: PieButtonTheme(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            iconColor: Theme.of(context).colorScheme.onPrimary),
-
-                        // delayDuration: Duration.zero,
-
-                        rightClickShowsMenu: true,
-                      ),
-                      actions: [
-                        PieAction(
-                          tooltip: Text(
-                            'like',
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                          onSelect: () {},
-                          child: const Icon(
-                              Icons.save_rounded), // Can be any widget
-                        ),
-                        PieAction(
-                          tooltip: Text(
-                            '啊？',
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                          onSelect: () {},
-                          child: const Icon(Icons.delete), // Can be any widget
-                        )
-                      ],
-                      child: TextButton(
-                        child: Icon(
-                          Icons.textsms_outlined,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        onPressed: () {},
-                      )),
-                ],
-              ),
-            ),
-          ),
-
-          // Console windows pannel
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                // Window receive
-                Expanded(
-                    child: Card(
-                  margin: const EdgeInsets.fromLTRB(
-                      gap2WindowHalf, gap2Window, gap2Window, gap2Window),
-                  child: Padding(
-                    padding: const EdgeInsets.all(gapText2Console),
-
-                    // child: SelectableText(
-                    //   testShit
-                    //   ,
-                    //   style: TextStyle(
-                    //     fontFamily: 'CourierPrime',
-                    //     fontSize: 16,
-                    //     fontWeight: FontWeight.w500,
-                    //     color: Theme.of(context).primaryColor,
+      child: PieCanvas(
+        child: Scaffold(
+            body: SafeArea(
+                child: Row(
+          children: [
+            // Control pannel
+            SizedBox(
+              width: 82,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(
+                    gap2Window, gap2Window, gap2WindowHalf, gap2Window),
+                child: ListView(
+                  children: [
+                    // PieMenu(
+                    //   theme: PieTheme(
+                    //     buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
+                    //     buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
+    
+                    //     leftClickShowsMenu: true,
+                    //     rightClickShowsMenu: true,
+    
+                    //   ),
+                    //   actions: [
+                    //     PieAction(
+                    //       tooltip: Text('like', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                    //       onSelect: () {
+                    //       },
+                    //       child: const Icon(Icons.face), // Can be any widget
+                    //     ),
+                    //     PieAction(
+                    //       tooltip: Text('啊？', style: TextStyle(color: Theme.of(context).colorScheme.primary),),
+                    //       onSelect: () {
+                    //       },
+                    //       child: const Icon(Icons.settings), // Can be any widget
+                    //     )
+                    //   ],
+    
+                    //   child: const CircleAvatar(
+                    //     radius: 26,
                     //   ),
                     // ),
-
-                    child: SelectableText(
-                      testShit,
-                      style: TextStyle(
-                        fontFamily: 'CourierPrime',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).primaryColor,
+    
+                    const WidgetPieMenuAvatar(),
+    
+                    // Little gap
+                    const SizedBox(height: gap2Window),
+    
+                    // Switch(
+                    //   thumbIcon: thumbIconSwitchStart,
+                    //   value: valueSwitchStart,
+                    //   onChanged: (bool value) {
+                    //     setState(() {
+                    //       valueSwitchStart = value;
+                    //     });
+                    //   },
+                    // ),
+                    const WidgetSerialPortSwitch(),
+    
+                    const SizedBox(
+                      height: gap2Window,
+                    ),
+    
+                    // ElevatedButton(
+                    //   style: buttonStyleControlPanel,
+                    //   onPressed: () {
+    
+                    //   },
+                    //   child: Icon(
+                    //     Icons.usb,
+                    //     color: buttonIconColor,
+                    //   ),
+                    // ),
+                    const WidgetSetPortButton(),
+    
+                    const SizedBox(
+                      height: gap2Window,
+                    ),
+    
+    
+    
+                    // ElevatedButton(
+                    //   style: buttonStyleControlPanel,
+                    //   onPressed: () {},
+                    //   child: Icon(
+                    //     Icons.speed_rounded,
+                    //     color: buttonIconColor,
+                    //   ),
+                    // ),
+                    const WidgetSetBaudRateButton(),
+    
+    
+                    const SizedBox(
+                      height: gap2Window,
+                    ),
+    
+                    ElevatedButton(
+                      style: buttonStyleControlPanel,
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.more_horiz,
+                        color: buttonIconColor,
                       ),
                     ),
-                  ),
-                )),
-
-                // Window send
-                Card(
-                  margin: const EdgeInsets.fromLTRB(
-                      gap2WindowHalf, 0, gap2Window, gap2Window),
-                  child: Padding(
-                    padding: const EdgeInsets.all(gapText2Console),
-                    child: TextField(
-                      style: TextStyle(
-                        fontFamily: 'CourierPrime',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).primaryColor,
-                      ),
-
-                      decoration: InputDecoration(
-                          // border: const OutlineInputBorder(),
-
-                          suffixIcon: PieMenu(
+    
+                    const SizedBox(
+                      height: gap2Window,
+                    ),
+    
+                    PieMenu(
                         theme: PieTheme(
                           buttonTheme: PieButtonTheme(
                               backgroundColor:
@@ -396,8 +299,11 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                           buttonThemeHovered: PieButtonTheme(
                               backgroundColor:
                                   Theme.of(context).colorScheme.primary,
-                              iconColor:
-                                  Theme.of(context).colorScheme.onPrimary),
+                              iconColor: Theme.of(context).colorScheme.onPrimary),
+    
+                          // delayDuration: Duration.zero,
+    
+                          rightClickShowsMenu: true,
                         ),
                         actions: [
                           PieAction(
@@ -408,7 +314,7 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                             ),
                             onSelect: () {},
                             child: const Icon(
-                                Icons.file_open_rounded), // Can be any widget
+                                Icons.save_rounded), // Can be any widget
                           ),
                           PieAction(
                             tooltip: Text(
@@ -417,30 +323,131 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                                   color: Theme.of(context).colorScheme.primary),
                             ),
                             onSelect: () {},
-                            child:
-                                const Icon(Icons.delete), // Can be any widget
+                            child: const Icon(Icons.delete), // Can be any widget
                           )
                         ],
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.reply_rounded,
+                        child: TextButton(
+                          child: Icon(
+                            Icons.textsms_outlined,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
                           onPressed: () {},
+                        )),
+                  ],
+                ),
+              ),
+            ),
+    
+            // Console windows pannel
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Window receive
+                  Expanded(
+                      child: Card(
+                    margin: const EdgeInsets.fromLTRB(
+                        gap2WindowHalf, gap2Window, gap2Window, gap2Window),
+                    child: Padding(
+                      padding: const EdgeInsets.all(gapText2Console),
+    
+                      // child: SelectableText(
+                      //   testShit
+                      //   ,
+                      //   style: TextStyle(
+                      //     fontFamily: 'CourierPrime',
+                      //     fontSize: 16,
+                      //     fontWeight: FontWeight.w500,
+                      //     color: Theme.of(context).primaryColor,
+                      //   ),
+                      // ),
+    
+                      child: SelectableText(
+                        testShit,
+                        style: TextStyle(
+                          fontFamily: 'CourierPrime',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).primaryColor,
                         ),
-                      )),
-
-                      // expands: true,
-                      maxLines: 10,
-                      minLines: 1,
+                      ),
+                    ),
+                  )),
+    
+                  // Window send
+                  Card(
+                    margin: const EdgeInsets.fromLTRB(
+                        gap2WindowHalf, 0, gap2Window, gap2Window),
+                    child: Padding(
+                      padding: const EdgeInsets.all(gapText2Console),
+                      child: TextField(
+                        style: TextStyle(
+                          fontFamily: 'CourierPrime',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).primaryColor,
+                        ),
+    
+                        decoration: InputDecoration(
+                            // border: const OutlineInputBorder(),
+    
+                            suffixIcon: PieMenu(
+                          theme: PieTheme(
+                            buttonTheme: PieButtonTheme(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.secondary,
+                                iconColor:
+                                    Theme.of(context).colorScheme.onSecondary),
+                            buttonThemeHovered: PieButtonTheme(
+                                backgroundColor:
+                                    Theme.of(context).colorScheme.primary,
+                                iconColor:
+                                    Theme.of(context).colorScheme.onPrimary),
+                          ),
+                          actions: [
+                            PieAction(
+                              tooltip: Text(
+                                'like',
+                                style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary),
+                              ),
+                              onSelect: () {},
+                              child: const Icon(
+                                  Icons.file_open_rounded), // Can be any widget
+                            ),
+                            PieAction(
+                              tooltip: Text(
+                                '啊？',
+                                style: TextStyle(
+                                    color: Theme.of(context).colorScheme.primary),
+                              ),
+                              onSelect: () {},
+                              child:
+                                  const Icon(Icons.delete), // Can be any widget
+                            )
+                          ],
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.reply_rounded,
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                            onPressed: () {},
+                          ),
+                        )),
+    
+                        // expands: true,
+                        maxLines: 10,
+                        minLines: 1,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
-      ))),
+          ],
+        ))),
+      ),
     );
   }
 }

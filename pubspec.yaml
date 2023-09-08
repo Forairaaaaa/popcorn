@@ -41,6 +41,7 @@ dependencies:
   pie_menu: ^2.0.2
   web_smooth_scroll: ^1.1.0
   easy_localization: ^3.0.3
+  provider: ^6.0.5
 
 
 dev_dependencies:
