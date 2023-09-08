@@ -28,8 +28,6 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
 
   @override
   Widget build(BuildContext context) {
-    // Use menu anchor
-    // https://api.flutter.dev/flutter/material/PopupMenuButton-class.html
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
         return Tooltip(
@@ -104,7 +102,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
             Positioned(
               // Popup along side with the triger
               left: buttonPosition[0]!,
-              top: buttonPosition[1]! + 32,
+              top: buttonPosition[1]!,
               width: 400,
 
               // Tilt card
@@ -147,6 +145,26 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
     );
   }
 
+  /// A nice title
+  Padding popupMenuTitle(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(csGap2Window, csGap2Window, 0.0, 0.0),
+      child: Row(
+        children: [
+          Icon(
+            Icons.speed_rounded,
+            color: ccIcon(context),
+          ),
+          const SizedBox(width: csGap2WindowHalf,),
+          Text(
+            'serial_port',
+            style: csPopupMenuTitleText(context),
+          ).tr(gender: 'baud_rate'),
+        ],
+      ),
+    );
+  }
+
   /// Lot of chips
   Padding popupMenuBody(ModelSerialPort model) {
     return Padding(
@@ -182,21 +200,6 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
             );
           },
         ),
-      ),
-    );
-  }
-
-  /// A nice title
-  Padding popupMenuTitle(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(csGap2Window, csGap2Window, 0.0, 0.0),
-      child: Row(
-        children: [
-          Text(
-            'serial_port',
-            style: csPopupMenuTitleText(context),
-          ).tr(gender: 'baud_rate'),
-        ],
       ),
     );
   }
