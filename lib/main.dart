@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:provider/provider.dart';
 import 'views/home/home_page.dart';
+import 'models/model_serial_port.dart';
 
 
 void main() async {
@@ -26,31 +28,36 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      
-      // https://pub.dev/packages/easy_localization
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
+    return ChangeNotifierProvider(
+      // Model serial port 
+      create: (context) => ModelSerialPort(),
 
-      title: 'Popcorn',
-
-      // Theme shit 
-      theme: ThemeData(
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
-        useMaterial3: true,
+      child: MaterialApp(
+        
+        // https://pub.dev/packages/easy_localization
+        localizationsDelegates: context.localizationDelegates,
+        supportedLocales: context.supportedLocales,
+        locale: context.locale,
+    
+        title: 'Popcorn',
+    
+        // Theme shit 
+        theme: ThemeData(
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+          useMaterial3: true,
+        ),
+    
+        // Pages 
+        initialRoute: '/home',
+        routes: {
+          '/home' :(context) => const PopcornHomePage(),
+        },
+    
       ),
-
-      // Pages 
-      initialRoute: '/home',
-      routes: {
-        '/home' :(context) => const PopcornHomePage(),
-      },
-
     );
   }
 }
