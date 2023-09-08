@@ -1,8 +1,10 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:popcorn/common/colors.dart';
 import 'package:popcorn/models/model_serial_port.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_tilt/flutter_tilt.dart';
+import 'package:popcorn/common/styles.dart';
 
 /// A button with menu to select serial port name
 class WidgetButtonSetBaudRate extends StatefulWidget {
@@ -32,10 +34,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
       builder: (context, model, child) {
         return Tooltip(
           message: '${model.baudRate}',
-          textStyle: TextStyle(
-            fontSize: 18.0,
-            color: Theme.of(context).colorScheme.onSecondary,
-          ),
+          textStyle: csTooltipText(context),
           waitDuration: const Duration(milliseconds: 400),
 
           // A nice button
@@ -44,8 +43,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
             key: buttonKey,
 
             // Slim it
-            style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(6))),
+            style: csButtonControlPanel(),
 
             // Route to page popup menu
             onPressed: () {
@@ -68,7 +66,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
             // Icon
             child: Icon(
               Icons.speed_rounded,
-              color: Theme.of(context).colorScheme.secondary,
+              color: ccIcon(context),
             ),
           ),
         );
@@ -87,12 +85,10 @@ class _PagePopupMenu extends StatefulWidget {
 
 class _PagePopupMenuState extends State<_PagePopupMenu>
     with TickerProviderStateMixin {
-  final double gap2Window = 18.0;
-  final double gap2WindowHalf = 9.0;
-
   @override
   Widget build(BuildContext context) {
-    final buttonPosition = ModalRoute.of(context)!.settings.arguments as List<double?>;
+    final buttonPosition =
+        ModalRoute.of(context)!.settings.arguments as List<double?>;
 
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
@@ -108,77 +104,100 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
             Positioned(
               // Popup along side with the triger
               left: buttonPosition[0]!,
-              top: buttonPosition[1]!,
+              top: buttonPosition[1]! + 32,
               width: 400,
 
-              // Wrap this to aviod widget overflow
-              child: SingleChildScrollView(
-                // A card panel
-                child: Card(
-                  // Cloumn layout
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // A nice Title :)
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            gap2Window, gap2Window, 0.0, 0.0),
-                        child: const Text(
-                          'serial_port',
-                          style: TextStyle(fontSize: 18.0),
-                        ).tr(gender: 'baud_rate'),
-                      ),
-
-                      // A nice divider :)
-                      const Divider(),
-
-                      // A wrap for chips
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(
-                            gap2Window, gap2WindowHalf, gap2Window, gap2Window),
-                        child: Wrap(
-                          // Space between chips
-                          spacing: gap2WindowHalf,
-                          runSpacing: gap2WindowHalf,
-
-                          // Generate chips with [availableBaudRateList] in model
-                          children: List<Widget>.generate(
-                            model.availableBaudRateList.length,
-
-                            // Build function
-                            (int index) {
-                              return ChoiceChip(
-                                // Looks like shit without this :(
-                                clipBehavior: Clip.antiAliasWithSaveLayer,
-                                elevation: 2.0,
-
-                                // Baud rate
-                                label: Text(
-                                    '${model.availableBaudRateList[index]}'),
-
-                                // Can only select one
-                                selected: model.baudRate ==
-                                    model.availableBaudRateList[index],
-                                onSelected: (bool selected) {
-                                  // no way to unselect :)
-                                  if (selected) {
-                                    model.baudRate =
-                                        model.availableBaudRateList[index];
-                                  }
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
+              // Tilt card
+              child: popupMenu(context, model),
             ),
           ],
         );
       },
+    );
+  }
+
+  /// A tilt card
+  Tilt popupMenu(BuildContext context, ModelSerialPort model) {
+    return Tilt(
+      tiltConfig: const TiltConfig(
+        angle: 2.0,
+        enableRevert: false,
+        enableSensorRevert: false,
+      ),
+      lightConfig: const LightConfig(disable: true),
+      shadowConfig: const ShadowConfig(disable: true),
+
+      // A card panel
+      child: Card(
+        // Cloumn layout
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // A nice Title :)
+            popupMenuTitle(context),
+
+            // A nice divider :)
+            const Divider(),
+
+            // Chips
+            popupMenuBody(model)
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// Lot of chips
+  Padding popupMenuBody(ModelSerialPort model) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+          csGap2Window, csGap2WindowHalf, csGap2Window, csGap2Window),
+      child: Wrap(
+        // Space between chips
+        spacing: csGap2WindowHalf,
+        runSpacing: csGap2WindowHalf,
+
+        // Generate chips with [availableBaudRateList] in model
+        children: List<Widget>.generate(
+          model.availableBaudRateList.length,
+
+          // Build function
+          (int index) {
+            return ChoiceChip(
+              // Looks like shit without this :(
+              clipBehavior: Clip.antiAliasWithSaveLayer,
+              elevation: 2.0,
+
+              // Baud rate
+              label: Text('${model.availableBaudRateList[index]}'),
+
+              // Can only select one
+              selected: model.baudRate == model.availableBaudRateList[index],
+              onSelected: (bool selected) {
+                // no way to unselect :)
+                if (selected) {
+                  model.baudRate = model.availableBaudRateList[index];
+                }
+              },
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  /// A nice title
+  Padding popupMenuTitle(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(csGap2Window, csGap2Window, 0.0, 0.0),
+      child: Row(
+        children: [
+          Text(
+            'serial_port',
+            style: csPopupMenuTitleText(context),
+          ).tr(gender: 'baud_rate'),
+        ],
+      ),
     );
   }
 }

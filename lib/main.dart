@@ -45,9 +45,10 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.yellow),
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
+          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightGreen),
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.pink),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
           useMaterial3: true,
         ),
     

@@ -285,54 +285,10 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                     ),
                   ),
     
-                  const SizedBox(
-                    height: gap2Window,
-                  ),
-    
-                  PieMenu(
-                      theme: PieTheme(
-                        buttonTheme: PieButtonTheme(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.secondary,
-                            iconColor:
-                                Theme.of(context).colorScheme.onSecondary),
-                        buttonThemeHovered: PieButtonTheme(
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            iconColor: Theme.of(context).colorScheme.onPrimary),
-    
-                        // delayDuration: Duration.zero,
-    
-                        rightClickShowsMenu: true,
-                      ),
-                      actions: [
-                        PieAction(
-                          tooltip: Text(
-                            'like',
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                          onSelect: () {},
-                          child: const Icon(
-                              Icons.save_rounded), // Can be any widget
-                        ),
-                        PieAction(
-                          tooltip: Text(
-                            '啊？',
-                            style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary),
-                          ),
-                          onSelect: () {},
-                          child: const Icon(Icons.delete), // Can be any widget
-                        )
-                      ],
-                      child: TextButton(
-                        child: Icon(
-                          Icons.textsms_outlined,
-                          color: Theme.of(context).colorScheme.secondary,
-                        ),
-                        onPressed: () {},
-                      )),
+                
+
+
+                
                 ],
               ),
             ),
@@ -369,7 +325,7 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                         fontFamily: 'CourierPrime',
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
-                        color: Theme.of(context).primaryColor,
+                        color: Theme.of(context).colorScheme.shadow,
                       ),
                     ),
                   ),
