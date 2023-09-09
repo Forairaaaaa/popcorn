@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 import 'widgets/widget_pie_menu_avatar.dart';
 import 'widgets/widget_serial_port_swtich.dart';
-import 'widgets/widget_set_port_button.dart';
+import 'widgets/widget_button_set_port.dart';
 import 'widgets/widget_button_set_baud_rate.dart';
 
 
@@ -249,7 +249,7 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                   //     color: buttonIconColor,
                   //   ),
                   // ),
-                  const WidgetSetPortButton(),
+                  const WidgetButtonSetPort(),
     
                   const SizedBox(
                     height: gap2Window,

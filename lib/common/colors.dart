@@ -5,3 +5,4 @@ Color ccIcon(BuildContext context) =>
     Theme.of(context).colorScheme.secondary;
 
 
+Color ccBarrierColor = Colors.transparent;

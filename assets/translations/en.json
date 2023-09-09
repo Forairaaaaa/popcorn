@@ -6,7 +6,7 @@
 
     "serial_port" : {
         "current_port" : "Port",
-        "port_name": "Port Name",
+        "port_name": "Port",
         "baud_rate": "Baud Rate",
         "parity": "Parity",
         "data_bits": "Data Bits",

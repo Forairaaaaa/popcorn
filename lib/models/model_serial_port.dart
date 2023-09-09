@@ -1,10 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 /// Model to provide serial port's shit
 class ModelSerialPort extends ChangeNotifier {
-  
   /// Port name
-  String _portName = '???';
+  String _portName = 'not_selected'.tr();
 
   /// Get port name
   String get portName => _portName;
@@ -18,10 +18,10 @@ class ModelSerialPort extends ChangeNotifier {
   /// Baud rate
   int _baudRate = 115200;
 
-  /// Get baud rate 
+  /// Get baud rate
   int get baudRate => _baudRate;
 
-  /// Set baud rate 
+  /// Set baud rate
   set baudRate(int baudRate) {
     _baudRate = baudRate;
     notifyListeners();
@@ -62,20 +62,27 @@ class ModelSerialPort extends ChangeNotifier {
     1500000,
   ];
 
+  /// Available serial port list
+  List<String> _availablePortList = [];
+
   /// Get available serial port list
-  List<String> get availablePortList {
+  List<String> get availablePortList => _availablePortList;
+
+  /// Update available serial port list
+  void updateAvailablePortList() {
     // TODO
-    return [
+    _availablePortList = [
       "COM1",
-      "COM23",
-      "COM23",
-      "COM23",
-      "COM23",
-      "COM23",
-      "COM23",
+      "COM6",
+      "COM7",
+      "COM66",
+      "COM233",
+      "COM114514",
+      "啊？",
       "COM114514",
       "/dev/ttyACM0"
     ];
+    notifyListeners();
   }
 
   /// Open the port

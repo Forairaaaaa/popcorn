@@ -8,16 +8,15 @@ import 'package:provider/provider.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:popcorn/common/styles.dart';
 
-/// A button with menu to select serial baud rate
-class WidgetButtonSetBaudRate extends StatefulWidget {
-  const WidgetButtonSetBaudRate({super.key});
+/// A button with menu to select serial port name
+class WidgetButtonSetPort extends StatefulWidget {
+  const WidgetButtonSetPort({super.key});
 
   @override
-  State<WidgetButtonSetBaudRate> createState() =>
-      _WidgetButtonSetBaudRateState();
+  State<WidgetButtonSetPort> createState() => _WidgetButtonSetPortState();
 }
 
-class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
+class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
   final buttonKey = GlobalKey();
   Offset buttonPosition = const Offset(0, 0);
 
@@ -29,6 +28,8 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
   }
 
   void buttonOnPressed(ModelSerialPort model) {
+    // Update port list
+    model.updateAvailablePortList();
     // Get button position
     getPostion();
     Navigator.of(context).push(
@@ -51,7 +52,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
         return Tooltip(
-          message: '${model.baudRate}',
+          message: model.portName,
           textStyle: csTooltipText(context),
           waitDuration: const Duration(milliseconds: 400),
 
@@ -70,7 +71,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
 
             // Icon
             child: Icon(
-              Icons.speed_rounded,
+              Icons.usb_rounded,
               color: ccIcon(context),
             ),
           ),
@@ -97,7 +98,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
-        // Blur the background 
+        // Blur the background
         return BackdropFilter(
           filter: csPopupMenuBgBlur,
 
@@ -159,7 +160,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
       child: Row(
         children: [
           Icon(
-            Icons.speed_rounded,
+            Icons.usb_rounded,
             color: ccIcon(context),
           ),
           const SizedBox(
@@ -168,7 +169,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
           Text(
             'serial_port',
             style: csPopupMenuTitleText(context),
-          ).tr(gender: 'baud_rate'),
+          ).tr(gender: 'port_name'),
         ],
       ),
     );
@@ -184,9 +185,9 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
         spacing: csGap2WindowHalf,
         runSpacing: csGap2WindowHalf,
 
-        // Generate chips with [availableBaudRateList] in model
+        // Generate chips with [availablePortList] in model
         children: List<Widget>.generate(
-          model.availableBaudRateList.length,
+          model.availablePortList.length,
 
           // Build function
           (int index) {
@@ -196,14 +197,14 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
               elevation: 1.0,
 
               // Baud rate
-              label: Text('${model.availableBaudRateList[index]}'),
+              label: Text(model.availablePortList[index]),
 
               // Can only select one
-              selected: model.baudRate == model.availableBaudRateList[index],
+              selected: model.portName == model.availablePortList[index],
               onSelected: (bool selected) {
                 // no way to unselect :)
                 if (selected) {
-                  model.baudRate = model.availableBaudRateList[index];
+                  model.portName = model.availablePortList[index];
                 }
               },
             );
