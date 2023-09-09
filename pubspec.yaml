@@ -36,14 +36,14 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
-  google_fonts: ^5.1.0
-  line_icons: ^2.0.3
   pie_menu: ^2.0.2
-  web_smooth_scroll: ^1.1.0
   easy_localization: ^3.0.3
   provider: ^6.0.5
-  flutter_animate: ^4.2.0+1
   flutter_tilt: ^2.0.0
+  flutter_acrylic: ^1.1.3
+  bitsdojo_window: ^0.1.5
+  animations: ^2.0.8
+  flutter_animate: ^4.2.0+1
 
 
 dev_dependencies:
@@ -102,13 +102,19 @@ flutter:
     - family: OxygenMono
       fonts:
         - asset: assets/fonts/OxygenMono-Regular.ttf
+
     - family: CourierPrime
       fonts:
         - asset: assets/fonts/CourierPrime-Regular.ttf
 
+    - family: Noto Sans Mono
+      fonts:
+        - asset: assets/fonts/NotoSansMono-VariableFont_wdth,wght.ttf
+
 
   assets:
     - assets/translations/
+    - assets/images/
     
     
           

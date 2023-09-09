@@ -41,11 +41,11 @@ LightConfig csTiltLightConfigPopupMenu() => const LightConfig(disable: true);
 
 ShadowConfig csTiltShadowConfig() {
   return const ShadowConfig(
-    // disable: true,
+    disable: true,
     enableReverse: true,
     maxIntensity: 0.4,
     offsetFactor: 0.05,
   );
 }
 
-ImageFilter csPopupMenuBgBlur = ImageFilter.blur(sigmaX: 15, sigmaY: 15);
+ImageFilter csPopupMenuBgBlur = ImageFilter.blur(sigmaX: 15, sigmaY: 15,);

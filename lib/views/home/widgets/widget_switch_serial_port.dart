@@ -5,14 +5,14 @@ import 'package:provider/provider.dart';
 
 /// A switch to open and close serial port,
 /// Depends on [ModelSerialPort]
-class WidgetSerialPortSwitch extends StatefulWidget {
-  const WidgetSerialPortSwitch({super.key});
+class WidgetSwitchSerialPort extends StatefulWidget {
+  const WidgetSwitchSerialPort({super.key});
 
   @override
-  State<WidgetSerialPortSwitch> createState() => _WidgetSerialPortSwitchState();
+  State<WidgetSwitchSerialPort> createState() => _WidgetSwitchSerialPortState();
 }
 
-class _WidgetSerialPortSwitchState extends State<WidgetSerialPortSwitch> {
+class _WidgetSwitchSerialPortState extends State<WidgetSwitchSerialPort> {
   // State property icon
   final MaterialStateProperty<Icon?> thumbIconSerialSwitch =
       MaterialStateProperty.resolveWith<Icon?>(

@@ -1,11 +1,9 @@
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_menu/pie_menu.dart';
-import 'package:easy_localization/easy_localization.dart';
-import 'package:popcorn/models/model_serial_port.dart';
-import 'package:provider/provider.dart';
 
 import 'widgets/widget_pie_menu_avatar.dart';
-import 'widgets/widget_serial_port_swtich.dart';
+import 'widgets/widget_switch_serial_port.dart';
 import 'widgets/widget_button_set_port.dart';
 import 'widgets/widget_button_set_baud_rate.dart';
 
@@ -41,7 +39,7 @@ class _PopcornHomePageState extends State<PopcornHomePage> {
     // Basic layout parameters
     const double gap2Window = 18.0;
     const double gap2WindowHalf = 9.0;
-    const double gapText2Console = 12.0;
+    const double gapText2Console = 18.0;
 
     const String testShit = """
 I (851) spi_flash: flash io: qio
@@ -177,8 +175,12 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
 
     Color buttonIconColor = Theme.of(context).colorScheme.secondary;
 
+
     return PieCanvas(
       child: Scaffold(
+
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5),
+      
           body: SafeArea(
               child: Row(
         children: [
@@ -187,17 +189,17 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
             width: 82,
             child: Padding(
               padding: const EdgeInsets.fromLTRB(
-                  gap2Window, gap2Window, gap2WindowHalf, gap2Window),
+                  gap2Window, 6, gap2WindowHalf, gap2Window),
               child: ListView(
                 children: [
                   // PieMenu(
                   //   theme: PieTheme(
                   //     buttonTheme: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.secondary, iconColor: Theme.of(context).colorScheme.onSecondary),
                   //     buttonThemeHovered: PieButtonTheme(backgroundColor: Theme.of(context).colorScheme.primary, iconColor: Theme.of(context).colorScheme.onPrimary),
-    
+        
                   //     leftClickShowsMenu: true,
                   //     rightClickShowsMenu: true,
-    
+        
                   //   ),
                   //   actions: [
                   //     PieAction(
@@ -213,17 +215,17 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                   //       child: const Icon(Icons.settings), // Can be any widget
                   //     )
                   //   ],
-    
+        
                   //   child: const CircleAvatar(
                   //     radius: 26,
                   //   ),
                   // ),
-    
+        
                   const WidgetPieMenuAvatar(),
-    
+        
                   // Little gap
                   const SizedBox(height: gap2Window),
-    
+        
                   // Switch(
                   //   thumbIcon: thumbIconSwitchStart,
                   //   value: valueSwitchStart,
@@ -233,16 +235,16 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                   //     });
                   //   },
                   // ),
-                  const WidgetSerialPortSwitch(),
-    
+                  const WidgetSwitchSerialPort(),
+        
                   const SizedBox(
                     height: gap2Window,
                   ),
-    
+        
                   // ElevatedButton(
                   //   style: buttonStyleControlPanel,
                   //   onPressed: () {
-    
+        
                   //   },
                   //   child: Icon(
                   //     Icons.usb,
@@ -250,13 +252,13 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                   //   ),
                   // ),
                   const WidgetButtonSetPort(),
-    
+        
                   const SizedBox(
                     height: gap2Window,
                   ),
-    
-    
-    
+        
+        
+        
                   // ElevatedButton(
                   //   style: buttonStyleControlPanel,
                   //   onPressed: () {},
@@ -266,16 +268,19 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                   //   ),
                   // ),
                   const WidgetButtonSetBaudRate(),
+      
+      
 
 
 
+      
                   
-    
-    
+        
+        
                   const SizedBox(
                     height: gap2Window,
                   ),
-    
+        
                   ElevatedButton(
                     style: buttonStyleControlPanel,
                     onPressed: () {},
@@ -284,118 +289,121 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
                       color: buttonIconColor,
                     ),
                   ),
-    
+        
                 
-
-
+      
+      
                 
                 ],
               ),
             ),
           ),
-    
+        
           // Console windows pannel
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+
+
+
+                WindowTitleBarBox(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: MoveWindow(),
+                      ),
+
+                      WindowButtons(),
+                    ],
+                  ),
+                ),
+
+
+
+
                 // Window receive
                 Expanded(
-                    child: Card(
-                  margin: const EdgeInsets.fromLTRB(
-                      gap2WindowHalf, gap2Window, gap2Window, gap2Window),
-                  child: Padding(
-                    padding: const EdgeInsets.all(gapText2Console),
-    
-                    // child: SelectableText(
-                    //   testShit
-                    //   ,
-                    //   style: TextStyle(
-                    //     fontFamily: 'CourierPrime',
-                    //     fontSize: 16,
-                    //     fontWeight: FontWeight.w500,
-                    //     color: Theme.of(context).primaryColor,
-                    //   ),
-                    // ),
-    
-                    child: SelectableText(
-                      testShit,
-                      style: TextStyle(
-                        fontFamily: 'CourierPrime',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).colorScheme.shadow,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(18, 18, 18, 0),
+        
+                      child: SelectableText(
+                        testShit,
+                        style: TextStyle(
+                          fontFamily: 'CourierPrime',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: Theme.of(context).colorScheme.onBackground,
+                        ),
                       ),
-                    ),
-                  ),
-                )),
-    
+                    )),
+        
+
+
+
+
                 // Window send
-                Card(
-                  margin: const EdgeInsets.fromLTRB(
-                      gap2WindowHalf, 0, gap2Window, gap2Window),
-                  child: Padding(
-                    padding: const EdgeInsets.all(gapText2Console),
-                    child: TextField(
-                      style: TextStyle(
-                        fontFamily: 'CourierPrime',
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).primaryColor,
-                      ),
-    
-                      decoration: InputDecoration(
-                          // border: const OutlineInputBorder(),
-    
-                          suffixIcon: PieMenu(
-                        theme: PieTheme(
-                          buttonTheme: PieButtonTheme(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.secondary,
-                              iconColor:
-                                  Theme.of(context).colorScheme.onSecondary),
-                          buttonThemeHovered: PieButtonTheme(
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.primary,
-                              iconColor:
-                                  Theme.of(context).colorScheme.onPrimary),
-                        ),
-                        actions: [
-                          PieAction(
-                            tooltip: Text(
-                              'like',
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                            onSelect: () {},
-                            child: const Icon(
-                                Icons.file_open_rounded), // Can be any widget
-                          ),
-                          PieAction(
-                            tooltip: Text(
-                              '啊？',
-                              style: TextStyle(
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                            onSelect: () {},
-                            child:
-                                const Icon(Icons.delete), // Can be any widget
-                          )
-                        ],
-                        child: IconButton(
-                          icon: Icon(
-                            Icons.reply_rounded,
-                            color: Theme.of(context).colorScheme.secondary,
-                          ),
-                          onPressed: () {},
-                        ),
-                      )),
-    
-                      // expands: true,
-                      maxLines: 10,
-                      minLines: 1,
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(gap2Window, 0, gap2Window, gap2Window),
+                  child: TextField(
+                    style: TextStyle(
+                      fontFamily: 'CourierPrime',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).colorScheme.onBackground,
                     ),
+        
+                    decoration: InputDecoration(
+                        // border: const OutlineInputBorder(),
+        
+                        suffixIcon: PieMenu(
+                      theme: PieTheme(
+                        buttonTheme: PieButtonTheme(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            iconColor:
+                                Theme.of(context).colorScheme.onSecondary),
+                        buttonThemeHovered: PieButtonTheme(
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            iconColor:
+                                Theme.of(context).colorScheme.onPrimary),
+                      ),
+                      actions: [
+                        PieAction(
+                          tooltip: Text(
+                            'like',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          onSelect: () {},
+                          child: const Icon(
+                              Icons.file_open_rounded), // Can be any widget
+                        ),
+                        PieAction(
+                          tooltip: Text(
+                            '啊？',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary),
+                          ),
+                          onSelect: () {},
+                          child:
+                              const Icon(Icons.delete), // Can be any widget
+                        )
+                      ],
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.reply_rounded,
+                          color: Theme.of(context).colorScheme.secondary,
+                        ),
+                        onPressed: () {},
+                      ),
+                    )),
+        
+                    // expands: true,
+                    maxLines: 10,
+                    minLines: 1,
                   ),
                 ),
               ],
@@ -403,6 +411,35 @@ I (1194) gpio: GPIO[0]| InputEn: 0| OutputEn: 0| OpenDrain: 0| Pullup: 1| Pulldo
           ),
         ],
       ))),
+    );
+  }
+}
+
+
+final buttonColors = WindowButtonColors(
+    iconNormal: const Color(0xFF805306),
+    mouseOver: const Color(0xFFF6A00C),
+    mouseDown: const Color(0xFF805306),
+    iconMouseOver: const Color(0xFF805306),
+    iconMouseDown: const Color(0xFFFFD500));
+
+final closeButtonColors = WindowButtonColors(
+    mouseOver: const Color(0xFFD32F2F),
+    mouseDown: const Color(0xFFB71C1C),
+    iconNormal: const Color(0xFF805306),
+    iconMouseOver: Colors.white);
+
+
+class WindowButtons extends StatelessWidget {
+  const WindowButtons({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MinimizeWindowButton(colors: buttonColors),
+        MaximizeWindowButton(colors: buttonColors),
+        CloseWindowButton(colors: closeButtonColors),
+      ],
     );
   }
 }

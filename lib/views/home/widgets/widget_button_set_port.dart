@@ -1,7 +1,6 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:popcorn/common/colors.dart';
 import 'package:popcorn/models/model_serial_port.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +38,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
       settings: RouteSettings(
         arguments: [buttonPosition.dx, buttonPosition.dy],
       ),
-      barrierColor: ccBarrierColor,
+      barrierColor: ccBarrierColor(context),
       context: context,
       builder: (context) {
         return const _PagePopupMenu();
@@ -57,7 +56,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
           waitDuration: const Duration(milliseconds: 400),
 
           // A nice button
-          child: ElevatedButton(
+          child: IconButton(
             // Key for position getting
             key: buttonKey,
 
@@ -70,7 +69,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
             },
 
             // Icon
-            child: Icon(
+            icon: Icon(
               Icons.usb_rounded,
               color: ccIcon(context),
             ),
@@ -135,6 +134,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
       // A card panel
       child: Card(
+        elevation: 0.0,
+
         // Cloumn layout
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +150,11 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
             popupMenuBody(model)
           ],
         ),
-      ),
+      )
+          // Shake items out
+          .animate()
+          .slideX(duration: 300.ms, curve: Curves.easeOutCubic)
+          .fadeIn(),
     );
   }
 
@@ -207,7 +212,20 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                   model.portName = model.availablePortList[index];
                 }
               },
-            );
+            )
+                // Item slide in anim
+                .animate()
+                .slideX(
+                  duration: 600.ms,
+                  begin: -6,
+                  delay: (20 * index).ms,
+                  // curve: const Cubic(.35, 1.36, .74, 1.03),
+                  curve: Curves.easeOutCubic
+                )
+                .fadeIn(
+                  // duration: 200.ms,
+                  delay: (50 * index).ms,
+                );
           },
         ),
       ),
