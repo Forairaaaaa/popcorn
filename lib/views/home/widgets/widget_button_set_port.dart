@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:popcorn/models/model_serial_port.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 import 'package:popcorn/common/popcorn_common.dart';
+import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
 
 /// A button with menu to select serial port name
 class WidgetButtonSetPort extends StatefulWidget {
@@ -25,13 +25,21 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
         .zero); //this is global position/this is y - I think it's what you want
   }
 
-  void buttonOnPressed(ModelSerialPort model) {
-    // Update port list
-    model.updateAvailablePortList();
+  void buttonOnPressed(BuildContext context, SerialPortState state) {
+
+    // Return if opened already 
+    if (state.isOpened) {
+      return;
+    }
+
+    // Send update port list event
+    context.read<SerialPortBloc>().add(const SerialPortUpdateAvailablePorts());
+
     // Get button position
     getPostion();
     Navigator.of(context).push(
-        // With hero anim route
+
+        // Route a menu page
         DialogRoute(
       // Pass button's position
       settings: RouteSettings(
@@ -47,11 +55,11 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
 
   @override
   Widget build(BuildContext context) {
-    // Bind model 
-    return Consumer<ModelSerialPort>(
-      builder: (context, model, child) {
+    // Bind bloc
+    return BlocBuilder<SerialPortBloc, SerialPortState>(
+      builder: (context, state) {
         return Tooltip(
-          message: model.portName,
+          message: state.portName,
           textStyle: PopcornCommon.styleTooltipText(context),
           waitDuration: const Duration(milliseconds: 400),
 
@@ -65,7 +73,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
 
             // Route to page popup menu
             onPressed: () {
-              buttonOnPressed(model);
+              buttonOnPressed(context, state);
             },
 
             // Icon
@@ -95,8 +103,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
     final buttonPosition =
         ModalRoute.of(context)!.settings.arguments as List<double?>;
 
-    return Consumer<ModelSerialPort>(
-      builder: (context, model, child) {
+    return BlocBuilder<SerialPortBloc, SerialPortState>(
+      builder: (context, state) {
         // Blur the background
         return BackdropFilter(
           filter: PopcornCommon.stylePopupMenuBgBlur,
@@ -116,7 +124,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                 width: 400,
 
                 // Tilt card
-                child: popupMenu(context, model),
+                child: popupMenu(context, state),
               ),
             ],
           ),
@@ -126,7 +134,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   }
 
   /// A tilt card
-  Tilt popupMenu(BuildContext context, ModelSerialPort model) {
+  Tilt popupMenu(BuildContext context, SerialPortState state) {
     return Tilt(
       tiltConfig: PopcornCommon.tiltConfigPopupMenu,
       lightConfig: PopcornCommon.tiltLightConfigPopupMenu,
@@ -147,7 +155,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
             const Divider(),
 
             // Chips
-            popupMenuBody(model)
+            popupMenuBody(context, state)
           ],
         ),
       )
@@ -162,7 +170,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A nice title
   Padding popupMenuTitle(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(PopcornCommon.gap2Window, PopcornCommon.gap2Window, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(
+          PopcornCommon.gap2Window, PopcornCommon.gap2Window, 0.0, 0.0),
       child: Row(
         children: [
           Icon(
@@ -182,10 +191,13 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   }
 
   /// Lot of chips
-  Padding popupMenuBody(ModelSerialPort model) {
+  Padding popupMenuBody(BuildContext context, SerialPortState state) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          PopcornCommon.gap2Window, PopcornCommon.gap2WindowHalf, PopcornCommon.gap2Window, PopcornCommon.gap2Window),
+          PopcornCommon.gap2Window,
+          PopcornCommon.gap2WindowHalf,
+          PopcornCommon.gap2Window,
+          PopcornCommon.gap2Window),
       child: Wrap(
         // Space between chips
         spacing: PopcornCommon.gap2WindowHalf,
@@ -193,7 +205,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
         // Generate chips with [availablePortList] in model
         children: List<Widget>.generate(
-          model.availablePortList.length,
+          state.availablePorts.length,
 
           // Build function
           (int index) {
@@ -203,25 +215,20 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
               elevation: 1.0,
 
               // Baud rate
-              label: Text(model.availablePortList[index]),
+              label: Text(state.availablePorts[index]),
 
               // Can only select one
-              selected: model.portName == model.availablePortList[index],
+              selected: state.portName == state.availablePorts[index],
               onSelected: (bool selected) {
                 // no way to unselect :)
                 if (selected) {
-                  model.portName = model.availablePortList[index];
+                  context.read<SerialPortBloc>().add(
+                      SerialPortPortNameChanged(state.availablePorts[index]));
                 }
               },
             )
                 // Item slide in anim
                 .animate()
-                .slideX(
-                    duration: 300.ms,
-                    begin: -6,
-                    delay: (15 * index).ms,
-                    // curve: const Cubic(.35, 1.36, .74, 1.03),
-                    curve: Curves.easeOutCubic)
                 .fadeIn(
                   // duration: 200.ms,
                   delay: (40 * index).ms,

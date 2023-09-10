@@ -1,8 +1,8 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
 import 'package:popcorn/common/popcorn_common.dart';
-import 'package:popcorn/models/model_serial_port.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 class WidgetWindowTitleBar extends StatelessWidget {
@@ -112,26 +112,47 @@ class _TitleBarLabel extends StatefulWidget {
 }
 
 class _TitleBarLabelState extends State<_TitleBarLabel> {
+  AnimationController? animController;
+  String statusLabel = '';
+
+  void updateStatusLabel(bool isOpened, String portName) {
+    statusLabel = isOpened ? '🟢 $portName' : '';
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ModelSerialPort>(
-      builder: (context, model, child) {
-
-    
-        return Text(
-          // "🟢COM23",
-          // "🟡/dev/tty114514",
-          model.labelStatus,
-          style: TextStyle(
-            fontFamily: 'Noto Sans Mono',
-            color: Theme.of(context).colorScheme.outline,
-            fontWeight: FontWeight.w600,
-          ),
-        ).animate(
-          autoPlay: true
-        ).fadeIn();
+    return BlocListener<SerialPortBloc, SerialPortState>(
+      
+      // Only rebuild when open state changed 
+      listenWhen: (previous, current) {
+        return current.isOpened != previous.isOpened;
       },
+
+      // Listen state changed
+      listener: (context, state) {
+        updateStatusLabel(state.isOpened, state.portName);
+        // Reset text and anim
+        setState(() {
+          animController?.reset();
+          animController?.forward();
+        });
+      },
+
+      child: Text(
+        // "🟢 COM23",
+        // "🟡 /dev/tty114514",
+        statusLabel,
+        style: TextStyle(
+          fontFamily: 'Noto Sans Mono',
+          color: Theme.of(context).colorScheme.outline,
+          fontWeight: FontWeight.w600,
+        ),
+      ).animate(
+        onInit: (controller) {
+          // Store controller
+          animController = controller;
+        },
+      ).fade(duration: 400.ms),
     );
   }
 }

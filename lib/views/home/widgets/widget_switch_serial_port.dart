@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:popcorn/models/model_serial_port.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
 
-/// A switch to open and close serial port,
-/// Depends on [ModelSerialPort]
+/// A switch to open and close serial port
+/// Binding to a [SerialPortBloc]
 class WidgetSwitchSerialPort extends StatefulWidget {
   const WidgetSwitchSerialPort({super.key});
 
@@ -26,12 +26,12 @@ class _WidgetSwitchSerialPortState extends State<WidgetSwitchSerialPort> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ModelSerialPort>(
-      builder: (context, model, child) {
+    return BlocBuilder<SerialPortBloc, SerialPortState>(
+      builder: (context, state) {
         return Tooltip(
           // Tool tip settings
-          message: 'serial_port'
-              .tr(gender: model.isConnected ? "connected" : "disconnect"),
+          message:
+              'serial_port'.tr(gender: state.isOpened ? "opened" : "closed"),
           textStyle: TextStyle(
             fontSize: 18.0,
             color: Theme.of(context).colorScheme.onSecondary,
@@ -41,12 +41,13 @@ class _WidgetSwitchSerialPortState extends State<WidgetSwitchSerialPort> {
           // A switch with thumb icon :)
           child: Switch(
             thumbIcon: thumbIconSerialSwitch,
-            value: model.isConnected,
+            value: state.isOpened,
+            // Fire event
             onChanged: (value) {
               if (value) {
-                model.open();
+                context.read<SerialPortBloc>().add(const SerialPortOpen());
               } else {
-                model.close();
+                context.read<SerialPortBloc>().add(const SerialPortClose());
               }
             },
           ),

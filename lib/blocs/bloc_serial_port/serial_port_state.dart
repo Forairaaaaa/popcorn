@@ -1,31 +1,14 @@
+/// Reference:
+/// https://github.com/felangel/bloc/blob/master/examples/flutter_login/lib/login/bloc/login_state.dart
 part of 'serial_port_bloc.dart';
 
-/// State data
-sealed class SerialPortState {
-  SerialPortState({
-    required this.isConnected,
-    required this.portName,
-    required this.baudRate,
-    required this.labelStatus,
-    required this.availableBaudRateList,
-    required this.availablePorts,
-  });
-  bool isConnected;
-  String portName;
-  int baudRate;
-  String labelStatus;
-  List<int> availableBaudRateList;
-  List<String> availablePorts;
-}
-
-/// Default state
-final class SerialPortInitial extends SerialPortState {
-  SerialPortInitial({
-    super.isConnected = false,
-    super.portName = '',
-    super.baudRate = 115200,
-    super.labelStatus = '',
-    super.availableBaudRateList = const [
+/// Serial states (port config)
+final class SerialPortState extends Equatable {
+  const SerialPortState({
+    this.isOpened = false,
+    this.portName = 'COM114514',
+    this.baudRate = 115200,
+    this.availableBaudRateList = const [
       300,
       600,
       1200,
@@ -46,6 +29,42 @@ final class SerialPortInitial extends SerialPortState {
       921600,
       1500000,
     ],
-    super.availablePorts = const [],
+    this.availablePorts = const [],
   });
+
+  /// Is port opened already
+  final bool isOpened;
+
+  /// Current port name
+  final String portName;
+
+  /// Current baud rate
+  final int baudRate;
+
+  /// Available baud rate list
+  final List<int> availableBaudRateList;
+
+  /// Available serial ports
+  final List<String> availablePorts;
+
+  /// Easy copy
+  SerialPortState copyWith({
+    bool? isOpened,
+    String? portName,
+    int? baudRate,
+    List<int>? availableBaudRateList,
+    List<String>? availablePorts,
+  }) {
+    return SerialPortState(
+      isOpened: isOpened ?? this.isOpened,
+      portName: portName ?? this.portName,
+      baudRate: baudRate ?? this.baudRate,
+      availableBaudRateList:
+          availableBaudRateList ?? this.availableBaudRateList,
+      availablePorts: availablePorts ?? this.availablePorts,
+    );
+  }
+
+  @override
+  List<Object?> get props => [isOpened, portName, baudRate, availableBaudRateList, availablePorts];
 }

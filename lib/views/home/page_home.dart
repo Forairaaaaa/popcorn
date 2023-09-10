@@ -42,18 +42,18 @@ class PageHome extends StatelessWidget {
                 SizedBox(height: 14,),
           
           
-                // // Switch of port 
-                // WidgetSwitchSerialPort(),
+                // Switch of port 
+                WidgetSwitchSerialPort(),
           
           
                 
-                // SizedBox(height: 5,),
+                SizedBox(height: 5,),
           
-                // WidgetButtonSetPort(),
+                WidgetButtonSetPort(),
           
-                // SizedBox(height: 5,),
+                SizedBox(height: 5,),
           
-                // WidgetButtonSetBaudRate(),
+                WidgetButtonSetBaudRate(),
 
                 // SizedBox(height: 5,),
           
@@ -66,24 +66,24 @@ class PageHome extends StatelessWidget {
           ),
 
 
-          // // Consoles windows
-          // Expanded(
-          //   child: Column(
-          //     children: [
-          //       // Window title bar
-          //       WidgetWindowTitleBar(),
+          // Consoles windows
+          Expanded(
+            child: Column(
+              children: [
+                // Window title bar
+                WidgetWindowTitleBar(),
 
-          //       // window serrial receive 
-          //       Expanded(
-          //         child: Padding(
-          //           padding: EdgeInsets.only(left: PopcornCommon.gap2ControlPanel),
-          //           child: WidgetWindowReceive(),
-          //         )
-          //       ),
+                // window serrial receive 
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: PopcornCommon.gap2ControlPanel),
+                    // child: WidgetWindowReceive(),
+                  )
+                ),
 
-          //     ],
-          //   ),
-          // )
+              ],
+            ),
+          )
 
           
 
