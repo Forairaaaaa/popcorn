@@ -46,6 +46,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
 
   @override
   Widget build(BuildContext context) {
+    // Bind model 
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
         return Tooltip(

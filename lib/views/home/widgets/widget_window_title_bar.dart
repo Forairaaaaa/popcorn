@@ -1,5 +1,9 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
+import 'package:popcorn/common/popcorn_common.dart';
+import 'package:popcorn/models/model_serial_port.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class WidgetWindowTitleBar extends StatelessWidget {
   const WidgetWindowTitleBar({super.key});
@@ -14,8 +18,17 @@ class WidgetWindowTitleBar extends StatelessWidget {
             // Place to drag window
             Expanded(
               child: MoveWindow(
-                child: nameTitle(context),
-              ),
+                  child: Padding(
+                // Gap to the control panel
+                padding:
+                    const EdgeInsets.only(left: PopcornCommon.gap2ControlPanel),
+                // Alignment left
+                child: Container(
+                  alignment: Alignment.centerLeft,
+                  // Status label
+                  child: const _TitleBarLabel(),
+                ),
+              )),
             ),
 
             // Window control buttons
@@ -23,20 +36,6 @@ class WidgetWindowTitleBar extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  Padding nameTitle(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 6.0),
-      child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        Text(
-          "🍿Popcorn",
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.inverseSurface,
-          ),
-        ),
-      ]),
     );
   }
 }
@@ -101,6 +100,38 @@ class WindowButtons extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _TitleBarLabel extends StatefulWidget {
+  const _TitleBarLabel();
+
+  @override
+  State<_TitleBarLabel> createState() => _TitleBarLabelState();
+}
+
+class _TitleBarLabelState extends State<_TitleBarLabel> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<ModelSerialPort>(
+      builder: (context, model, child) {
+
+    
+        return Text(
+          // "🟢COM23",
+          // "🟡/dev/tty114514",
+          model.labelStatus,
+          style: TextStyle(
+            fontFamily: 'Noto Sans Mono',
+            color: Theme.of(context).colorScheme.outline,
+            fontWeight: FontWeight.w600,
+          ),
+        ).animate(
+          autoPlay: true
+        ).fadeIn();
+      },
     );
   }
 }

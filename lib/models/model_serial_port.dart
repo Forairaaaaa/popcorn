@@ -39,6 +39,12 @@ class ModelSerialPort extends ChangeNotifier {
   /// Is port conected
   bool get isConnected => __isConnected;
 
+  /// A status label for title bar to display 
+  String get labelStatus {
+    String ret = isConnected ? '🟢' : '🟡';
+    return '$ret $portName';
+  }
+
   /// Available baudrate list
   List<int> availableBaudRateList = [
     300,

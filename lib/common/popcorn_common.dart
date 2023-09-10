@@ -9,6 +9,7 @@ abstract final class PopcornCommon {
   ///
   static const double gap2Window = 12.0;
   static const double gap2WindowHalf = 6.0;
+  static const double gap2ControlPanel = 24.0;
   static const Offset offsetPopupMenu = Offset(64.0, 0.0);
 
   ///

@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:popcorn/common/popcorn_common.dart';
+import 'package:popcorn/views/home/widgets/widget_window_receive.dart';
 import 'package:popcorn/views/home/widgets/widget_window_title_bar.dart';
 import 'package:popcorn/views/home/widgets/widget_button_set_baud_rate.dart';
 import 'package:popcorn/views/home/widgets/widget_button_set_port.dart';
 import 'package:popcorn/views/home/widgets/widget_switch_serial_port.dart';
 
-class PageHome extends StatefulWidget {
+class PageHome extends StatelessWidget {
   const PageHome({super.key});
 
-  @override
-  State<PageHome> createState() => _PageHomeState();
-}
-
-class _PageHomeState extends State<PageHome> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,28 +42,22 @@ class _PageHomeState extends State<PageHome> {
                 SizedBox(height: 14,),
           
           
-                // Switch of port 
-                Opacity(
-                  opacity: 1,
-                  child: RotatedBox(
-                    quarterTurns: 0,
-                    child: WidgetSwitchSerialPort()
-                  )
-                ),
+                // // Switch of port 
+                // WidgetSwitchSerialPort(),
           
           
                 
-                SizedBox(height: 5,),
+                // SizedBox(height: 5,),
           
-                WidgetButtonSetPort(),
+                // WidgetButtonSetPort(),
           
-                SizedBox(height: 5,),
+                // SizedBox(height: 5,),
           
-                WidgetButtonSetBaudRate(),
+                // WidgetButtonSetBaudRate(),
 
-                SizedBox(height: 5,),
+                // SizedBox(height: 5,),
           
-                shishishishishi(),
+                // shishishishishi(),
           
           
           
@@ -76,15 +66,26 @@ class _PageHomeState extends State<PageHome> {
           ),
 
 
-          // Consoles 
-          Expanded(
-            child: Column(
-              children: [
-                // Window title bar
-                WidgetWindowTitleBar(),
-              ],
-            ),
-          )
+          // // Consoles windows
+          // Expanded(
+          //   child: Column(
+          //     children: [
+          //       // Window title bar
+          //       WidgetWindowTitleBar(),
+
+          //       // window serrial receive 
+          //       Expanded(
+          //         child: Padding(
+          //           padding: EdgeInsets.only(left: PopcornCommon.gap2ControlPanel),
+          //           child: WidgetWindowReceive(),
+          //         )
+          //       ),
+
+          //     ],
+          //   ),
+          // )
+
+          
 
         ],
 
@@ -93,18 +94,5 @@ class _PageHomeState extends State<PageHome> {
   }
 }
 
-class shishishishishi extends StatelessWidget {
-  const shishishishishi({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        
-      },
-      icon: Icon(Icons.more_horiz),
-    );
-  }
-}
+

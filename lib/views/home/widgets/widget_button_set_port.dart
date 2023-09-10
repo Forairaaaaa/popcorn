@@ -47,6 +47,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
 
   @override
   Widget build(BuildContext context) {
+    // Bind model 
     return Consumer<ModelSerialPort>(
       builder: (context, model, child) {
         return Tooltip(
