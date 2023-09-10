@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:popcorn/common/colors.dart';
-import 'package:popcorn/common/styles.dart';
+import 'package:popcorn/common/popcorn_common.dart';
 import 'package:popcorn/views/home/widgets/widget_window_title_bar.dart';
 import 'package:popcorn/views/home/widgets/widget_button_set_baud_rate.dart';
 import 'package:popcorn/views/home/widgets/widget_button_set_port.dart';
@@ -18,7 +17,7 @@ class _PageHomeState extends State<PageHome> {
   Widget build(BuildContext context) {
     return Scaffold(
       // Background color with opacity
-      backgroundColor: ccScaffoldBackgroundColor(context),
+      backgroundColor: PopcornCommon.colorScaffoldBackgroundColor(context),
 
       body: const Row(
 

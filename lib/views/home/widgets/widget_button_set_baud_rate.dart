@@ -1,13 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:popcorn/common/colors.dart';
 import 'package:popcorn/models/model_serial_port.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
-import 'package:popcorn/common/styles.dart';
+import 'package:popcorn/common/popcorn_common.dart';
 
 /// A button with menu to select serial baud rate
 class WidgetButtonSetBaudRate extends StatefulWidget {
@@ -39,7 +36,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
       settings: RouteSettings(
         arguments: [buttonPosition.dx, buttonPosition.dy],
       ),
-      barrierColor: ccBarrierColor(context),
+      barrierColor: PopcornCommon.colorBarrierColor(context),
       context: context,
       builder: (context) {
         return const _PagePopupMenu();
@@ -53,7 +50,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
       builder: (context, model, child) {
         return Tooltip(
           message: '${model.baudRate}',
-          textStyle: csTooltipText(context),
+          textStyle: PopcornCommon.styleTooltipText(context),
           waitDuration: const Duration(milliseconds: 400),
 
           // A nice button
@@ -62,7 +59,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
             key: buttonKey,
 
             // Slim it
-            style: csButtonControlPanel(),
+            style: PopcornCommon.styleButtonControlPanel,
 
             // Route to page popup menu
             onPressed: () {
@@ -72,7 +69,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
             // Icon
             icon: Icon(
               Icons.speed_rounded,
-              color: ccIcon(context),
+              color: PopcornCommon.colorIcon(context),
             ),
           ),
         );
@@ -100,7 +97,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
       builder: (context, model, child) {
         // Blur the background
         return BackdropFilter(
-          filter: csPopupMenuBgBlur,
+          filter: PopcornCommon.stylePopupMenuBgBlur,
 
           // A stack for menu's positioned
           child: Stack(
@@ -112,8 +109,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
               // Postion offset to the button
               Positioned(
-                left: buttonPosition[0]! + csOffsetPopupMenu.dx,
-                top: buttonPosition[1]! + csOffsetPopupMenu.dy,
+                left: buttonPosition[0]! + PopcornCommon.offsetPopupMenu.dx,
+                top: buttonPosition[1]! + PopcornCommon.offsetPopupMenu.dy,
                 width: 400,
 
                 // Tilt card
@@ -129,9 +126,9 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A tilt card
   Tilt popupMenu(BuildContext context, ModelSerialPort model) {
     return Tilt(
-      tiltConfig: csTiltConfigPopupMenu(),
-      lightConfig: csTiltLightConfigPopupMenu(),
-      shadowConfig: csTiltShadowConfig(),
+      tiltConfig: PopcornCommon.tiltConfigPopupMenu,
+      lightConfig: PopcornCommon.tiltLightConfigPopupMenu,
+      shadowConfig: PopcornCommon.tiltShadowConfig,
 
       // A card panel
       child: Card(
@@ -155,6 +152,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
           // Shake items out
           .animate()
           .slideX(duration: 300.ms, curve: Curves.easeOutCubic)
+          .slideY(duration: 300.ms, curve: Curves.easeOutCubic)
           .fadeIn(),
     );
   }
@@ -162,19 +160,19 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A nice title
   Padding popupMenuTitle(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(csGap2Window, csGap2Window, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(PopcornCommon.gap2Window, PopcornCommon.gap2Window, 0.0, 0.0),
       child: Row(
         children: [
           Icon(
             Icons.speed_rounded,
-            color: ccIcon(context),
+            color: PopcornCommon.colorIcon(context),
           ),
           const SizedBox(
-            width: csGap2WindowHalf,
+            width: PopcornCommon.gap2WindowHalf,
           ),
           Text(
             'serial_port',
-            style: csPopupMenuTitleText(context),
+            style: PopcornCommon.stylePopupMenuTitleText(context),
           ).tr(gender: 'baud_rate'),
         ],
       ),
@@ -185,11 +183,11 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   Padding popupMenuBody(ModelSerialPort model) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          csGap2Window, csGap2WindowHalf, csGap2Window, csGap2Window),
+          PopcornCommon.gap2Window, PopcornCommon.gap2WindowHalf, PopcornCommon.gap2Window, PopcornCommon.gap2Window),
       child: Wrap(
         // Space between chips
-        spacing: csGap2WindowHalf,
-        runSpacing: csGap2WindowHalf,
+        spacing: PopcornCommon.gap2WindowHalf,
+        runSpacing: PopcornCommon.gap2WindowHalf,
 
         // Generate chips with [availableBaudRateList] in model
         children: List<Widget>.generate(
@@ -217,12 +215,11 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                 // Item slide in anim
                 .animate()
                 .slideX(
-                  duration: 600.ms,
-                  begin: -6,
-                  delay: (20 * index).ms,
-                  // curve: const Cubic(.35, 1.36, .74, 1.03),
-                  curve: Curves.easeOutCubic
-                )
+                    duration: 300.ms,
+                    begin: -6,
+                    delay: (15 * index).ms,
+                    // curve: const Cubic(.35, 1.36, .74, 1.03),
+                    curve: Curves.easeOutCubic)
                 .fadeIn(
                   // duration: 200.ms,
                   delay: (30 * index).ms,
