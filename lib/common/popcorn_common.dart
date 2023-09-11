@@ -5,69 +5,83 @@ import 'package:flutter_tilt/flutter_tilt.dart';
 /// Store common style, color, config or value settings...
 final class ModelWidgetConfigs {
   ///
-  /// Value settings
+  /// [Value settings]
   ///
   static const double gap2Window = 12.0;
   static const double gap2WindowHalf = 6.0;
   static const double gap2ControlPanel = 24.0;
-  static const Offset offsetPopupMenu = Offset(64.0, 0.0);
+  static const Offset popupMenuPositionOffset = Offset(64.0, 0.0);
 
   ///
-  /// Colors
+  /// [Colors]
   ///
-  static Color colorIcon(BuildContext context) =>
+  /// [icon] 
+  static Color iconColor(BuildContext context) =>
       Theme.of(context).colorScheme.secondary;
 
-  static Color colorScaffoldBackgroundColor(BuildContext context) =>
+  /// [scaffold backgroud] 
+  static Color scaffoldBackgroundColor(BuildContext context) =>
       Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5);
 
-  static Color colorBarrierColor(BuildContext context) =>
+  /// [popup menu's barrier] 
+  static Color popupMenuBarrierColor(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5);
 
   ///
-  /// Styles
+  /// [Styles]
   ///
-  static ButtonStyle styleButtonControlPanel =
+  /// [buttons of control panel]
+  static ButtonStyle buttonControlPanelStyle =
       ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.all(6)));
 
-  static TextStyle styleTooltipText(BuildContext context) {
+  /// [popup menu tooltip text]
+  static TextStyle popupMenuTooltipTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: 18.0,
       color: Theme.of(context).colorScheme.onSecondary,
     );
   }
 
-  static TextStyle stylePopupMenuTitleText(BuildContext context) {
+  /// [popup menu title text]
+  static TextStyle popupMenuTitleTextStyle(BuildContext context) {
     return TextStyle(
       fontSize: 18.0,
-      fontWeight: FontWeight.bold,
+      fontWeight: FontWeight.w700,
       color: Theme.of(context).colorScheme.secondary,
     );
   }
 
-  static const TiltConfig tiltConfigPopupMenu = TiltConfig(
+  /// [popup menu tilt config]
+  static const TiltConfig popupMenuTiltConfig = TiltConfig(
     angle: 3.0,
     enableReverse: true,
     enableRevert: false,
     enableSensorRevert: false,
   );
 
-  static const LightConfig tiltLightConfigPopupMenu =
+  /// [popup menu tilt light config]
+  static const LightConfig popupMenuTiltLightConfig =
       LightConfig(disable: true);
 
-  static const ShadowConfig tiltShadowConfig = ShadowConfig(
+  /// [popup menu tilt shadow config]
+  static const ShadowConfig popupMenuTiltShadowConfig = ShadowConfig(
     disable: true,
     enableReverse: true,
     maxIntensity: 0.4,
     offsetFactor: 0.05,
   );
 
-  static ImageFilter stylePopupMenuBgBlur = ImageFilter.blur(
+  /// [popup menu backgroud blur filter]
+  static ImageFilter popupMenuBgBlurFilter = ImageFilter.blur(
     sigmaX: 15,
     sigmaY: 15,
   );
 
-  /// Icons
-  static const IconData iconButtonSetPort = Icons.usb_rounded;
-  static const IconData iconButtonSetBaudRate = Icons.speed_rounded;
+  ///
+  /// [Icons]
+  /// 
+  /// [button set port]
+  static const IconData buttonSetPortIcon = Icons.usb_rounded;
+  /// [button set baud rate]
+  static const IconData buttonSetBaudRateIcon = Icons.speed_rounded;
 }

@@ -13,7 +13,7 @@ class PageHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // Background color with opacity
-      backgroundColor: ModelWidgetConfigs.colorScaffoldBackgroundColor(context),
+      backgroundColor: ModelWidgetConfigs.scaffoldBackgroundColor(context),
 
       body: const Row(
 

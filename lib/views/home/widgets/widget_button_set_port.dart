@@ -49,7 +49,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
       settings: RouteSettings(
         arguments: [buttonPosition.dx, buttonPosition.dy],
       ),
-      barrierColor: ModelWidgetConfigs.colorBarrierColor(context),
+      barrierColor: ModelWidgetConfigs.popupMenuBarrierColor(context),
       context: context,
       builder: (context) {
         return const _PagePopupMenu();
@@ -64,7 +64,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
       builder: (context, state) {
         return Tooltip(
           message: state.portName,
-          textStyle: ModelWidgetConfigs.styleTooltipText(context),
+          textStyle: ModelWidgetConfigs.popupMenuTooltipTextStyle(context),
           waitDuration: const Duration(milliseconds: 400),
 
           // A nice button
@@ -73,7 +73,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
             key: buttonKey,
 
             // Slim it
-            style: ModelWidgetConfigs.styleButtonControlPanel,
+            style: ModelWidgetConfigs.buttonControlPanelStyle,
 
             // Route to page popup menu
             onPressed: () {
@@ -82,8 +82,8 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
 
             // Icon
             icon: Icon(
-              ModelWidgetConfigs.iconButtonSetPort,
-              color: ModelWidgetConfigs.colorIcon(context),
+              ModelWidgetConfigs.buttonSetPortIcon,
+              color: ModelWidgetConfigs.iconColor(context),
             ),
           ),
         )
@@ -119,7 +119,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
       builder: (context, state) {
         // Blur the background
         return BackdropFilter(
-          filter: ModelWidgetConfigs.stylePopupMenuBgBlur,
+          filter: ModelWidgetConfigs.popupMenuBgBlurFilter,
 
           // A stack for menu's positioned
           child: Stack(
@@ -131,8 +131,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
               // Postion offset to the button
               Positioned(
-                left: buttonPosition[0]! + ModelWidgetConfigs.offsetPopupMenu.dx,
-                top: buttonPosition[1]! + ModelWidgetConfigs.offsetPopupMenu.dy,
+                left: buttonPosition[0]! + ModelWidgetConfigs.popupMenuPositionOffset.dx,
+                top: buttonPosition[1]! + ModelWidgetConfigs.popupMenuPositionOffset.dy,
                 width: 400,
 
                 // Tilt card
@@ -148,9 +148,9 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A tilt card
   Tilt popupMenu(BuildContext context, SerialPortState state) {
     return Tilt(
-      tiltConfig: ModelWidgetConfigs.tiltConfigPopupMenu,
-      lightConfig: ModelWidgetConfigs.tiltLightConfigPopupMenu,
-      shadowConfig: ModelWidgetConfigs.tiltShadowConfig,
+      tiltConfig: ModelWidgetConfigs.popupMenuTiltConfig,
+      lightConfig: ModelWidgetConfigs.popupMenuTiltLightConfig,
+      shadowConfig: ModelWidgetConfigs.popupMenuTiltShadowConfig,
 
       // A card panel
       child: Card(
@@ -187,15 +187,15 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
       child: Row(
         children: [
           Icon(
-            ModelWidgetConfigs.iconButtonSetPort,
-            color: ModelWidgetConfigs.colorIcon(context),
+            ModelWidgetConfigs.buttonSetPortIcon,
+            color: ModelWidgetConfigs.iconColor(context),
           ),
           const SizedBox(
             width: ModelWidgetConfigs.gap2WindowHalf,
           ),
           Text(
             'serial_port',
-            style: ModelWidgetConfigs.stylePopupMenuTitleText(context),
+            style: ModelWidgetConfigs.popupMenuTitleTextStyle(context),
           ).tr(gender: 'port_name'),
         ],
       ),
