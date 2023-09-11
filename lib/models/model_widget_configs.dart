@@ -9,9 +9,10 @@ final class ModelWidgetConfigs {
   ///
   static const double gap2Window = 12.0;
   static const double gap2WindowHalf = 6.0;
-  static const double gap2ControlPanel = 24.0;
+  static const double gap2ControlPanel = 12.0;
   static const Offset popupMenuPositionOffset = Offset(64.0, 0.0);
   static const double windowTitleBarHeight = 32.0;
+  static const double gapReceiveText2card = 6.0;
 
   ///
   /// [Colors]
@@ -27,6 +28,10 @@ final class ModelWidgetConfigs {
   /// [popup menu's barrier]
   static Color popupMenuBarrierColor(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5);
+  
+  /// [receive window card color]
+  static Color receiveWindowCardColor(BuildContext context) =>
+      (Theme.of(context).cardTheme.color ?? Colors.transparent).withOpacity(0.1);
 
   ///
   /// [Styles]
@@ -92,6 +97,15 @@ final class ModelWidgetConfigs {
       fontFamily: 'Noto Sans Mono',
       color: Theme.of(context).colorScheme.outline,
       fontWeight: FontWeight.w600,
+    );
+  }
+
+  /// [receive window text]
+  static TextStyle receiveWindowTextStyle(BuildContext context) {
+    return TextStyle(
+      fontFamily: 'Noto Sans Mono',
+      fontSize: 14,
+      color: Theme.of(context).colorScheme.inverseSurface,
     );
   }
 

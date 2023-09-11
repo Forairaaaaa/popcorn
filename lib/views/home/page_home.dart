@@ -57,8 +57,6 @@ class PageHome extends StatelessWidget {
 
                 // SizedBox(height: 5,),
           
-                // shishishishishi(),
-          
           
           
               ],
@@ -76,8 +74,8 @@ class PageHome extends StatelessWidget {
                 // window serrial receive 
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: ModelWidgetConfigs.gap2ControlPanel),
-                    // child: WidgetWindowReceive(),
+                    padding: EdgeInsets.only(left: ModelWidgetConfigs.gap2WindowHalf),
+                    child: WidgetWindowReceive(),
                   )
                 ),
 

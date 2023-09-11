@@ -25,7 +25,7 @@ class WidgetWindowTitleBar extends StatelessWidget {
                     const EdgeInsets.only(left: ModelWidgetConfigs.gap2ControlPanel),
                 // Alignment left
                 child: Container(
-                  alignment: Alignment.centerLeft,
+                  alignment: Alignment.bottomLeft,
                   // Status label
                   child: const _TitleBarLabel(),
                 ),
