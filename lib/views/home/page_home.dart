@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:popcorn/models/model_widget_configs.dart';
 import 'package:popcorn/views/home/widgets/widget_receive_data_card.dart';
+import 'package:popcorn/views/home/widgets/widget_user_avatar.dart';
 import 'package:popcorn/views/home/widgets/widget_window_title_bar.dart';
 import 'package:popcorn/views/home/widgets/widget_set_baud_rate_button.dart';
 import 'package:popcorn/views/home/widgets/widget_set_port_button.dart';
@@ -17,80 +18,68 @@ class PageHome extends StatelessWidget {
       backgroundColor: ModelWidgetConfigs.scaffoldBackgroundColor(context),
 
       body: const Row(
-
         children: [
-
-          // Control panel  
+          // Control panel
           Padding(
-            padding: EdgeInsets.fromLTRB(12, 0, 0, 10),
-          
+            padding: EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2Window, 0, 0,
+                ModelWidgetConfigs.gap2ControlPanel - 2),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-          
-                SizedBox(height: 12,),
-          
-                CircleAvatar(
-                  radius: 32,
-                  child: ClipOval(
-                    child: Image(
-                      image: AssetImage('assets/images/avatar2.jpg'),
-                      filterQuality: FilterQuality.high,
-                    ),
-                  ),
+                // Take space
+                SizedBox(
+                  height: 12,
                 ),
-          
-                SizedBox(height: 14,),
-          
-          
-                // Switch of port 
+
+                // A nice avatar
+                WidgetUserAvatar(),
+
+                // Take space
+                SizedBox(
+                  height: 14,
+                ),
+
+                // Port switch
                 WidgetPortSwitch(),
-          
-          
-                
-                SizedBox(height: 5,),
-          
+
+                // Take space
+                SizedBox(
+                  height: 5,
+                ),
+
+                // Set port button
                 WidgetSetPortButton(),
-          
-                SizedBox(height: 5,),
-          
+
+                // Take space
+                SizedBox(
+                  height: 5,
+                ),
+
+                // Set baud rate button
                 WidgetSetBaudRateButton(),
 
                 // SizedBox(height: 5,),
-          
-          
-          
               ],
             ),
           ),
 
-
-          // Consoles windows
+          // Console cards
           Expanded(
             child: Column(
               children: [
                 // Window title bar
                 WidgetWindowTitleBar(),
 
-                // window serrial receive 
-                Expanded(
-                  child: WidgetReceiveDataCard()
-                ),
+                // Receive data card
+                Expanded(child: WidgetReceiveDataCard()),
 
+                // Send data card
                 WidgetSendDataCard(),
-
               ],
             ),
           )
-
-          
-
         ],
-
       ),
     );
   }
 }
-
-
-

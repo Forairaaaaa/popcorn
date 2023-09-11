@@ -13,6 +13,7 @@ final class ModelWidgetConfigs {
   static const Offset popupMenuPositionOffset = Offset(64.0, 0.0);
   static const double windowTitleBarHeight = 32.0;
   static const double gapReceiveText2card = 6.0;
+  static const double avatarRaduis = 32.0;
 
   ///
   /// [Colors]
@@ -116,6 +117,7 @@ final class ModelWidgetConfigs {
   static TextStyle receiveDataTextStyle(BuildContext context) {
     return TextStyle(
       fontFamily: 'Noto Sans Mono',
+      // fontFamily: 'OxygenMono',
       fontSize: 15,
       color: Theme.of(context).colorScheme.inverseSurface,
     );
