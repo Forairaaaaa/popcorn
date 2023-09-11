@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:popcorn/models/model_widget_configs.dart';
 
-class WidgetWindowReceive extends StatefulWidget {
-  const WidgetWindowReceive({super.key});
+class WidgetReceiveDataCard extends StatefulWidget {
+  const WidgetReceiveDataCard({super.key});
 
   @override
-  State<WidgetWindowReceive> createState() => _WidgetWindowReceiveState();
+  State<WidgetReceiveDataCard> createState() => _WidgetReceiveDataCardState();
 }
 
-class _WidgetWindowReceiveState extends State<WidgetWindowReceive> {
+class _WidgetReceiveDataCardState extends State<WidgetReceiveDataCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -16,7 +16,7 @@ class _WidgetWindowReceiveState extends State<WidgetWindowReceive> {
           ModelWidgetConfigs.gap2WindowHalf, ModelWidgetConfigs.gap2WindowHalf),
       child: Card(
           elevation: 0.0,
-          color: ModelWidgetConfigs.receiveWindowCardColor(context),
+          color: ModelWidgetConfigs.receiveDataCardColor(context),
 
           // Take all space
           child: Row(
@@ -31,7 +31,7 @@ class _WidgetWindowReceiveState extends State<WidgetWindowReceive> {
                       ModelWidgetConfigs.gapReceiveText2card),
                   child: SelectableText(
                     testShit,
-                    style: ModelWidgetConfigs.receiveWindowTextStyle(context),
+                    style: ModelWidgetConfigs.receiveDataTextStyle(context),
                   ),
                 ),
               )

@@ -189,6 +189,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
           ModelWidgetConfigs.gap2Window, 0.0, 0.0),
       child: Row(
         children: [
+          // Icon
           Icon(
             ModelWidgetConfigs.buttonSetPortIcon,
             color: ModelWidgetConfigs.iconColor(context),
@@ -196,10 +197,28 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
           const SizedBox(
             width: ModelWidgetConfigs.gap2WindowHalf,
           ),
+
+          // Banner
           Text(
             'serial_port',
             style: ModelWidgetConfigs.popupMenuTitleTextStyle(context),
           ).tr(gender: 'port_name'),
+
+          // Close button
+          Expanded(child: Container()),
+          IconButton(
+            icon: const Icon(
+              ModelWidgetConfigs.buttonClosePopupMenu,
+              size: 16,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+
+          const SizedBox(
+            width: ModelWidgetConfigs.gap2WindowHalf,
+          ),
         ],
       ),
     );

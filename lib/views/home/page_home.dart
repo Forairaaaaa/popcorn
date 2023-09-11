@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:popcorn/models/model_widget_configs.dart';
-import 'package:popcorn/views/home/widgets/widget_receive_window.dart';
+import 'package:popcorn/views/home/widgets/widget_receive_data_card.dart';
 import 'package:popcorn/views/home/widgets/widget_window_title_bar.dart';
 import 'package:popcorn/views/home/widgets/widget_set_baud_rate_button.dart';
 import 'package:popcorn/views/home/widgets/widget_set_port_button.dart';
@@ -75,7 +75,7 @@ class PageHome extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.only(left: ModelWidgetConfigs.gap2WindowHalf),
-                    child: WidgetWindowReceive(),
+                    child: WidgetReceiveDataCard(),
                   )
                 ),
 

@@ -111,8 +111,10 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
               // Postion offset to the button
               Positioned(
-                left: buttonPosition[0]! + ModelWidgetConfigs.popupMenuPositionOffset.dx,
-                top: buttonPosition[1]! + ModelWidgetConfigs.popupMenuPositionOffset.dy,
+                left: buttonPosition[0]! +
+                    ModelWidgetConfigs.popupMenuPositionOffset.dx,
+                top: buttonPosition[1]! +
+                    ModelWidgetConfigs.popupMenuPositionOffset.dy,
                 width: 400,
 
                 // Tilt card
@@ -162,10 +164,11 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A nice title
   Padding popupMenuTitle(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          ModelWidgetConfigs.gap2Window, ModelWidgetConfigs.gap2Window, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2Window,
+          ModelWidgetConfigs.gap2Window, 0.0, 0.0),
       child: Row(
         children: [
+          // Icon
           Icon(
             ModelWidgetConfigs.buttonSetBaudRateIcon,
             color: ModelWidgetConfigs.iconColor(context),
@@ -173,10 +176,28 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
           const SizedBox(
             width: ModelWidgetConfigs.gap2WindowHalf,
           ),
+
+          // Banner
           Text(
             'serial_port',
             style: ModelWidgetConfigs.popupMenuTitleTextStyle(context),
           ).tr(gender: 'baud_rate'),
+
+          // Close button
+          Expanded(child: Container()),
+          IconButton(
+            icon: const Icon(
+              ModelWidgetConfigs.buttonClosePopupMenu,
+              size: 16,
+            ),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+
+          const SizedBox(
+            width: ModelWidgetConfigs.gap2WindowHalf,
+          ),
         ],
       ),
     );

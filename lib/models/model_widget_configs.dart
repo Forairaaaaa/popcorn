@@ -30,7 +30,7 @@ final class ModelWidgetConfigs {
       Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5);
   
   /// [receive window card color]
-  static Color receiveWindowCardColor(BuildContext context) =>
+  static Color receiveDataCardColor(BuildContext context) =>
       (Theme.of(context).cardTheme.color ?? Colors.transparent).withOpacity(0.1);
 
   ///
@@ -101,10 +101,10 @@ final class ModelWidgetConfigs {
   }
 
   /// [receive window text]
-  static TextStyle receiveWindowTextStyle(BuildContext context) {
+  static TextStyle receiveDataTextStyle(BuildContext context) {
     return TextStyle(
       fontFamily: 'Noto Sans Mono',
-      fontSize: 14,
+      fontSize: 15,
       color: Theme.of(context).colorScheme.inverseSurface,
     );
   }
@@ -117,4 +117,7 @@ final class ModelWidgetConfigs {
 
   /// [button set baud rate]
   static const IconData buttonSetBaudRateIcon = Icons.speed_rounded;
+
+  /// [button close popup menu]
+  static const IconData buttonClosePopupMenu = Icons.close_rounded;
 }
