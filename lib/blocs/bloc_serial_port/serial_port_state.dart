@@ -6,7 +6,7 @@ part of 'serial_port_bloc.dart';
 final class SerialPortState extends Equatable {
   const SerialPortState({
     this.isOpened = false,
-    this.portName = 'COM114514',
+    this.portName = '',
     this.baudRate = 115200,
     this.availableBaudRateList = const [
       300,

@@ -13,7 +13,7 @@ class PageHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // Background color with opacity
-      backgroundColor: PopcornCommon.colorScaffoldBackgroundColor(context),
+      backgroundColor: ModelWidgetConfigs.colorScaffoldBackgroundColor(context),
 
       body: const Row(
 
@@ -76,7 +76,7 @@ class PageHome extends StatelessWidget {
                 // window serrial receive 
                 Expanded(
                   child: Padding(
-                    padding: EdgeInsets.only(left: PopcornCommon.gap2ControlPanel),
+                    padding: EdgeInsets.only(left: ModelWidgetConfigs.gap2ControlPanel),
                     // child: WidgetWindowReceive(),
                   )
                 ),

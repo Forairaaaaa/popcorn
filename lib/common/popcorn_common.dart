@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
 
 /// Store common style, color, config or value settings...
-abstract final class PopcornCommon {
+final class ModelWidgetConfigs {
   ///
   /// Value settings
   ///
@@ -66,4 +66,8 @@ abstract final class PopcornCommon {
     sigmaX: 15,
     sigmaY: 15,
   );
+
+  /// Icons
+  static const IconData iconButtonSetPort = Icons.usb_rounded;
+  static const IconData iconButtonSetBaudRate = Icons.speed_rounded;
 }

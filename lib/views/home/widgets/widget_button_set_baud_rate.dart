@@ -22,8 +22,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
   // https://stackoverflow.com/questions/54291245/get-y-position-of-container-on-flutter
   void getPostion() {
     RenderBox box = buttonKey.currentContext?.findRenderObject() as RenderBox;
-    buttonPosition = box.localToGlobal(Offset
-        .zero); //this is global position/this is y - I think it's what you want
+    buttonPosition = box.localToGlobal(Offset.zero);
   }
 
   void buttonOnPressed(BuildContext context) {
@@ -37,7 +36,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
       settings: RouteSettings(
         arguments: [buttonPosition.dx, buttonPosition.dy],
       ),
-      barrierColor: PopcornCommon.colorBarrierColor(context),
+      barrierColor: ModelWidgetConfigs.colorBarrierColor(context),
       context: context,
       builder: (context) {
         return const _PagePopupMenu();
@@ -52,7 +51,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
       builder: (context, state) {
         return Tooltip(
           message: '${state.baudRate}',
-          textStyle: PopcornCommon.styleTooltipText(context),
+          textStyle: ModelWidgetConfigs.styleTooltipText(context),
           waitDuration: const Duration(milliseconds: 400),
 
           // A nice button
@@ -61,7 +60,7 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
             key: buttonKey,
 
             // Slim it
-            style: PopcornCommon.styleButtonControlPanel,
+            style: ModelWidgetConfigs.styleButtonControlPanel,
 
             // Route to page popup menu
             onPressed: () {
@@ -70,8 +69,8 @@ class _WidgetButtonSetBaudRateState extends State<WidgetButtonSetBaudRate> {
 
             // Icon
             icon: Icon(
-              Icons.speed_rounded,
-              color: PopcornCommon.colorIcon(context),
+              ModelWidgetConfigs.iconButtonSetBaudRate,
+              color: ModelWidgetConfigs.colorIcon(context),
             ),
           ),
         );
@@ -99,7 +98,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
       builder: (context, state) {
         // Blur the background
         return BackdropFilter(
-          filter: PopcornCommon.stylePopupMenuBgBlur,
+          filter: ModelWidgetConfigs.stylePopupMenuBgBlur,
 
           // A stack for menu's positioned
           child: Stack(
@@ -111,8 +110,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
               // Postion offset to the button
               Positioned(
-                left: buttonPosition[0]! + PopcornCommon.offsetPopupMenu.dx,
-                top: buttonPosition[1]! + PopcornCommon.offsetPopupMenu.dy,
+                left: buttonPosition[0]! + ModelWidgetConfigs.offsetPopupMenu.dx,
+                top: buttonPosition[1]! + ModelWidgetConfigs.offsetPopupMenu.dy,
                 width: 400,
 
                 // Tilt card
@@ -128,9 +127,9 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A tilt card
   Tilt popupMenu(BuildContext context, SerialPortState state) {
     return Tilt(
-      tiltConfig: PopcornCommon.tiltConfigPopupMenu,
-      lightConfig: PopcornCommon.tiltLightConfigPopupMenu,
-      shadowConfig: PopcornCommon.tiltShadowConfig,
+      tiltConfig: ModelWidgetConfigs.tiltConfigPopupMenu,
+      lightConfig: ModelWidgetConfigs.tiltLightConfigPopupMenu,
+      shadowConfig: ModelWidgetConfigs.tiltShadowConfig,
 
       // A card panel
       child: Card(
@@ -163,19 +162,19 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   Padding popupMenuTitle(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          PopcornCommon.gap2Window, PopcornCommon.gap2Window, 0.0, 0.0),
+          ModelWidgetConfigs.gap2Window, ModelWidgetConfigs.gap2Window, 0.0, 0.0),
       child: Row(
         children: [
           Icon(
-            Icons.usb_rounded,
-            color: PopcornCommon.colorIcon(context),
+            ModelWidgetConfigs.iconButtonSetBaudRate,
+            color: ModelWidgetConfigs.colorIcon(context),
           ),
           const SizedBox(
-            width: PopcornCommon.gap2WindowHalf,
+            width: ModelWidgetConfigs.gap2WindowHalf,
           ),
           Text(
             'serial_port',
-            style: PopcornCommon.stylePopupMenuTitleText(context),
+            style: ModelWidgetConfigs.stylePopupMenuTitleText(context),
           ).tr(gender: 'baud_rate'),
         ],
       ),
@@ -186,14 +185,14 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   Padding popupMenuBody(BuildContext context, SerialPortState state) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-          PopcornCommon.gap2Window,
-          PopcornCommon.gap2WindowHalf,
-          PopcornCommon.gap2Window,
-          PopcornCommon.gap2Window),
+          ModelWidgetConfigs.gap2Window,
+          ModelWidgetConfigs.gap2WindowHalf,
+          ModelWidgetConfigs.gap2Window,
+          ModelWidgetConfigs.gap2Window),
       child: Wrap(
         // Space between chips
-        spacing: PopcornCommon.gap2WindowHalf,
-        runSpacing: PopcornCommon.gap2WindowHalf,
+        spacing: ModelWidgetConfigs.gap2WindowHalf,
+        runSpacing: ModelWidgetConfigs.gap2WindowHalf,
 
         // Generate chips with [availablePortList] in model
         children: List<Widget>.generate(

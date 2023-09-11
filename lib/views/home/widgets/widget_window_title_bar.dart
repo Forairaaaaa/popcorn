@@ -21,7 +21,7 @@ class WidgetWindowTitleBar extends StatelessWidget {
                   child: Padding(
                 // Gap to the control panel
                 padding:
-                    const EdgeInsets.only(left: PopcornCommon.gap2ControlPanel),
+                    const EdgeInsets.only(left: ModelWidgetConfigs.gap2ControlPanel),
                 // Alignment left
                 child: Container(
                   alignment: Alignment.centerLeft,
