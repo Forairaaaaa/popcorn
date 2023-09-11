@@ -132,8 +132,10 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
               // Postion offset to the button
               Positioned(
-                left: buttonPosition[0]! + ModelWidgetConfigs.popupMenuPositionOffset.dx,
-                top: buttonPosition[1]! + ModelWidgetConfigs.popupMenuPositionOffset.dy,
+                left: buttonPosition[0]! +
+                    ModelWidgetConfigs.popupMenuPositionOffset.dx,
+                top: buttonPosition[1]! +
+                    ModelWidgetConfigs.popupMenuPositionOffset.dy,
                 width: 400,
 
                 // Tilt card
@@ -183,8 +185,8 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
   /// A nice title
   Padding popupMenuTitle(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-          ModelWidgetConfigs.gap2Window, ModelWidgetConfigs.gap2Window, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2Window,
+          ModelWidgetConfigs.gap2Window, 0.0, 0.0),
       child: Row(
         children: [
           Icon(

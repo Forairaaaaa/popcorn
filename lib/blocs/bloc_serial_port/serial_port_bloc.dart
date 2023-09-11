@@ -1,6 +1,6 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 part 'serial_port_event.dart';
 part 'serial_port_state.dart';
@@ -8,11 +8,20 @@ part 'serial_port_state.dart';
 class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   SerialPortBloc() : super(const SerialPortState()) {
     /// Events
+    on<SerialPortInit>(_onInit);
     on<SerialPortOpen>(_onOpen);
     on<SerialPortClose>(_onClose);
     on<SerialPortUpdateAvailablePorts>(_onUpdateAvailablePorts);
     on<SerialPortPortNameChanged>(_onPortNameChanged);
     on<SerialPortBaudRateChanged>(_onBaudRateChanged);
+
+    add(SerialPortInit());
+  }
+
+  void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
+    emit(state.copyWith(
+      portName: 'not_selected'.tr(),
+    ));
   }
 
   void _onOpen(SerialPortOpen event, Emitter<SerialPortState> emit) {

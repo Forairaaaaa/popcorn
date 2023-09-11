@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/bloc_serial_port/serial_port_bloc.dart';
 import 'package:popcorn/views/home/page_home.dart';
 
-
 void main() async {
   // Localization
   // https://pub.dev/packages/easy_localization
@@ -22,27 +21,29 @@ void main() async {
     effect: WindowEffect.acrylic,
     // dark: false
   );
-  // Make one myself :) 
+  // Make one myself :)
   Window.hideWindowControls();
 
   // App
   runApp(
-    // Localization setup 
-    // https://pub.dev/packages/easy_localization
-    EasyLocalization(
-        supportedLocales: const [Locale('en'), Locale('zh')],
-        path: 'assets/translations',
-        startLocale: const Locale('en'),
-        fallbackLocale: const Locale('en'),
+      // Dependency injection (SerialPort)
+      // https://bloclibrary.dev/#/flutterbloccoreconcepts?id=bloc-widgets
+      BlocProvider(
+    // Serial port bloc
+    create: (context) => SerialPortBloc(),
 
-        // Dependency injection (SerialPort)
-        // https://bloclibrary.dev/#/flutterbloccoreconcepts?id=bloc-widgets
-        child: BlocProvider(
-          lazy: false,
-          create: (context) => SerialPortBloc(),
-          child: const MyApp(),
-        )),
-  );
+    // Localization setup
+    // https://pub.dev/packages/easy_localization
+    child: EasyLocalization(
+      supportedLocales: const [Locale('en'), Locale('zh')],
+      path: 'assets/translations',
+      startLocale: const Locale('en'),
+      fallbackLocale: const Locale('en'),
+
+      // My app
+      child: const MyApp(),
+    ),
+  ));
 
   // Window set up
   // https://pub.dev/packages/bitsdojo_window
