@@ -3,18 +3,20 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_tilt/flutter_tilt.dart';
-import 'package:popcorn/common/popcorn_common.dart';
+import 'package:popcorn/models/model_widget_configs.dart';
 import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
 
-/// A button with menu to select serial port name
-class WidgetButtonSetPort extends StatefulWidget {
-  const WidgetButtonSetPort({super.key});
+/// A button to select baud rate
+/// Binding [SerialPortBloc]
+class WidgetSetBaudRateButton extends StatefulWidget {
+  const WidgetSetBaudRateButton({super.key});
 
   @override
-  State<WidgetButtonSetPort> createState() => _WidgetButtonSetPortState();
+  State<WidgetSetBaudRateButton> createState() =>
+      _WidgetSetBaudRateButtonState();
 }
 
-class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
+class _WidgetSetBaudRateButtonState extends State<WidgetSetBaudRateButton> {
   final buttonKey = GlobalKey();
   Offset buttonPosition = const Offset(0, 0);
 
@@ -24,25 +26,11 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
     buttonPosition = box.localToGlobal(Offset.zero);
   }
 
-  AnimationController? animController;
-
-  void buttonOnPressed(BuildContext context, SerialPortState state) {
-    // Return if opened already
-    if (state.isOpened) {
-      // Shake the button
-      animController?.reset();
-      animController?.forward();
-      return;
-    }
-
-    // Send update port list event
-    context.read<SerialPortBloc>().add(const SerialPortUpdateAvailablePorts());
-
+  void buttonOnPressed(BuildContext context) {
     // Get button position
     getPostion();
-
-    // Open menu page
     Navigator.of(context).push(
+
         // Route a menu page
         DialogRoute(
       // Pass button's position
@@ -63,7 +51,7 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
     return BlocBuilder<SerialPortBloc, SerialPortState>(
       builder: (context, state) {
         return Tooltip(
-          message: state.portName,
+          message: '${state.baudRate}',
           textStyle: ModelWidgetConfigs.popupMenuTooltipTextStyle(context),
           waitDuration: const Duration(milliseconds: 400),
 
@@ -73,28 +61,20 @@ class _WidgetButtonSetPortState extends State<WidgetButtonSetPort> {
             key: buttonKey,
 
             // Slim it
-            style: ModelWidgetConfigs.buttonControlPanelStyle,
+            style: ModelWidgetConfigs.controlPanelButtonStyle,
 
             // Route to page popup menu
             onPressed: () {
-              buttonOnPressed(context, state);
+              buttonOnPressed(context);
             },
 
             // Icon
             icon: Icon(
-              ModelWidgetConfigs.buttonSetPortIcon,
+              ModelWidgetConfigs.buttonSetBaudRateIcon,
               color: ModelWidgetConfigs.iconColor(context),
             ),
           ),
-        )
-            .animate(
-              autoPlay: false,
-              // Copy controller
-              onInit: (controller) {
-                animController = controller;
-              },
-            )
-            .shake();
+        );
       },
     );
   }
@@ -187,7 +167,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
       child: Row(
         children: [
           Icon(
-            ModelWidgetConfigs.buttonSetPortIcon,
+            ModelWidgetConfigs.buttonSetBaudRateIcon,
             color: ModelWidgetConfigs.iconColor(context),
           ),
           const SizedBox(
@@ -196,7 +176,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
           Text(
             'serial_port',
             style: ModelWidgetConfigs.popupMenuTitleTextStyle(context),
-          ).tr(gender: 'port_name'),
+          ).tr(gender: 'baud_rate'),
         ],
       ),
     );
@@ -217,7 +197,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
         // Generate chips with [availablePortList] in model
         children: List<Widget>.generate(
-          state.availablePorts.length,
+          state.availableBaudRateList.length,
 
           // Build function
           (int index) {
@@ -227,15 +207,15 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
               elevation: 1.0,
 
               // Baud rate
-              label: Text(state.availablePorts[index]),
+              label: Text('${state.availableBaudRateList[index]}'),
 
               // Can only select one
-              selected: state.portName == state.availablePorts[index],
+              selected: state.baudRate == state.availableBaudRateList[index],
               onSelected: (bool selected) {
                 // no way to unselect :)
                 if (selected) {
-                  context.read<SerialPortBloc>().add(
-                      SerialPortPortNameChanged(state.availablePorts[index]));
+                  context.read<SerialPortBloc>().add(SerialPortBaudRateChanged(
+                      state.availableBaudRateList[index]));
                 }
               },
             )
@@ -243,7 +223,7 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                 .animate()
                 .fadeIn(
                   // duration: 200.ms,
-                  delay: (40 * index).ms,
+                  delay: (15 * index).ms,
                 );
           },
         ),

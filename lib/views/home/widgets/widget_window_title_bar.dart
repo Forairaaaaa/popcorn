@@ -2,9 +2,10 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
-import 'package:popcorn/common/popcorn_common.dart';
+import 'package:popcorn/models/model_widget_configs.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
+/// Window title bar, with status label, window control buttons 
 class WidgetWindowTitleBar extends StatelessWidget {
   const WidgetWindowTitleBar({super.key});
 
@@ -12,7 +13,7 @@ class WidgetWindowTitleBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return WindowTitleBarBox(
       child: SizedBox(
-        height: 32,
+        height: ModelWidgetConfigs.windowTitleBarHeight,
         child: Row(
           children: [
             // Place to drag window
@@ -44,13 +45,6 @@ class WindowButtons extends StatelessWidget {
   const WindowButtons({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    // Button style
-    const buttonStyle = ButtonStyle(
-        minimumSize: MaterialStatePropertyAll(Size(10, 10)),
-        padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
-        shape: MaterialStatePropertyAll(RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.zero),
-        )));
 
     // Row of three buttons
     return Row(
@@ -60,7 +54,7 @@ class WindowButtons extends StatelessWidget {
           width: 47,
           height: 32,
           child: TextButton(
-            style: buttonStyle,
+            style: ModelWidgetConfigs.windowControlButtonStyle,
             child: Icon(
               Icons.remove_rounded,
               size: 16,
@@ -75,7 +69,7 @@ class WindowButtons extends StatelessWidget {
           width: 47,
           height: 32,
           child: TextButton(
-            style: buttonStyle,
+            style: ModelWidgetConfigs.windowControlButtonStyle,
             child: Icon(
               Icons.crop_square_rounded,
               size: 15,
@@ -90,7 +84,7 @@ class WindowButtons extends StatelessWidget {
           width: 47,
           height: 32,
           child: TextButton(
-            style: buttonStyle,
+            style: ModelWidgetConfigs.windowControlButtonStyle,
             child: Icon(
               Icons.close_rounded,
               size: 19,
@@ -131,7 +125,7 @@ class _TitleBarLabelState extends State<_TitleBarLabel> {
       // Listen state changed
       listener: (context, state) {
         updateStatusLabel(state.isOpened, state.portName);
-        // Reset text and anim
+        // Set text and play anim
         setState(() {
           animController?.reset();
           animController?.forward();
@@ -142,11 +136,7 @@ class _TitleBarLabelState extends State<_TitleBarLabel> {
         // "🟢 COM23",
         // "🟡 /dev/tty114514",
         statusLabel,
-        style: TextStyle(
-          fontFamily: 'Noto Sans Mono',
-          color: Theme.of(context).colorScheme.outline,
-          fontWeight: FontWeight.w600,
-        ),
+        style: ModelWidgetConfigs.windowTitleBarStatusLabelTextStyle(context),
       ).animate(
         onInit: (controller) {
           // Store controller

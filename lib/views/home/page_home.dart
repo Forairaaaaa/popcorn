@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:popcorn/common/popcorn_common.dart';
-import 'package:popcorn/views/home/widgets/widget_window_receive.dart';
+import 'package:popcorn/models/model_widget_configs.dart';
+import 'package:popcorn/views/home/widgets/widget_receive_window.dart';
 import 'package:popcorn/views/home/widgets/widget_window_title_bar.dart';
-import 'package:popcorn/views/home/widgets/widget_button_set_baud_rate.dart';
-import 'package:popcorn/views/home/widgets/widget_button_set_port.dart';
-import 'package:popcorn/views/home/widgets/widget_switch_serial_port.dart';
+import 'package:popcorn/views/home/widgets/widget_set_baud_rate_button.dart';
+import 'package:popcorn/views/home/widgets/widget_set_port_button.dart';
+import 'package:popcorn/views/home/widgets/widget_port_switch.dart';
 
 class PageHome extends StatelessWidget {
   const PageHome({super.key});
@@ -43,17 +43,17 @@ class PageHome extends StatelessWidget {
           
           
                 // Switch of port 
-                WidgetSwitchSerialPort(),
+                WidgetPortSwitch(),
           
           
                 
                 SizedBox(height: 5,),
           
-                WidgetButtonSetPort(),
+                WidgetSetPortButton(),
           
                 SizedBox(height: 5,),
           
-                WidgetButtonSetBaudRate(),
+                WidgetSetBaudRateButton(),
 
                 // SizedBox(height: 5,),
           

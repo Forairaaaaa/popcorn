@@ -4,15 +4,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
 
 /// A switch to open and close serial port
-/// Binding to a [SerialPortBloc]
-class WidgetSwitchSerialPort extends StatefulWidget {
-  const WidgetSwitchSerialPort({super.key});
+/// Binding [SerialPortBloc]
+class WidgetPortSwitch extends StatefulWidget {
+  const WidgetPortSwitch({super.key});
 
   @override
-  State<WidgetSwitchSerialPort> createState() => _WidgetSwitchSerialPortState();
+  State<WidgetPortSwitch> createState() => _WidgetPortSwitchState();
 }
 
-class _WidgetSwitchSerialPortState extends State<WidgetSwitchSerialPort> {
+class _WidgetPortSwitchState extends State<WidgetPortSwitch> {
   // State property icon
   final MaterialStateProperty<Icon?> thumbIconSerialSwitch =
       MaterialStateProperty.resolveWith<Icon?>(

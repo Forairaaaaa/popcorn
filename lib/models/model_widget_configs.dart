@@ -11,19 +11,20 @@ final class ModelWidgetConfigs {
   static const double gap2WindowHalf = 6.0;
   static const double gap2ControlPanel = 24.0;
   static const Offset popupMenuPositionOffset = Offset(64.0, 0.0);
+  static const double windowTitleBarHeight = 32.0;
 
   ///
   /// [Colors]
   ///
-  /// [icon] 
+  /// [icon]
   static Color iconColor(BuildContext context) =>
       Theme.of(context).colorScheme.secondary;
 
-  /// [scaffold backgroud] 
+  /// [scaffold backgroud]
   static Color scaffoldBackgroundColor(BuildContext context) =>
       Theme.of(context).scaffoldBackgroundColor.withOpacity(0.5);
 
-  /// [popup menu's barrier] 
+  /// [popup menu's barrier]
   static Color popupMenuBarrierColor(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5);
 
@@ -31,7 +32,7 @@ final class ModelWidgetConfigs {
   /// [Styles]
   ///
   /// [buttons of control panel]
-  static ButtonStyle buttonControlPanelStyle =
+  static ButtonStyle controlPanelButtonStyle =
       ButtonStyle(padding: MaterialStateProperty.all(const EdgeInsets.all(6)));
 
   /// [popup menu tooltip text]
@@ -77,11 +78,29 @@ final class ModelWidgetConfigs {
     sigmaY: 15,
   );
 
+  /// [window control buttons]
+  static const ButtonStyle windowControlButtonStyle = ButtonStyle(
+      minimumSize: MaterialStatePropertyAll(Size(10, 10)),
+      padding: MaterialStatePropertyAll(EdgeInsets.all(0)),
+      shape: MaterialStatePropertyAll(RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.zero),
+      )));
+
+  /// [window title bar status label text]
+  static TextStyle windowTitleBarStatusLabelTextStyle(BuildContext context) {
+    return TextStyle(
+      fontFamily: 'Noto Sans Mono',
+      color: Theme.of(context).colorScheme.outline,
+      fontWeight: FontWeight.w600,
+    );
+  }
+
   ///
   /// [Icons]
-  /// 
+  ///
   /// [button set port]
   static const IconData buttonSetPortIcon = Icons.usb_rounded;
+
   /// [button set baud rate]
   static const IconData buttonSetBaudRateIcon = Icons.speed_rounded;
 }
