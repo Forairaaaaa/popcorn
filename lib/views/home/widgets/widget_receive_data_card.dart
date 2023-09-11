@@ -12,8 +12,9 @@ class _WidgetReceiveDataCardState extends State<WidgetReceiveDataCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0, 0,
-          ModelWidgetConfigs.gap2WindowHalf, ModelWidgetConfigs.gap2WindowHalf),
+      padding: const EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2WindowHalf, 0,
+          ModelWidgetConfigs.gap2WindowHalf, 0),
+
       child: Card(
           elevation: 0.0,
           color: ModelWidgetConfigs.receiveDataCardColor(context),

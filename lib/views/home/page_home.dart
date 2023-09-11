@@ -5,6 +5,7 @@ import 'package:popcorn/views/home/widgets/widget_window_title_bar.dart';
 import 'package:popcorn/views/home/widgets/widget_set_baud_rate_button.dart';
 import 'package:popcorn/views/home/widgets/widget_set_port_button.dart';
 import 'package:popcorn/views/home/widgets/widget_port_switch.dart';
+import 'package:popcorn/views/home/widgets/widget_send_data_card.dart';
 
 class PageHome extends StatelessWidget {
   const PageHome({super.key});
@@ -73,11 +74,10 @@ class PageHome extends StatelessWidget {
 
                 // window serrial receive 
                 Expanded(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: ModelWidgetConfigs.gap2WindowHalf),
-                    child: WidgetReceiveDataCard(),
-                  )
+                  child: WidgetReceiveDataCard()
                 ),
+
+                WidgetSendDataCard(),
 
               ],
             ),

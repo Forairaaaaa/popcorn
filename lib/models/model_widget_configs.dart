@@ -29,9 +29,13 @@ final class ModelWidgetConfigs {
   static Color popupMenuBarrierColor(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5);
   
-  /// [receive window card color]
+  /// [receive data card color]
   static Color receiveDataCardColor(BuildContext context) =>
       (Theme.of(context).cardTheme.color ?? Colors.transparent).withOpacity(0.1);
+  
+  /// [send data card color]
+  static Color sendDataCardColor(BuildContext context) =>
+      (Theme.of(context).cardTheme.color ?? Colors.transparent).withOpacity(0.0);
 
   ///
   /// [Styles]
@@ -63,6 +67,14 @@ final class ModelWidgetConfigs {
     enableReverse: true,
     enableRevert: false,
     enableSensorRevert: false,
+  );
+
+  /// [receive data card tilt config]
+  static const TiltConfig receiveDataCardTiltConfig = TiltConfig(
+    angle: 3.0,
+    enableReverse: true,
+    // enableRevert: false,
+    // enableSensorRevert: false,
   );
 
   /// [popup menu tilt light config]
@@ -120,4 +132,12 @@ final class ModelWidgetConfigs {
 
   /// [button close popup menu]
   static const IconData buttonClosePopupMenu = Icons.close_rounded;
+
+  /// [button send data]
+  static Icon sendDataButtonIcon(BuildContext context) {
+    return Icon(
+      Icons.reply_rounded,
+      color: iconColor(context),
+    );
+  }
 }
