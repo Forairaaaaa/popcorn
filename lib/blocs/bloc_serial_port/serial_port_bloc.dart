@@ -1,6 +1,8 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:popcorn/models/model_pyserial.dart';
 
 part 'serial_port_event.dart';
 part 'serial_port_state.dart';
@@ -19,6 +21,8 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   }
 
   void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
+    debugPrint("?????");
+
     emit(state.copyWith(
       portName: 'not_selected'.tr(),
     ));
@@ -44,12 +48,14 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     }
   }
 
-  void _onUpdateAvailablePorts(
-      SerialPortUpdateAvailablePorts event, Emitter<SerialPortState> emit) {
-    // TODO
-    // Try get available port list
-    emit(state.copyWith(
-        availablePorts: ['COM1', 'COM23', 'COM114514', '/dev/ttyACM0', '啊?']));
+  void _onUpdateAvailablePorts(SerialPortUpdateAvailablePorts event,
+      Emitter<SerialPortState> emit) async {
+
+    // Get availbale ports
+    var ports = await ModelPySerial.getAvailabelPorts();
+
+    // Update state
+    emit(state.copyWith(availablePorts: ports));
   }
 
   void _onPortNameChanged(
