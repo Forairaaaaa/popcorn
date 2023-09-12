@@ -11,7 +11,6 @@ final class ModelSerialPortPySerial extends ModelSerialPort {
   @override
   String get backendType => 'pySerial';
 
-  /// [Get port list]
   @override
   Future<List<String>> getAvailabelPorts() async {
     // start process
@@ -24,7 +23,32 @@ final class ModelSerialPortPySerial extends ModelSerialPort {
 
       // Read std out
       await process.stdout.transform(utf8.decoder).forEach((element) {
-        // debugPrint(element);
+        print(element);
+        output = element;
+      });
+
+      // Split to list and return
+      return output.split(',');
+    }
+
+    return [];
+  }
+
+  @override
+  Future<List<String>> getAvailabelPortDescription() async {
+    // start process
+    var process = await Process.start('python', [pathGetAvailabelPorts, '-d'],
+        runInShell: true);
+    var exitCode = await process.exitCode;
+
+    // Check exit code
+    if (exitCode == 0) {
+      String output = '';
+
+      // Read std out
+      const utf8Decoder = Utf8Decoder(allowMalformed: true);
+      await process.stdout.transform(utf8Decoder).forEach((element) {
+        print(element);
         output = element;
       });
 

@@ -28,7 +28,8 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     /// Injection
     // _modelSerialPort = ModelSerialPort();
     _modelSerialPort = ModelSerialPortPySerial();
-    debugPrint('[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
+    debugPrint(
+        '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
     emit(state.copyWith(
       portName: 'not_selected'.tr(),
@@ -65,9 +66,17 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
       Emitter<SerialPortState> emit) async {
     // Get availbale ports
     var ports = await _modelSerialPort!.getAvailabelPorts();
+    // Get descriptions too
+    var descs = await _modelSerialPort!.getAvailabelPortDescription();
+
+    // In case this two shit don't match
+    if (descs.length != ports.length) {
+      descs = ports;
+    }
 
     // Update state
-    emit(state.copyWith(availablePorts: ports));
+    emit(
+        state.copyWith(availablePorts: ports, availablePortDescription: descs));
   }
 
   void _onPortNameChanged(

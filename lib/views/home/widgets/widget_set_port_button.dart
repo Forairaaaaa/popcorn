@@ -243,30 +243,40 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
           // Build function
           (int index) {
-            return ChoiceChip(
-              // Looks like shit without this :(
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              elevation: 1.0,
+            // Give a tool tip 
+            return Tooltip(
+              // Show port description 
+              message: state.availablePortDescription[index],
+              textStyle: ModelWidgetConfigs.popupMenuTooltipTextStyle(context),
+              waitDuration: const Duration(milliseconds: 400),
 
-              // Baud rate
-              label: Text(state.availablePorts[index]),
-
-              // Can only select one
-              selected: state.portName == state.availablePorts[index],
-              onSelected: (bool selected) {
-                // no way to unselect :)
-                if (selected) {
-                  context.read<SerialPortBloc>().add(
-                      SerialPortPortNameChanged(state.availablePorts[index]));
-                }
-              },
-            )
-                // Item slide in anim
-                .animate()
-                .fadeIn(
-                  // duration: 200.ms,
-                  delay: (40 * index).ms,
-                );
+              child: ChoiceChip(
+                // Looks like shit without this :(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                elevation: 1.0,
+            
+                // Baud rate
+                label: Text(state.availablePorts[index]),
+            
+                // Check if is selected one 
+                selected: state.portName == state.availablePorts[index],
+            
+                // On selected, send event 
+                onSelected: (bool selected) {
+                  // no way to unselect :)
+                  if (selected) {
+                    context.read<SerialPortBloc>().add(
+                        SerialPortPortNameChanged(state.availablePorts[index]));
+                  }
+                },
+              )
+                  // Item slide in anim
+                  .animate()
+                  .fadeIn(
+                    // duration: 200.ms,
+                    delay: (40 * index).ms,
+                  ),
+            );
           },
         ),
       ),
