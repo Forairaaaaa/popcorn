@@ -1,17 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
+import 'model_serial_port.dart';
 
-import 'package:flutter/widgets.dart';
-
-/// Model [pySerial]
-/// Use pySerial for serial backend
-final class ModelPySerial {
+/// [ModelSerialPort] with pySerial backend
+final class ModelSerialPortPySerial extends ModelSerialPort {
   /// [Paths]
-  static const String pathGetAvailabelPorts =
-      'py_scripts/serial_port/get_available_ports.py';
+  final String pathGetAvailabelPorts =
+      'py_scripts/pyserial/get_available_ports.py';
+
+  @override
+  String get backendType => 'pySerial';
 
   /// [Get port list]
-  static Future<List<String>> getAvailabelPorts() async {
+  @override
+  Future<List<String>> getAvailabelPorts() async {
     // start process
     var process = await Process.start('python', [pathGetAvailabelPorts]);
     var exitCode = await process.exitCode;
@@ -22,7 +24,7 @@ final class ModelPySerial {
 
       // Read std out
       await process.stdout.transform(utf8.decoder).forEach((element) {
-        debugPrint(element);
+        // debugPrint(element);
         output = element;
       });
 
