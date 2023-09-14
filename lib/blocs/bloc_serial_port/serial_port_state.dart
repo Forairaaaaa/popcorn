@@ -2,6 +2,12 @@
 /// https://github.com/felangel/bloc/blob/master/examples/flutter_login/lib/login/bloc/login_state.dart
 part of 'serial_port_bloc.dart';
 
+enum SerialPortErrorFlag {
+  none,
+  openFailed,
+  closeFailed,
+}
+
 /// Serial states (port config)
 final class SerialPortState extends Equatable {
   const SerialPortState({
@@ -32,6 +38,7 @@ final class SerialPortState extends Equatable {
     this.availablePorts = const [],
     this.availablePortDescription = const [],
     this.receivedMessage = '',
+    this.errorFlag = SerialPortErrorFlag.none,
   });
 
   /// Is port opened already
@@ -52,7 +59,11 @@ final class SerialPortState extends Equatable {
   /// Available serial ports' descriptions
   final List<String> availablePortDescription;
 
+  /// Recived data from serial port
   final String receivedMessage;
+
+  /// A error flag for widget's error anim
+  final SerialPortErrorFlag errorFlag;
 
   /// Easy copy
   SerialPortState copyWith({
@@ -63,6 +74,7 @@ final class SerialPortState extends Equatable {
     List<String>? availablePorts,
     List<String>? availablePortDescription,
     String? receivedMessage,
+    SerialPortErrorFlag? errorFlag,
   }) {
     return SerialPortState(
       isOpened: isOpened ?? this.isOpened,
@@ -74,6 +86,7 @@ final class SerialPortState extends Equatable {
       availablePortDescription:
           availablePortDescription ?? this.availablePortDescription,
       receivedMessage: receivedMessage ?? this.receivedMessage,
+      errorFlag: errorFlag ?? this.errorFlag,
     );
   }
 
@@ -85,6 +98,7 @@ final class SerialPortState extends Equatable {
         availableBaudRateList,
         availablePorts,
         availablePortDescription,
-        receivedMessage
+        receivedMessage,
+        errorFlag
       ];
 }

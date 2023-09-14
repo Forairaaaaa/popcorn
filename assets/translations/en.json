@@ -12,14 +12,17 @@
         "data_bits": "Data Bits",
         "stop_bits": "Stop Bits",
         "connect": "Connect",
-        "connected": "Connected🥳",
+        "connected": "Connected 🥳",
         "disconnect": "Disconnect",
-        "opened": "Opened🥳",
+        "opened": "Opened 🥳",
         "closed": "Closed",
         "send" : "Send",
         "clear" : "Clear",
         "save_to_file" : "Save To File",
         "load_from_file" : "Load From File",
-        "more_config" : "More Config"
+        "more_config" : "More Config",
+        "errno_unknow" : "Unkonw",
+        "errno_is_in_use" : "Port Is In Use 🫠",
+        "errno_invalid_port" : "Invalid Port 😅"
     }
 }

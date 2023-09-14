@@ -20,6 +20,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     on<SerialPortBaudRateChanged>(_onBaudRateChanged);
     on<SerialPortBaudRateRecevied>(_onMesssageReceived);
     on<SerialPortClearReceived>(_onClearRecieved);
+    on<SerialPortResetErrorFlag>(_onResetErrorFlag);
 
     add(SerialPortInit());
   }
@@ -29,9 +30,9 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
 
   void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
     /// Injection
-    _modelSerialPort = ModelSerialPort();
+    // _modelSerialPort = ModelSerialPort();
     // _modelSerialPort = ModelSerialPortPySerial();
-    // _modelSerialPort = ModelSerialPortLibserial();
+    _modelSerialPort = ModelSerialPortLibserial();
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
@@ -55,8 +56,12 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
         emit(state.copyWith(
           isOpened: true,
         ));
+        return;
       }
     }
+
+    /// Set error flag
+    emit(state.copyWith(errorFlag: SerialPortErrorFlag.openFailed));
   }
 
   void _onClose(SerialPortClose event, Emitter<SerialPortState> emit) async {
@@ -68,8 +73,12 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
         emit(state.copyWith(
           isOpened: false,
         ));
+        return;
       }
     }
+
+    /// Set error flag
+    emit(state.copyWith(errorFlag: SerialPortErrorFlag.closeFailed));
   }
 
   void _onUpdateAvailablePorts(SerialPortUpdateAvailablePorts event,
@@ -117,5 +126,10 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     emit(state.copyWith(
       receivedMessage: '',
     ));
+  }
+
+  void _onResetErrorFlag(
+      SerialPortResetErrorFlag event, Emitter<SerialPortState> emit) {
+    emit(state.copyWith(errorFlag: SerialPortErrorFlag.none));
   }
 }

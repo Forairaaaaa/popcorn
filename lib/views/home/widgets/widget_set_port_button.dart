@@ -25,14 +25,14 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
     buttonPosition = box.localToGlobal(Offset.zero);
   }
 
-  AnimationController? animController;
+  AnimationController? _animController;
 
   void buttonOnPressed(BuildContext context, SerialPortState state) {
     // Return if opened already
     if (state.isOpened) {
       // Shake the button
-      animController?.reset();
-      animController?.forward();
+      _animController?.reset();
+      _animController?.forward();
       return;
     }
 
@@ -92,7 +92,7 @@ class _WidgetSetPortButtonState extends State<WidgetSetPortButton> {
               autoPlay: false,
               // Copy controller
               onInit: (controller) {
-                animController = controller;
+                _animController = controller;
               },
             )
             .shake();

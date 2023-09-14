@@ -56,3 +56,8 @@ final class SerialPortBaudRateRecevied extends SerialPortEvent {
 final class SerialPortClearReceived extends SerialPortEvent {
   const SerialPortClearReceived();
 }
+
+/// [Reset error flag]
+final class SerialPortResetErrorFlag extends SerialPortEvent {
+  const SerialPortResetErrorFlag();
+}

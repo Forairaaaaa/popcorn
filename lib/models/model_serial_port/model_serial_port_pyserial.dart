@@ -31,7 +31,7 @@ final class ModelSerialPortPySerial extends ModelSerialPort {
 
       // Read std out
       await process.stdout.transform(_utf8Decoder).forEach((element) {
-        debugPrint(element);
+        // debugPrint(element);
         output = element;
       });
 
@@ -55,7 +55,7 @@ final class ModelSerialPortPySerial extends ModelSerialPort {
 
       // Read std out
       await process.stdout.transform(_utf8Decoder).forEach((element) {
-        debugPrint(element);
+        // debugPrint(element);
         output = element;
       });
 
