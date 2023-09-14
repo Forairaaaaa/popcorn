@@ -19,6 +19,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     on<SerialPortPortNameChanged>(_onPortNameChanged);
     on<SerialPortBaudRateChanged>(_onBaudRateChanged);
     on<SerialPortBaudRateRecevied>(_onMesssageReceived);
+    on<SerialPortClearReceived>(_onClearRecieved);
 
     add(SerialPortInit());
   }
@@ -34,13 +35,11 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
-
-    /// Listen receive stream with callback 
+    /// Listen receive stream with callback
     _modelSerialPort!.receiveStream.listen((message) {
       add(SerialPortBaudRateRecevied(message));
     });
 
-    
     /// Little default state setting
     emit(state.copyWith(
       portName: 'not_selected'.tr(),
@@ -107,10 +106,16 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   }
 
   void _onMesssageReceived(
-    SerialPortBaudRateRecevied event, Emitter<SerialPortState> emit) {
-      emit(state.copyWith(
-        receivedMessage: state.receivedMessage + event.message,
-      ));
+      SerialPortBaudRateRecevied event, Emitter<SerialPortState> emit) {
+    emit(state.copyWith(
+      receivedMessage: state.receivedMessage + event.message,
+    ));
   }
-  
+
+  void _onClearRecieved(
+      SerialPortClearReceived event, Emitter<SerialPortState> emit) {
+    emit(state.copyWith(
+      receivedMessage: '',
+    ));
+  }
 }

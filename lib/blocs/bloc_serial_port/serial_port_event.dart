@@ -51,3 +51,8 @@ final class SerialPortBaudRateRecevied extends SerialPortEvent {
   const SerialPortBaudRateRecevied(this.message);
   final String message;
 }
+
+/// [Clear received buffer]
+final class SerialPortClearReceived extends SerialPortEvent {
+  const SerialPortClearReceived();
+}

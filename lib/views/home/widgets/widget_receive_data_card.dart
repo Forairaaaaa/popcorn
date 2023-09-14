@@ -11,27 +11,32 @@ class WidgetReceiveDataCard extends StatefulWidget {
 }
 
 class _WidgetReceiveDataCardState extends State<WidgetReceiveDataCard> {
-
-  // Buffer of receiveed message 
+  // Buffer of receiveed message
   String receivedMessage = '';
+
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<SerialPortBloc, SerialPortState>(
-
-      // Only update when message received 
+      // Only update when message received
       listenWhen: (previous, current) {
         return current.receivedMessage != previous.receivedMessage;
       },
 
-      // Update state 
+      // Update state
       listener: (context, state) {
+        // Scroll to the button
+        _scrollController.animateTo(_scrollController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeOutCubic);
+
         setState(() {
           receivedMessage = state.receivedMessage;
         });
       },
 
-      // Console window 
+      // Console window
       child: Padding(
         padding: const EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2WindowHalf, 0,
             ModelWidgetConfigs.gap2WindowHalf, 0),
@@ -45,18 +50,26 @@ class _WidgetReceiveDataCardState extends State<WidgetReceiveDataCard> {
                 // Text
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(
-                        ModelWidgetConfigs.gapReceiveText2card * 2,
-                        ModelWidgetConfigs.gapReceiveText2card,
-                        ModelWidgetConfigs.gapReceiveText2card * 2,
-                        ModelWidgetConfigs.gapReceiveText2card),
-                    child: SelectableText(
-                      receivedMessage,
-                      style: ModelWidgetConfigs.receiveDataTextStyle(context),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                )
+                      padding: const EdgeInsets.fromLTRB(
+                          ModelWidgetConfigs.gapReceiveText2card * 2,
+                          ModelWidgetConfigs.gapReceiveText2card,
+                          ModelWidgetConfigs.gapReceiveText2card * 2,
+                          ModelWidgetConfigs.gapReceiveText2card),
+                      child: TextField(
+                        style: ModelWidgetConfigs.receiveDataTextStyle(context),
+                        readOnly: true,
+                        minLines: null,
+                        maxLines: null,
+                        expands: true,
+                        controller:
+                            TextEditingController(text: receivedMessage),
+                        scrollController: _scrollController,
+                      )),
+                ),
+
+                TextButton(onPressed:() {
+                  context.read<SerialPortBloc>().add(const SerialPortClearReceived());
+                }, child: Text('???'))
               ],
             )),
       ),
