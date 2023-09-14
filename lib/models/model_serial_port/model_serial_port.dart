@@ -53,4 +53,6 @@ class ModelSerialPort {
   /// Receive stream
   Stream<String> get receiveStream => _rxStreamController.stream;
 
+  /// The last error 
+  String lastError = '';
 }
