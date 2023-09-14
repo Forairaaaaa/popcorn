@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:popcorn/models/model_serial_port/model_serial_port.dart';
 import 'package:popcorn/models/model_serial_port/model_serial_port_pyserial.dart';
+import 'package:popcorn/models/model_serial_port/model_serial_port_libserial.dart';
 
 part 'serial_port_event.dart';
 part 'serial_port_state.dart';
@@ -27,7 +28,8 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
     /// Injection
     // _modelSerialPort = ModelSerialPort();
-    _modelSerialPort = ModelSerialPortPySerial();
+    // _modelSerialPort = ModelSerialPortPySerial();
+    _modelSerialPort = ModelSerialPortLibserial();
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
