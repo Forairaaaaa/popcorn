@@ -55,25 +55,62 @@ class _WidgetReceiveDataCardState extends State<WidgetReceiveDataCard> {
                           ModelWidgetConfigs.gapReceiveText2card,
                           ModelWidgetConfigs.gapReceiveText2card * 2,
                           ModelWidgetConfigs.gapReceiveText2card),
-                      child: TextField(
-                        style: ModelWidgetConfigs.receiveDataTextStyle(context),
-                        readOnly: true,
-                        minLines: null,
-                        maxLines: null,
-                        expands: true,
-                        controller:
-                            TextEditingController(text: receivedMessage),
-                        scrollController: _scrollController,
+
+                      // My own scroll bar
+                      child: Scrollbar(
+                        controller: _scrollController,
+                        thickness: 2.0,
+                        thumbVisibility: true,
+
+                        // Hide text field's scroll bar and my own
+                        child: ScrollConfiguration(
+                          behavior: const CustomScrollBehavior(),
+                          child: TextFormField(
+                            // Hide under line
+                            decoration:
+                                const InputDecoration(border: InputBorder.none),
+                            style: ModelWidgetConfigs.receiveDataTextStyle(
+                                context),
+                            readOnly: true,
+
+                            // Expand it
+                            minLines: null,
+                            maxLines: null,
+                            expands: true,
+
+                            // Text control
+                            controller:
+                                TextEditingController(text: receivedMessage),
+
+                            // Scroll control
+                            scrollController: _scrollController,
+                          ),
+                        ),
                       )),
                 ),
 
-                TextButton(onPressed:() {
-                  context.read<SerialPortBloc>().add(const SerialPortClearReceived());
-                }, child: Text('???'))
+                TextButton(
+                    onPressed: () {
+                      context
+                          .read<SerialPortBloc>()
+                          .add(const SerialPortClearReceived());
+                    },
+                    child: const Text('???'))
               ],
             )),
       ),
     );
+  }
+}
+
+/// Hide text field's scroll bar and my own
+/// https://stackoverflow.com/questions/59174644/remove-scrollbar-at-right-from-multiline-textfield-flutter
+class CustomScrollBehavior extends ScrollBehavior {
+  const CustomScrollBehavior();
+
+  @override
+  Widget buildScrollbar(context, child, details) {
+    return child;
   }
 }
 
