@@ -45,3 +45,9 @@ final class SerialPortBaudRateChanged extends SerialPortEvent {
   @override
   List<Object?> get props => [baudrate];
 }
+
+/// [Get serial message]
+final class SerialPortBaudRateRecevied extends SerialPortEvent {
+  const SerialPortBaudRateRecevied(this.message);
+  final String message;
+}

@@ -18,6 +18,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     on<SerialPortUpdateAvailablePorts>(_onUpdateAvailablePorts);
     on<SerialPortPortNameChanged>(_onPortNameChanged);
     on<SerialPortBaudRateChanged>(_onBaudRateChanged);
+    on<SerialPortBaudRateRecevied>(_onMesssageReceived);
 
     add(SerialPortInit());
   }
@@ -27,12 +28,20 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
 
   void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
     /// Injection
-    // _modelSerialPort = ModelSerialPort();
+    _modelSerialPort = ModelSerialPort();
     // _modelSerialPort = ModelSerialPortPySerial();
-    _modelSerialPort = ModelSerialPortLibserial();
+    // _modelSerialPort = ModelSerialPortLibserial();
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
+
+    /// Listen receive stream with callback 
+    _modelSerialPort!.receiveStream.listen((message) {
+      add(SerialPortBaudRateRecevied(message));
+    });
+
+    
+    /// Little default state setting
     emit(state.copyWith(
       portName: 'not_selected'.tr(),
     ));
@@ -96,4 +105,12 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
       baudRate: event.baudrate,
     ));
   }
+
+  void _onMesssageReceived(
+    SerialPortBaudRateRecevied event, Emitter<SerialPortState> emit) {
+      emit(state.copyWith(
+        receivedMessage: state.receivedMessage + event.message,
+      ));
+  }
+  
 }

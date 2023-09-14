@@ -14,14 +14,14 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
 
   @override
   Future<List<String>> getAvailabelPorts() async {
-    // py serial is better 
+    // Use py to save output encoding shit 
     var borrowPySerial = ModelSerialPortPySerial();
     return borrowPySerial.getAvailabelPorts();
   }
 
   @override
   Future<List<String>> getAvailabelPortDescription() async {
-    // py serial is better 
+    // Use py to save output encoding shit 
     var borrowPySerial = ModelSerialPortPySerial();
     return borrowPySerial.getAvailabelPortDescription();
   }

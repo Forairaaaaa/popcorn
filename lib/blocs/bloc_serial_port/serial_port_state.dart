@@ -30,7 +30,8 @@ final class SerialPortState extends Equatable {
       1500000,
     ],
     this.availablePorts = const [],
-    this.availablePortDescription = const []
+    this.availablePortDescription = const [],
+    this.receivedMessage = '',
   });
 
   /// Is port opened already
@@ -48,8 +49,10 @@ final class SerialPortState extends Equatable {
   /// Available serial ports
   final List<String> availablePorts;
 
-  /// Available serial ports' descriptions 
+  /// Available serial ports' descriptions
   final List<String> availablePortDescription;
+
+  final String receivedMessage;
 
   /// Easy copy
   SerialPortState copyWith({
@@ -59,6 +62,7 @@ final class SerialPortState extends Equatable {
     List<int>? availableBaudRateList,
     List<String>? availablePorts,
     List<String>? availablePortDescription,
+    String? receivedMessage,
   }) {
     return SerialPortState(
       isOpened: isOpened ?? this.isOpened,
@@ -67,10 +71,20 @@ final class SerialPortState extends Equatable {
       availableBaudRateList:
           availableBaudRateList ?? this.availableBaudRateList,
       availablePorts: availablePorts ?? this.availablePorts,
-      availablePortDescription: availablePortDescription ?? this.availablePortDescription
+      availablePortDescription:
+          availablePortDescription ?? this.availablePortDescription,
+      receivedMessage: receivedMessage ?? this.receivedMessage,
     );
   }
 
   @override
-  List<Object?> get props => [isOpened, portName, baudRate, availableBaudRateList, availablePorts, availablePortDescription];
+  List<Object?> get props => [
+        isOpened,
+        portName,
+        baudRate,
+        availableBaudRateList,
+        availablePorts,
+        availablePortDescription,
+        receivedMessage
+      ];
 }

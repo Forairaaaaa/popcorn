@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
 import 'package:popcorn/models/model_widget_configs.dart';
 
 class WidgetReceiveDataCard extends StatefulWidget {
@@ -9,35 +11,55 @@ class WidgetReceiveDataCard extends StatefulWidget {
 }
 
 class _WidgetReceiveDataCardState extends State<WidgetReceiveDataCard> {
+
+  // Buffer of receiveed message 
+  String receivedMessage = '';
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2WindowHalf, 0,
-          ModelWidgetConfigs.gap2WindowHalf, 0),
+    return BlocListener<SerialPortBloc, SerialPortState>(
 
-      child: Card(
-          elevation: 0.0,
-          color: ModelWidgetConfigs.receiveDataCardColor(context),
+      // Only update when message received 
+      listenWhen: (previous, current) {
+        return current.receivedMessage != previous.receivedMessage;
+      },
 
-          // Take all space
-          child: Row(
-            children: [
-              // Text
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(
-                      ModelWidgetConfigs.gapReceiveText2card * 2,
-                      ModelWidgetConfigs.gapReceiveText2card,
-                      ModelWidgetConfigs.gapReceiveText2card * 2,
-                      ModelWidgetConfigs.gapReceiveText2card),
-                  child: SelectableText(
-                    testShit,
-                    style: ModelWidgetConfigs.receiveDataTextStyle(context),
+      // Update state 
+      listener: (context, state) {
+        setState(() {
+          receivedMessage = state.receivedMessage;
+        });
+      },
+
+      // Console window 
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(ModelWidgetConfigs.gap2WindowHalf, 0,
+            ModelWidgetConfigs.gap2WindowHalf, 0),
+        child: Card(
+            elevation: 0.0,
+            color: ModelWidgetConfigs.receiveDataCardColor(context),
+
+            // Take all space
+            child: Row(
+              children: [
+                // Text
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(
+                        ModelWidgetConfigs.gapReceiveText2card * 2,
+                        ModelWidgetConfigs.gapReceiveText2card,
+                        ModelWidgetConfigs.gapReceiveText2card * 2,
+                        ModelWidgetConfigs.gapReceiveText2card),
+                    child: SelectableText(
+                      receivedMessage,
+                      style: ModelWidgetConfigs.receiveDataTextStyle(context),
+                      textAlign: TextAlign.left,
+                    ),
                   ),
-                ),
-              )
-            ],
-          )),
+                )
+              ],
+            )),
+      ),
     );
   }
 }
