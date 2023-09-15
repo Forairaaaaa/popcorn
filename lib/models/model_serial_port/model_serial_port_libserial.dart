@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
@@ -87,4 +89,9 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
     lastError = 'serial_port'.tr(gender: message);
     return lastError;
   }
+
+  Stream<Uint8List> get rxStreamRaw => SerialPortReader(_libSerialPort!).stream;
+
+  @override
+  Stream<String> get receiveStream => rxStreamRaw.map((event) => utf8.decode(event)).asBroadcastStream();
 }

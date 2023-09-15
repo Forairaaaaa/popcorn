@@ -36,11 +36,6 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
-    /// Listen receive stream with callback
-    _modelSerialPort!.receiveStream.listen((message) {
-      add(SerialPortBaudRateRecevied(message));
-    });
-
     /// Little default state setting
     emit(state.copyWith(
       portName: 'not_selected'.tr(),
@@ -56,6 +51,16 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
         emit(state.copyWith(
           isOpened: true,
         ));
+
+        /// Listen receive stream and attach callback
+        _modelSerialPort!.receiveStream.listen((message) {
+          add(SerialPortBaudRateRecevied(message));
+        }).onError((e) {
+          // print(e);
+          // Update state
+          add(const SerialPortClose());
+        });
+
         return;
       }
     }
@@ -80,11 +85,11 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
       }
     }
 
-    /// Set error flag
-    emit(state.copyWith(
-      errorFlag: SerialPortErrorFlag.closeFailed,
-      lastError: _modelSerialPort!.lastError,
-    ));
+    // /// Set error flag
+    // emit(state.copyWith(
+    //   // errorFlag: SerialPortErrorFlag.closeFailed,
+    //   lastError: _modelSerialPort!.lastError,
+    // ));
   }
 
   void _onUpdateAvailablePorts(SerialPortUpdateAvailablePorts event,
