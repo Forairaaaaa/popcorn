@@ -26,7 +26,7 @@ class ModelSerialPort {
 
     /// Stream some garbage out 
     Timer.periodic(const Duration(seconds: 1), (timer) {
-      _rxStreamController.sink.add('${DateTime.now()} 啊？\r\n');
+      rxStreamController.sink.add('${DateTime.now()} 啊？\r\n');
       if (!_isOpened) {
         timer.cancel();
       }
@@ -48,10 +48,10 @@ class ModelSerialPort {
 
   /// A simple state buffer
   bool _isOpened = false;
-  final _rxStreamController = StreamController<String>();
+  final rxStreamController = StreamController<String>();
 
   /// Receive stream
-  Stream<String> get receiveStream => _rxStreamController.stream;
+  Stream<String> get receiveStream => rxStreamController.stream;
 
   /// The last error 
   String lastError = '';

@@ -18,9 +18,10 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     on<SerialPortUpdateAvailablePorts>(_onUpdateAvailablePorts);
     on<SerialPortPortNameChanged>(_onPortNameChanged);
     on<SerialPortBaudRateChanged>(_onBaudRateChanged);
-    on<SerialPortBaudRateRecevied>(_onMesssageReceived);
+    on<SerialPortReceviedMessage>(_onMesssageReceived);
     on<SerialPortClearReceived>(_onClearRecieved);
     on<SerialPortResetErrorFlag>(_onResetErrorFlag);
+    on<SerialPortSendMessage>(_onSendMessage);
 
     add(SerialPortInit());
   }
@@ -28,11 +29,12 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   /// Model serial port
   ModelSerialPort? _modelSerialPort;
 
+  /// [On init]
   void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
     /// Injection
     // _modelSerialPort = ModelSerialPort();
-    // _modelSerialPort = ModelSerialPortPySerial();
-    _modelSerialPort = ModelSerialPortLibserial();
+    _modelSerialPort = ModelSerialPortPySerial();
+    // _modelSerialPort = ModelSerialPortLibserial();
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
@@ -42,6 +44,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     ));
   }
 
+  /// [On open port]
   void _onOpen(SerialPortOpen event, Emitter<SerialPortState> emit) async {
     /// If not opened
     if (!state.isOpened) {
@@ -54,9 +57,9 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
 
         /// Listen receive stream and attach callback
         _modelSerialPort!.receiveStream.listen((message) {
-          add(SerialPortBaudRateRecevied(message));
+          add(SerialPortReceviedMessage(message));
         }).onError((e) {
-          // print(e);
+          print(e);
           // Update state
           add(const SerialPortClose());
         });
@@ -72,6 +75,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     ));
   }
 
+  /// [On close port]
   void _onClose(SerialPortClose event, Emitter<SerialPortState> emit) async {
     /// If not cloesed
     if (state.isOpened) {
@@ -92,6 +96,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     // ));
   }
 
+  /// [On update available ports]
   void _onUpdateAvailablePorts(SerialPortUpdateAvailablePorts event,
       Emitter<SerialPortState> emit) async {
     // Get availbale ports
@@ -109,6 +114,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
         state.copyWith(availablePorts: ports, availablePortDescription: descs));
   }
 
+  /// [On port name changed]
   void _onPortNameChanged(
       SerialPortPortNameChanged event, Emitter<SerialPortState> emit) {
     // Update current  port name
@@ -117,6 +123,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     ));
   }
 
+  /// [On baudrate changed]
   void _onBaudRateChanged(
       SerialPortBaudRateChanged event, Emitter<SerialPortState> emit) {
     // Update current baudrate
@@ -125,13 +132,15 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     ));
   }
 
+  /// [On messaged received]
   void _onMesssageReceived(
-      SerialPortBaudRateRecevied event, Emitter<SerialPortState> emit) {
+      SerialPortReceviedMessage event, Emitter<SerialPortState> emit) {
     emit(state.copyWith(
       receivedMessage: state.receivedMessage + event.message,
     ));
   }
 
+  /// [Clear recevied messages]
   void _onClearRecieved(
       SerialPortClearReceived event, Emitter<SerialPortState> emit) {
     emit(state.copyWith(
@@ -139,8 +148,18 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     ));
   }
 
+  /// [Reeset error flag]
   void _onResetErrorFlag(
       SerialPortResetErrorFlag event, Emitter<SerialPortState> emit) {
     emit(state.copyWith(errorFlag: SerialPortErrorFlag.none));
+  }
+
+  /// [Send message]
+  void _onSendMessage(
+      SerialPortSendMessage event, Emitter<SerialPortState> emit) {
+    // Only write when port is opend 
+    if (state.isOpened) {
+      _modelSerialPort!.write(event.message);
+    }
   }
 }

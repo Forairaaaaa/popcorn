@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:easy_localization/easy_localization.dart';
@@ -44,8 +45,13 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
       config.bits = 8;
       config.parity = SerialPortParity.none;
       config.stopBits = 1;
+      config.setFlowControl(0);
       _libSerialPort!.config = config;
-      config.dispose();
+      // config.dispose();
+      
+      // TODO
+      // This config shit is fucking useless 
+      
 
       // Open I/O
       if (!_libSerialPort!.openReadWrite()) {
@@ -76,6 +82,12 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
     return true;
   }
 
+  @override
+  Future<bool> write(String message) async {
+    _libSerialPort!.write(Uint8List.fromList(utf8.encode(message)));
+    return true;
+  }
+
   /// Avoid system character encoding shit
   String _getErrorMessage(int? errno) {
     String message = 'errno_unknow';
@@ -90,8 +102,26 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
     return lastError;
   }
 
+  /// Raw stream
   Stream<Uint8List> get rxStreamRaw => SerialPortReader(_libSerialPort!).stream;
 
   @override
-  Stream<String> get receiveStream => rxStreamRaw.map((event) => utf8.decode(event)).asBroadcastStream();
+  Stream<String> get receiveStream => rxStreamRaw
+      .map((event) => utf8.decode(event, allowMalformed: false))
+      .asBroadcastStream();
+
+  
+  // final _transformer = StreamTransformer<Uint8List, String>.fromHandlers(
+  //   handleData: (data, sink) {
+  //     // TODO 
+  //     // Convect not good 
+  //     var message = utf8.decode(data, allowMalformed: true);
+  //     sink.add(message);
+  //   },
+  // );
+
+  // @override
+  // Stream<String> get receiveStream => rxStreamRaw
+  //     .transform(_transformer);
+
 }

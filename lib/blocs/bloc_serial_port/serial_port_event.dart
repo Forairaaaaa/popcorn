@@ -47,9 +47,12 @@ final class SerialPortBaudRateChanged extends SerialPortEvent {
 }
 
 /// [Get serial message]
-final class SerialPortBaudRateRecevied extends SerialPortEvent {
-  const SerialPortBaudRateRecevied(this.message);
+final class SerialPortReceviedMessage extends SerialPortEvent {
+  const SerialPortReceviedMessage(this.message);
   final String message;
+
+  @override
+  List<Object?> get props => [message];
 }
 
 /// [Clear received buffer]
@@ -60,4 +63,13 @@ final class SerialPortClearReceived extends SerialPortEvent {
 /// [Reset error flag]
 final class SerialPortResetErrorFlag extends SerialPortEvent {
   const SerialPortResetErrorFlag();
+}
+
+/// [Send message]
+final class SerialPortSendMessage extends SerialPortEvent {
+  const SerialPortSendMessage(this.message);
+  final String message;
+  
+  @override
+  List<Object?> get props => [message];
 }

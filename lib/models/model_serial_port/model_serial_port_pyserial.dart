@@ -83,6 +83,7 @@ final class ModelSerialPortPySerial extends ModelSerialPort {
       // Debug output 
       _pySerialProcess!.stdout.transform(_utf8Decoder).forEach((element) {
         debugPrint(element);
+        rxStreamController.add(element);
       });
       _pySerialProcess!.stderr.transform(_utf8Decoder).forEach((element) {
         debugPrint(element);
