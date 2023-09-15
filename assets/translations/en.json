@@ -3,6 +3,7 @@
     "settings" : "Settings",
     "theme_color" : "Theme Color",
     "not_selected" : "Not Selected",
+    "close_first" : "Close Port First",
 
     "serial_port" : {
         "current_port" : "Port",

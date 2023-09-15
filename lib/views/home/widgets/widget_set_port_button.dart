@@ -243,9 +243,9 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
 
           // Build function
           (int index) {
-            // Give a tool tip 
+            // Give a tool tip
             return Tooltip(
-              // Show port description 
+              // Show port description
               message: state.availablePortDescription[index],
               textStyle: ModelWidgetConfigs.popupMenuTooltipTextStyle(context),
               waitDuration: const Duration(milliseconds: 400),
@@ -254,14 +254,14 @@ class _PagePopupMenuState extends State<_PagePopupMenu>
                 // Looks like shit without this :(
                 clipBehavior: Clip.antiAliasWithSaveLayer,
                 elevation: 1.0,
-            
+
                 // Baud rate
                 label: Text(state.availablePorts[index]),
-            
-                // Check if is selected one 
+
+                // Check if is selected one
                 selected: state.portName == state.availablePorts[index],
-            
-                // On selected, send event 
+
+                // On selected, send event
                 onSelected: (bool selected) {
                   // no way to unselect :)
                   if (selected) {

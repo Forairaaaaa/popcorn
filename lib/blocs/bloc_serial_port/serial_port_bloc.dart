@@ -61,7 +61,10 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     }
 
     /// Set error flag
-    emit(state.copyWith(errorFlag: SerialPortErrorFlag.openFailed));
+    emit(state.copyWith(
+      errorFlag: SerialPortErrorFlag.openFailed,
+      lastError: _modelSerialPort!.lastError,
+    ));
   }
 
   void _onClose(SerialPortClose event, Emitter<SerialPortState> emit) async {
@@ -78,7 +81,10 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
     }
 
     /// Set error flag
-    emit(state.copyWith(errorFlag: SerialPortErrorFlag.closeFailed));
+    emit(state.copyWith(
+      errorFlag: SerialPortErrorFlag.closeFailed,
+      lastError: _modelSerialPort!.lastError,
+    ));
   }
 
   void _onUpdateAvailablePorts(SerialPortUpdateAvailablePorts event,

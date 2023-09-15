@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:popcorn/blocs/bloc_serial_port/serial_port_bloc.dart';
+import 'package:popcorn/models/model_widget_configs.dart';
 
 /// A switch to open and close serial port
 /// Binding [SerialPortBloc]
@@ -39,16 +40,29 @@ class _WidgetPortSwitchState extends State<WidgetPortSwitch> {
 
       listener: (context, state) {
         setState(() {
-          // Update open state 
+          // Update open state
           _isOpened = state.isOpened;
 
-          // If get error flag 
+          // If get error flag
           if (state.errorFlag == SerialPortErrorFlag.openFailed ||
               state.errorFlag == SerialPortErrorFlag.closeFailed) {
             // Shake the switch
             _animController?.reset();
             _animController?.forward();
-            context.read<SerialPortBloc>().add(const SerialPortResetErrorFlag());
+            context
+                .read<SerialPortBloc>()
+                .add(const SerialPortResetErrorFlag());
+
+            // Pop error snake bar
+            final snackBar = SnackBar(
+              elevation: 0.0,
+              backgroundColor: ModelWidgetConfigs.errorSnackBarBgColor(context),
+              duration: const Duration(seconds: 2),
+              content: Text(state.lastError),
+            );
+            ScaffoldMessenger.of(context)
+              ..removeCurrentSnackBar()
+              ..showSnackBar(snackBar);
           }
         });
       },

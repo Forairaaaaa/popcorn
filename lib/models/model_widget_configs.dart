@@ -29,14 +29,20 @@ final class ModelWidgetConfigs {
   /// [popup menu's barrier]
   static Color popupMenuBarrierColor(BuildContext context) =>
       Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.5);
-  
+
   /// [receive data card color]
   static Color receiveDataCardColor(BuildContext context) =>
-      (Theme.of(context).cardTheme.color ?? Colors.transparent).withOpacity(0.1);
-  
+      (Theme.of(context).cardTheme.color ?? Colors.transparent)
+          .withOpacity(0.1);
+
   /// [send data card color]
   static Color sendDataCardColor(BuildContext context) =>
-      (Theme.of(context).cardTheme.color ?? Colors.transparent).withOpacity(0.0);
+      (Theme.of(context).cardTheme.color ?? Colors.transparent)
+          .withOpacity(0.0);
+
+  /// [Error snackbar]
+  static Color errorSnackBarBgColor(BuildContext context) =>
+      (Theme.of(context).colorScheme.onTertiaryContainer);
 
   ///
   /// [Styles]

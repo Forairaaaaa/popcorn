@@ -84,6 +84,7 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
       message = 'errno_is_in_use';
     }
 
-    return 'serial_port'.tr(gender: message);
+    lastError = 'serial_port'.tr(gender: message);
+    return lastError;
   }
 }

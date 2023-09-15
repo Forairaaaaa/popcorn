@@ -39,6 +39,7 @@ final class SerialPortState extends Equatable {
     this.availablePortDescription = const [],
     this.receivedMessage = '',
     this.errorFlag = SerialPortErrorFlag.none,
+    this.lastError = '',
   });
 
   /// Is port opened already
@@ -65,6 +66,8 @@ final class SerialPortState extends Equatable {
   /// A error flag for widget's error anim
   final SerialPortErrorFlag errorFlag;
 
+  final String lastError;
+
   /// Easy copy
   SerialPortState copyWith({
     bool? isOpened,
@@ -75,6 +78,7 @@ final class SerialPortState extends Equatable {
     List<String>? availablePortDescription,
     String? receivedMessage,
     SerialPortErrorFlag? errorFlag,
+    String? lastError,
   }) {
     return SerialPortState(
       isOpened: isOpened ?? this.isOpened,
@@ -87,6 +91,7 @@ final class SerialPortState extends Equatable {
           availablePortDescription ?? this.availablePortDescription,
       receivedMessage: receivedMessage ?? this.receivedMessage,
       errorFlag: errorFlag ?? this.errorFlag,
+      lastError: lastError ?? this.lastError,
     );
   }
 
@@ -99,6 +104,7 @@ final class SerialPortState extends Equatable {
         availablePorts,
         availablePortDescription,
         receivedMessage,
-        errorFlag
+        errorFlag,
+        lastError
       ];
 }
