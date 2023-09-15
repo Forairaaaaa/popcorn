@@ -47,11 +47,7 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
       config.stopBits = 1;
       config.setFlowControl(0);
       _libSerialPort!.config = config;
-      // config.dispose();
-      
-      // TODO
-      // This config shit is fucking useless 
-      
+      // config.dispose();  
 
       // Open I/O
       if (!_libSerialPort!.openReadWrite()) {
@@ -107,7 +103,7 @@ final class ModelSerialPortLibserial extends ModelSerialPort {
 
   @override
   Stream<String> get receiveStream => rxStreamRaw
-      .map((event) => utf8.decode(event, allowMalformed: false))
+      .map((event) => utf8.decode(event, allowMalformed: true))
       .asBroadcastStream();
 
   

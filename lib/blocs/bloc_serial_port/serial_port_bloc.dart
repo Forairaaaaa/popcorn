@@ -33,8 +33,8 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   void _onInit(SerialPortInit event, Emitter<SerialPortState> emit) {
     /// Injection
     // _modelSerialPort = ModelSerialPort();
-    _modelSerialPort = ModelSerialPortPySerial();
-    // _modelSerialPort = ModelSerialPortLibserial();
+    // _modelSerialPort = ModelSerialPortPySerial();
+    _modelSerialPort = ModelSerialPortLibserial();
     debugPrint(
         '[ModelSerialPort] injection type: ${_modelSerialPort!.backendType}');
 
@@ -59,7 +59,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
         _modelSerialPort!.receiveStream.listen((message) {
           add(SerialPortReceviedMessage(message));
         }).onError((e) {
-          print(e);
+          // print(e);
           // Update state
           add(const SerialPortClose());
         });
@@ -157,7 +157,7 @@ class SerialPortBloc extends Bloc<SerialPortEvent, SerialPortState> {
   /// [Send message]
   void _onSendMessage(
       SerialPortSendMessage event, Emitter<SerialPortState> emit) {
-    // Only write when port is opend 
+    // Only write when port is opend
     if (state.isOpened) {
       _modelSerialPort!.write(event.message);
     }
